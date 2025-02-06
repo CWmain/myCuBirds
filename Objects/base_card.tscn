@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1oc5cn5xtnvv"]
+
+[ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_52lb0"]
+
+[node name="BaseCard" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 208.0
+offset_bottom = 325.0
+color = Color(0, 0, 0, 1)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(106, 86)
+texture = ExtResource("1_52lb0")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 134.0
+offset_top = 174.0
+offset_right = 174.0
+offset_bottom = 197.0
+text = "X/X"
