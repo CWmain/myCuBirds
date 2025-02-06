@@ -6,4 +6,4 @@
 script = ExtResource("1_0v6s4")
 small = 2
 large = 3
-image = "res://icon.svg"
+image = "res://Objects/Cards/Flamingo.png"

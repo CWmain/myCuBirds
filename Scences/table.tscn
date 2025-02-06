@@ -7,6 +7,8 @@
 [node name="Table" type="Node2D"]
 
 [node name="BaseCard" parent="." instance=ExtResource("1_sqhor")]
+position = Vector2(530, 278)
+scale = Vector2(0.2, 0.2)
 data = ExtResource("2_hkxfy")
 
 [node name="Board" parent="." instance=ExtResource("1_362oc")]

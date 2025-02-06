@@ -7,17 +7,23 @@
 script = ExtResource("1_gkq62")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 208.0
-offset_bottom = 325.0
+offset_left = -255.0
+offset_top = -383.0
+offset_right = 257.0
+offset_bottom = 385.0
 color = Color(0, 0, 0, 1)
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(106, 86)
+position = Vector2(1, -215)
 texture = ExtResource("1_i6p2j")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 134.0
-offset_top = 174.0
-offset_right = 174.0
-offset_bottom = 197.0
+offset_left = -93.0
+offset_top = -5.0
+offset_right = 104.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 120
 text = "X/X"
+
+[connection signal="mouse_entered" from="ColorRect" to="." method="_on_color_rect_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect" to="." method="_on_color_rect_mouse_exited"]
