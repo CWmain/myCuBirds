@@ -4,8 +4,6 @@
 
 [node name="Board" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(-150, -121)
 texture = ExtResource("1_sp8q8")

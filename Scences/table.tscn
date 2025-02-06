@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=2 format=3 uid="uid://drm6nyaq22w1m"]
+
+[ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/board.tscn" id="1_362oc"]
 
 [node name="Table" type="Node2D"]
+
+[node name="Board" parent="." instance=ExtResource("1_362oc")]
+position = Vector2(-388, 38)
