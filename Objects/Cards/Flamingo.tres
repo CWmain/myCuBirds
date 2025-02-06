@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CustomCard" load_steps=2 format=3 uid="uid://cabqix7cr4eys"]
+
+[ext_resource type="Script" path="res://Objects/Cards/custom_card.gd" id="1_0v6s4"]
+
+[resource]
+script = ExtResource("1_0v6s4")
+small = 2
+large = 3
+image = "res://icon.svg"

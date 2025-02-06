@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1oc5cn5xtnvv"]
+[gd_scene load_steps=3 format=3 uid="uid://d1oc5cn5xtnvv"]
 
-[ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_52lb0"]
+[ext_resource type="Script" path="res://Objects/Cards/base_card.gd" id="1_gkq62"]
+[ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_i6p2j"]
 
 [node name="BaseCard" type="Node2D"]
+script = ExtResource("1_gkq62")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 208.0
@@ -11,7 +13,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(106, 86)
-texture = ExtResource("1_52lb0")
+texture = ExtResource("1_i6p2j")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 134.0
