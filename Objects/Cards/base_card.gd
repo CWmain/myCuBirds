@@ -11,7 +11,7 @@ var canGrab: bool = false
 var isGrabbing: bool = false
 
 var goHome: bool = false
-var home: Vector2 = Vector2(250,250)
+var home: Vector2 = Vector2(0,0)
 
 func _ready():
 	assert(data != null)

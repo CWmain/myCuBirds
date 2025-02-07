@@ -10,7 +10,7 @@ var id: int = 0
 func _ready():
 	base_card.home = newHome
 
-func _process(_delta):
+func _process(delta):
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
 
 		if Input.is_action_pressed("Grab") and (base_card.canGrab or base_card.isGrabbing):
@@ -23,9 +23,9 @@ func _process(_delta):
 			base_card.goHome = true
 	
 	# Move card to home location
-	#if base_card.goHome:
-	#	position += (base_card.home - to_global(base_card.position)).normalized()*base_card.SPEED*delta
-	#if (base_card.home - to_global(base_card.position)).length() < base_card.SPEED*delta:
-	#	base_card.position = base_card.home
-	#	base_card.goHome = false
+	if base_card.goHome:
+		base_card.position += (base_card.home - to_global(base_card.position)).normalized()*base_card.SPEED*delta
+	if (base_card.home - to_global(base_card.position)).length() < base_card.SPEED*delta:
+		base_card.position = to_local(base_card.home)
+		base_card.goHome = false
 		
