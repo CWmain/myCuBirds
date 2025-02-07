@@ -6,4 +6,4 @@
 script = ExtResource("1_34ona")
 small = 3
 large = 4
-image = "res://Objects/Cards/Owl.png"
+image = "res://Objects/Cards/Owl/Owl.png"

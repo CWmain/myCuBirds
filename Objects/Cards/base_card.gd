@@ -15,6 +15,7 @@ var home: Vector2 = Vector2(250,250)
 
 func _ready():
 	assert(data != null)
+	assert(FileAccess.file_exists(data.image))
 	
 	label.text = str(data.small) + " / " + str(data.large)
 	icon.texture = load(data.image)

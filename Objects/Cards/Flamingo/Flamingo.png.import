@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl1f6tif5bhu5"
-path="res://.godot/imported/Owl.png-f9519643d9849987bdd15a4c43f86020.ctex"
+uid="uid://bonlbiuxtqat"
+path="res://.godot/imported/Flamingo.png-7ce327668f55eca8fc21656032c5cf7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Cards/Owl.png"
-dest_files=["res://.godot/imported/Owl.png-f9519643d9849987bdd15a4c43f86020.ctex"]
+source_file="res://Objects/Cards/Flamingo/Flamingo.png"
+dest_files=["res://.godot/imported/Flamingo.png-7ce327668f55eca8fc21656032c5cf7c.ctex"]
 
 [params]
 
