@@ -1,41 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=4 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_nujd4"]
-[ext_resource type="PackedScene" uid="uid://d1oc5cn5xtnvv" path="res://Objects/Cards/base_card.tscn" id="2_lrek0"]
-[ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="3_g6cvj"]
-[ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="4_d1xnn"]
 [ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/board.tscn" id="5_3m5us"]
-[ext_resource type="Script" path="res://Multiplayer/player_Action.gd" id="6_4ekpa"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_efx4m"]
-properties/0/path = NodePath("Flamingo:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5efck"]
-properties/0/path = NodePath("Owl:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
+[ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="7_fr4bn"]
 
 [node name="Table" type="Node2D"]
 script = ExtResource("1_nujd4")
 
-[node name="Flamingo" parent="." instance=ExtResource("2_lrek0")]
-position = Vector2(530, 278)
-scale = Vector2(0.2, 0.2)
-data = ExtResource("3_g6cvj")
-
-[node name="Owl" parent="." instance=ExtResource("2_lrek0")]
-position = Vector2(826, 287)
-scale = Vector2(0.2, 0.2)
-data = ExtResource("4_d1xnn")
-
 [node name="Board" parent="." instance=ExtResource("5_3m5us")]
-position = Vector2(-388, 38)
+position = Vector2(1102, 344)
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_efx4m")
+[node name="HostHand" parent="." instance=ExtResource("7_fr4bn")]
+position = Vector2(267, 515)
+newHome = Vector2(200, 200)
+tname = "host"
 
-[node name="PlayerMouse" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_5efck")
-script = ExtResource("6_4ekpa")
+[node name="ClientHand" parent="." instance=ExtResource("7_fr4bn")]
+position = Vector2(866, 483)
+tname = "client"
