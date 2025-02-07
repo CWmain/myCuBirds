@@ -1,3 +1,30 @@
-[gd_scene format=3 uid="uid://cb2wlrdat1kn2"]
+[gd_scene load_steps=2 format=3 uid="uid://cb2wlrdat1kn2"]
+
+[ext_resource type="Script" path="res://Scences/MainMenu/main_menu.gd" id="1_4aq27"]
 
 [node name="MainMenu" type="Node2D"]
+script = ExtResource("1_4aq27")
+
+[node name="MainMenuButtons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 406.0
+offset_top = 106.0
+offset_right = 446.0
+offset_bottom = 146.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuButtons"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Host" type="Button" parent="MainMenuButtons/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="MainMenuButtons/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[connection signal="pressed" from="MainMenuButtons/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MainMenuButtons/VBoxContainer/Join" to="." method="_on_join_pressed"]
