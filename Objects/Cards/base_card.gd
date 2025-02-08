@@ -25,8 +25,12 @@ func _ready():
 	icon.texture = load(data.image)
 
 func _process(delta):
+
 	# When a card is grabbed, free in from the hand
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing):
+		for c in get_tree().get_nodes_in_group("card"):
+			if c != self:
+				c.position += get_global_mouse_position() - get_parent().global_position - position 
 		position = get_global_mouse_position() - get_parent().global_position
 
 		isGrabbing = true
@@ -35,7 +39,8 @@ func _process(delta):
 	if Input.is_action_just_released("Grab") and isGrabbing:
 		cardReleased.emit()
 		isGrabbing = false
-		goHome = true
+		for c in get_tree().get_nodes_in_group("card"):
+			c.goHome = true
 	
 	# Move card to home location
 	if goHome:
