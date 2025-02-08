@@ -7,6 +7,29 @@
 [node name="Hand" type="Node2D"]
 script = ExtResource("1_5h2n4")
 
-[node name="BaseCard" parent="." instance=ExtResource("1_fmg3j")]
+[node name="Container" type="HBoxContainer" parent="."]
+offset_right = 668.0
+offset_bottom = 40.0
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="Control" type="Control" parent="Container"]
+layout_mode = 2
+
+[node name="BaseCard" parent="Container/Control" instance=ExtResource("1_fmg3j")]
+scale = Vector2(0.2, 0.2)
+data = ExtResource("3_g0jv8")
+
+[node name="Control2" type="Control" parent="Container"]
+layout_mode = 2
+
+[node name="BaseCard2" parent="Container/Control2" instance=ExtResource("1_fmg3j")]
+scale = Vector2(0.2, 0.2)
+data = ExtResource("3_g0jv8")
+
+[node name="Control3" type="Control" parent="Container"]
+layout_mode = 2
+
+[node name="BaseCard3" parent="Container/Control3" instance=ExtResource("1_fmg3j")]
 scale = Vector2(0.2, 0.2)
 data = ExtResource("3_g0jv8")

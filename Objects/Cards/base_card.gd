@@ -20,8 +20,22 @@ func _ready():
 	label.text = str(data.small) + " / " + str(data.large)
 	icon.texture = load(data.image)
 
-func _process(_delta):
-	pass
+func _process(delta):
+	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing):
+		position = get_global_mouse_position()
+		isGrabbing = true
+		goHome = false
+		
+	if Input.is_action_just_released("Grab") and isGrabbing:
+		isGrabbing = false
+		goHome = true
+	
+	# Move card to home location
+	if goHome and false:
+		position += (home - position).normalized()*SPEED*delta
+	if (home - position).length() < SPEED*delta and false:
+		position = to_local(home)
+		goHome = false
 
 
 func _on_color_rect_mouse_entered():
