@@ -11,7 +11,7 @@ script = ExtResource("1_nujd4")
 position = Vector2(1102, 344)
 
 [node name="LocalHand" parent="." instance=ExtResource("7_fr4bn")]
-position = Vector2(267, 515)
+position = Vector2(246, 540)
 newHome = Vector2(200, 200)
 tname = "host"
 

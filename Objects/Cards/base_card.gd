@@ -11,6 +11,7 @@ var canGrab: bool = false
 var isGrabbing: bool = false
 
 var goHome: bool = false
+## Home should always be (0,0) since the control determins location
 var home: Vector2 = Vector2(0,0)
 
 signal cardGrabbed
@@ -26,11 +27,8 @@ func _ready():
 func _process(delta):
 	# When a card is grabbed, free in from the hand
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing):
-		if get_parent() != get_tree().get_root():
-			home = to_global(position)
-			reparent(get_tree().get_root())
-			print("Only one print per")
-		position = get_global_mouse_position()
+		position = get_global_mouse_position() - get_parent().global_position
+
 		isGrabbing = true
 		goHome = false
 		
