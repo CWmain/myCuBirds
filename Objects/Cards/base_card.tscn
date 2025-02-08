@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Objects/Cards/base_card.gd" id="1_gkq62"]
 [ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_i6p2j"]
 
-[node name="BaseCard" type="Node2D"]
+[node name="BaseCard" type="Node2D" groups=["card"]]
 script = ExtResource("1_gkq62")
 
 [node name="ColorRect" type="ColorRect" parent="."]
