@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_0v6s4")
+id = "flamingo"
 small = 2
 large = 3
 image = "res://Objects/Cards/Flamingo/Flamingo.png"

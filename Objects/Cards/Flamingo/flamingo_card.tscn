@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2q144shme2h4"]
+
+[ext_resource type="PackedScene" uid="uid://d1oc5cn5xtnvv" path="res://Objects/Cards/base_card.tscn" id="1_umx5e"]
+[ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="2_d0dmo"]
+
+[node name="FlamingoCard" instance=ExtResource("1_umx5e")]
+data = ExtResource("2_d0dmo")

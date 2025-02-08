@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbje21c7gku8r"]
+
+[ext_resource type="PackedScene" uid="uid://d1oc5cn5xtnvv" path="res://Objects/Cards/base_card.tscn" id="1_s3w7p"]
+[ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="2_h4vel"]
+
+[node name="catCard" instance=ExtResource("1_s3w7p")]
+data = ExtResource("2_h4vel")

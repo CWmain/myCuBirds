@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://c88crokjcp3sq"]
+
+[ext_resource type="PackedScene" uid="uid://d1oc5cn5xtnvv" path="res://Objects/Cards/base_card.tscn" id="1_7q0xb"]
+[ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="2_xa4ml"]
+
+[node name="owlCard" instance=ExtResource("1_7q0xb")]
+data = ExtResource("2_xa4ml")

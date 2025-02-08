@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name BaseCard
+
 @export var data: CustomCard
 @export var SPEED: float = 1200.0
 
@@ -25,11 +27,10 @@ func _ready():
 	icon.texture = load(data.image)
 
 func _process(delta):
-
 	# When a card is grabbed, free in from the hand
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing):
 		for c in get_tree().get_nodes_in_group("card"):
-			if c != self:
+			if c != self and data.id == c.data.id:
 				c.position += get_global_mouse_position() - get_parent().global_position - position 
 		position = get_global_mouse_position() - get_parent().global_position
 
@@ -48,7 +49,6 @@ func _process(delta):
 	if (home - position).length() < SPEED*delta:
 		position = home
 		goHome = false
-
 
 func _on_color_rect_mouse_entered():
 	color_rect.color = Color(1,1,1,1)

@@ -6,10 +6,9 @@ var id: int = 0
 @export var cardScale: float = 0.2
 @onready var container = $Container
 
-var baseCard = preload("res://Objects/Cards/base_card.tscn")
-var catCard = preload("res://Objects/Cards/Cat/cat.tres")
-var flamingoCard = preload("res://Objects/Cards/Flamingo/Flamingo.tres")
-var owlCard = preload("res://Objects/Cards/Owl/Owl.tres")
+var catCard = preload("res://Objects/Cards/Cat/cat_card.tscn")
+var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
+var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
 func _ready():
 	addCard(flamingoCard)
 	addCard(flamingoCard)
@@ -20,10 +19,9 @@ func _process(_delta):
 	pass
 	
 ## Adds a card into your hand based on a given resource
-func addCard(toAdd: Resource):
+func addCard(toAdd):
 	var cc = Control.new()
-	var newCard = baseCard.instantiate()
-	newCard.data = toAdd
+	var newCard = toAdd.instantiate()
 	newCard.scale = Vector2(cardScale,cardScale)
 	cc.add_child(newCard)
 	container.add_child(cc)
