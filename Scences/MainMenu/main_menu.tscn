@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb2wlrdat1kn2"]
+[gd_scene load_steps=3 format=3 uid="uid://cb2wlrdat1kn2"]
 
 [ext_resource type="Script" path="res://Scences/MainMenu/main_menu.gd" id="1_4aq27"]
+[ext_resource type="PackedScene" uid="uid://cni1c8l0tjd4q" path="res://Objects/Lobby/lobby.tscn" id="2_8wqy5"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_4aq27")
@@ -33,6 +34,12 @@ text = "Start"
 [node name="Status" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="Lobby" parent="." instance=ExtResource("2_8wqy5")]
+offset_left = 19.0
+offset_top = 107.0
+offset_right = 19.0
+offset_bottom = 107.0
 
 [connection signal="pressed" from="MainMenuButtons/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MainMenuButtons/VBoxContainer/Join" to="." method="_on_join_pressed"]

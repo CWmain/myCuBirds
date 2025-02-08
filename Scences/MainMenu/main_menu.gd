@@ -7,6 +7,7 @@ const MAX_CLIENTS = 6
 
 var table = preload("res://Scences/Table/table.tscn")
 
+@onready var lobby = $Lobby
 @onready var status = $Status
 
 func _ready():
@@ -30,8 +31,8 @@ func _on_server_connect():
 
 # With current method does not include own id in list of PLAYERS
 func _on_peer_connect(id: int):
+	lobby.addUser(id)
 	Global.PLAYERS.append(id)
-	print(Global.PLAYERS)
 
 func _on_start_pressed():
 	if multiplayer.is_server():

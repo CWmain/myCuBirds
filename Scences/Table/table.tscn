@@ -10,14 +10,10 @@ script = ExtResource("1_nujd4")
 [node name="Board" parent="." instance=ExtResource("5_3m5us")]
 position = Vector2(1102, 344)
 
-[node name="HostHand" parent="." instance=ExtResource("7_fr4bn")]
+[node name="LocalHand" parent="." instance=ExtResource("7_fr4bn")]
 position = Vector2(267, 515)
 newHome = Vector2(200, 200)
 tname = "host"
-
-[node name="ClientHand" parent="." instance=ExtResource("7_fr4bn")]
-position = Vector2(866, 483)
-tname = "client"
 
 [node name="MyPoints" type="Label" parent="."]
 offset_left = 573.0
@@ -40,5 +36,9 @@ offset_top = 81.0
 offset_right = 108.0
 offset_bottom = 104.0
 text = "1"
+
+[node name="AllPoints" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

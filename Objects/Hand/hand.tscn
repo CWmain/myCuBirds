@@ -1,13 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://be82gut3wtf2j"]
+[gd_scene load_steps=4 format=3 uid="uid://be82gut3wtf2j"]
 
 [ext_resource type="Script" path="res://Objects/Hand/hand.gd" id="1_5h2n4"]
 [ext_resource type="PackedScene" uid="uid://d1oc5cn5xtnvv" path="res://Objects/Cards/base_card.tscn" id="1_fmg3j"]
 [ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="3_g0jv8"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0b265"]
-properties/0/path = NodePath("BaseCard:position")
-properties/0/spawn = false
-properties/0/replication_mode = 1
 
 [node name="Hand" type="Node2D"]
 script = ExtResource("1_5h2n4")
@@ -15,6 +10,3 @@ script = ExtResource("1_5h2n4")
 [node name="BaseCard" parent="." instance=ExtResource("1_fmg3j")]
 scale = Vector2(0.2, 0.2)
 data = ExtResource("3_g0jv8")
-
-[node name="CardMovementSync" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_0b265")
