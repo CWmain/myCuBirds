@@ -12,10 +12,14 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_connected_to_server)
 	if multiplayer.is_server():
 		host_hand.set_multiplayer_authority(multiplayer.get_unique_id())
+		client_hand.set_multiplayer_authority(Global.PLAYERS[0])
 		print("Is host")
 	else:
-		client_hand.set_multiplayer_authority(multiplayer.get_unique_id())
 		print("Is client")
+		host_hand.set_multiplayer_authority(1)
+		client_hand.set_multiplayer_authority(multiplayer.get_unique_id())
+		
+
 
 func _process(delta):
 	pass
