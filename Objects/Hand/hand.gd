@@ -5,12 +5,17 @@ class_name Hand
 var id: int = 0
 @export var newHome: Vector2 = Vector2.ZERO
 @export var tname: String = "default"
-@export var cardScale: float = 0.2
+@export var cardScale: float = 0.2:
+	set(value):
+		cardScale = value
+		updateCardScale()
+		
 @onready var container = $Container
 
 var catCard = preload("res://Objects/Cards/Cat/cat_card.tscn")
 var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
 var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
+
 func _ready():
 	addCard(flamingoCard)
 	addCard(catCard)
@@ -27,3 +32,8 @@ func addCard(toAdd):
 	newCard.scale = Vector2(cardScale,cardScale)
 	cc.add_child(newCard)
 	container.add_child(cc)
+
+## Set cardScale off all created cards
+func updateCardScale():
+	for c in container.get_children():
+		c.get_child(0).scale = Vector2(cardScale,cardScale)
