@@ -6,6 +6,8 @@ extends Node2D
 var idToLabel: Dictionary
 @onready var all_points = $AllPoints
 
+@onready var ui = $UI
+
 var points: int = 0
 
 func _ready():
@@ -18,16 +20,22 @@ func _ready():
 		idToLabel[p] = Label.new()
 		idToLabel[p].text = str(p)
 		all_points.add_child(idToLabel[p])
-		
+	
+	# The UI control node is set to be the same size as the window to align UI elements
+	ui.size = DisplayServer.window_get_size()
+	get_tree().get_root().size_changed.connect(_on_resize)
 
-
-func _process(delta):
+func _process(_delta):
 	pass
 	
 func _on_button_pressed():
 	points += 1
 	my_points.text = str(points)
 	updatePoints.rpc(multiplayer.get_unique_id(), points)
+
+func _on_resize():
+	ui.size = DisplayServer.window_get_size() 
+	
 
 @rpc("any_peer", "call_remote")
 func updatePoints(id: int, p: int):

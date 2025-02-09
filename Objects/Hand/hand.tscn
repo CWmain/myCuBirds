@@ -1,17 +1,43 @@
-[gd_scene load_steps=2 format=3 uid="uid://be82gut3wtf2j"]
+[gd_scene load_steps=3 format=3 uid="uid://be82gut3wtf2j"]
 
 [ext_resource type="Script" path="res://Objects/Hand/hand.gd" id="1_5h2n4"]
+[ext_resource type="PackedScene" uid="uid://cbje21c7gku8r" path="res://Objects/Cards/Cat/cat_card.tscn" id="2_vcdn6"]
 
-[node name="Hand" type="Node2D"]
+[node name="Hand" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_5h2n4")
 
 [node name="Container" type="HBoxContainer" parent="."]
-anchors_preset = 12
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 theme_override_constants/separation = 128
 alignment = 1
+
+[node name="Control" type="Control" parent="Container"]
+layout_mode = 2
+
+[node name="catCard2" parent="Container/Control" instance=ExtResource("2_vcdn6")]
+scale = Vector2(0.2, 0.2)
+
+[node name="Control2" type="Control" parent="Container"]
+layout_mode = 2
+
+[node name="catCard2" parent="Container/Control2" instance=ExtResource("2_vcdn6")]
+scale = Vector2(0.2, 0.2)

@@ -26,7 +26,7 @@ func generateCardArray():
 @rpc("any_peer","call_local","reliable")
 func drawCards(toDraw: int):
 	var sender_id: int = multiplayer.get_remote_sender_id()
-	var drawnCards: Array[String]
+	var drawnCards: Array[String] = []
 	for i in range(toDraw):
 		var attemptToAdd = cards.pop_front()
 		if attemptToAdd == null:

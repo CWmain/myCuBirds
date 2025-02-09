@@ -8,13 +8,17 @@
 [node name="Table" type="Node2D"]
 script = ExtResource("1_nujd4")
 
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Hand" parent="UI" instance=ExtResource("7_fr4bn")]
+layout_mode = 1
+
 [node name="Board" parent="." instance=ExtResource("5_3m5us")]
 position = Vector2(1102, 344)
-
-[node name="LocalHand" parent="." instance=ExtResource("7_fr4bn")]
-position = Vector2(576, 550)
-newHome = Vector2(200, 200)
-tname = "host"
 
 [node name="MyPoints" type="Label" parent="."]
 offset_left = 573.0
@@ -44,6 +48,6 @@ offset_bottom = 40.0
 
 [node name="Deck" parent="." node_paths=PackedStringArray("localHand") instance=ExtResource("4_cpqd4")]
 position = Vector2(0, 326)
-localHand = NodePath("../LocalHand")
+localHand = NodePath("../UI/Hand")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
