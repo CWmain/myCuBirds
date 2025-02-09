@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=5 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_nujd4"]
+[ext_resource type="PackedScene" uid="uid://b4wtukdksx2k1" path="res://Objects/Deck/deck.tscn" id="4_cpqd4"]
 [ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/board.tscn" id="5_3m5us"]
 [ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="7_fr4bn"]
 
@@ -40,5 +41,9 @@ text = "1"
 [node name="AllPoints" type="VBoxContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Deck" parent="." node_paths=PackedStringArray("localHand") instance=ExtResource("4_cpqd4")]
+position = Vector2(122, 326)
+localHand = NodePath("../LocalHand")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

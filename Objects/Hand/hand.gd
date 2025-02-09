@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Hand
+
 var id: int = 0
 @export var newHome: Vector2 = Vector2.ZERO
 @export var tname: String = "default"
@@ -11,8 +13,8 @@ var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
 var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
 func _ready():
 	addCard(flamingoCard)
-	addCard(flamingoCard)
 	addCard(catCard)
+	addCard(flamingoCard)
 	addCard(owlCard)
 
 func _process(_delta):

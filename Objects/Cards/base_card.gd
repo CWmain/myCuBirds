@@ -29,6 +29,7 @@ func _ready():
 func _process(delta):
 	# When a card is grabbed, free in from the hand
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing):
+		# Adjust the location of same named cards the same amount as the moved card
 		for c in get_tree().get_nodes_in_group("card"):
 			if c != self and data.id == c.data.id:
 				c.position += get_global_mouse_position() - get_parent().global_position - position 
