@@ -11,7 +11,8 @@ var id: int = 0
 		updateCardScale()
 		
 @onready var container = $Container
-
+@export var MAX_SEP: int = 128
+@export var MIN_SEP: int = 0
 var catCard = preload("res://Objects/Cards/Cat/cat_card.tscn")
 var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
 var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")

@@ -5,8 +5,21 @@
 [ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/board.tscn" id="5_3m5us"]
 [ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="7_fr4bn"]
 
-[node name="Table" type="Node2D"]
+[node name="Table" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_nujd4")
+
+[node name="Hand" parent="." instance=ExtResource("7_fr4bn")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+grow_vertical = 0
+MIN_SEP = 16
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -14,13 +27,11 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="Hand" parent="UI" instance=ExtResource("7_fr4bn")]
-layout_mode = 1
-
 [node name="Board" parent="." instance=ExtResource("5_3m5us")]
 position = Vector2(1102, 344)
 
 [node name="MyPoints" type="Label" parent="."]
+layout_mode = 0
 offset_left = 573.0
 offset_top = 336.0
 offset_right = 613.0
@@ -28,6 +39,7 @@ offset_bottom = 359.0
 text = "12"
 
 [node name="Button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 573.0
 offset_top = 385.0
 offset_right = 639.0
@@ -36,6 +48,7 @@ text = "+Points
 "
 
 [node name="TheirPoints" type="Label" parent="."]
+layout_mode = 0
 offset_left = 68.0
 offset_top = 81.0
 offset_right = 108.0
@@ -43,11 +56,10 @@ offset_bottom = 104.0
 text = "1"
 
 [node name="AllPoints" type="VBoxContainer" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Deck" parent="." node_paths=PackedStringArray("localHand") instance=ExtResource("4_cpqd4")]
 position = Vector2(0, 326)
-localHand = NodePath("../UI/Hand")
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+localHand = NodePath("../Hand")

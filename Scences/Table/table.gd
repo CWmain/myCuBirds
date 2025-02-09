@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var my_points = $MyPoints
 @onready var their_points = $TheirPoints
@@ -7,7 +7,7 @@ var idToLabel: Dictionary
 @onready var all_points = $AllPoints
 
 @onready var ui = $UI
-@onready var hand = $UI/Hand
+@onready var hand = $Hand
 
 var points: int = 0
 
@@ -28,10 +28,10 @@ func _ready():
 
 func _process(_delta):
 	# The added Vector is due to cards being centered, so this gives some extra magin
-	if (hand.container.size+Vector2(256,256) > ui.size):
+	if (hand.container.size+Vector2(256,256) > self.size and hand.container.get_theme_constant("separation") > hand.MIN_SEP):
 		#hand.cardScale -= 0.01 
 		hand.container.add_theme_constant_override("separation", hand.container.get_theme_constant("separation")-1)
-	if (hand.container.size+Vector2(256,256) < ui.size && hand.container.get_theme_constant("separation") < 128):
+	if (hand.container.size+Vector2(256,256) < self.size && hand.container.get_theme_constant("separation") < hand.MAX_SEP):
 		hand.container.add_theme_constant_override("separation", hand.container.get_theme_constant("separation")+1)
 func _on_button_pressed():
 	points += 1
