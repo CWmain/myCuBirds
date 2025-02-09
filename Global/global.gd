@@ -1,4 +1,5 @@
 extends Node
-var isHolding: bool = false
+var isHolding: Object = null
 
 var PLAYERS: Array[int]
+
