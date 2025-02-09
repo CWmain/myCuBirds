@@ -27,9 +27,12 @@ func _ready():
 	get_tree().get_root().size_changed.connect(_on_resize)
 
 func _process(_delta):
-	if (hand.container.size > ui.size):
-		hand.cardScale -= 0.01 
-	
+	# The added Vector is due to cards being centered, so this gives some extra magin
+	if (hand.container.size+Vector2(256,256) > ui.size):
+		#hand.cardScale -= 0.01 
+		hand.container.add_theme_constant_override("separation", hand.container.get_theme_constant("separation")-1)
+	if (hand.container.size+Vector2(256,256) < ui.size && hand.container.get_theme_constant("separation") < 128):
+		hand.container.add_theme_constant_override("separation", hand.container.get_theme_constant("separation")+1)
 func _on_button_pressed():
 	points += 1
 	my_points.text = str(points)
@@ -38,7 +41,7 @@ func _on_button_pressed():
 func _on_resize():
 	ui.size = DisplayServer.window_get_size()
 	hand.cardScale = 0.2
-	
+	#hand.container.add_theme_constant_override("separation", 128)
 	print("%s : %s" % [str(ui.size), str(hand.container.size)])
 
 @rpc("any_peer", "call_remote")
