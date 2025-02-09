@@ -24,21 +24,31 @@ func generateCardArray():
 			cards.append(item)
 
 @rpc("any_peer","call_local","reliable")
-func drawCards():
+func drawCards(toDraw: int):
 	var sender_id: int = multiplayer.get_remote_sender_id()
-	var drawnCards: Array
-	drawnCards.append(cards.pop_front())
-	drawnCards.append(cards.pop_front())
+	var drawnCards: Array[String]
+	for i in range(toDraw):
+		var attemptToAdd = cards.pop_front()
+		if attemptToAdd == null:
+			notEnoughCards()
+			return
+		drawnCards.append(attemptToAdd)
+
 	print("%d: Am drawing cards" % sender_id)
-	
-	addCardsToHand.rpc_id(sender_id, drawnCards)
+	print(drawnCards)
 	card_count_display.text = "Count: %d" % cards.size()
+		
+	addCardsToHand.rpc_id(sender_id, drawnCards)
+	
 # Called locally by the sender of the draw request
 @rpc("any_peer","call_local","reliable")
 func addCardsToHand(toAdd: Array):
 	for card in toAdd:
 		localHand.addCard(load(card))
 
+func notEnoughCards():
+	print("Not Enough Cards in Deck!!!")
+
 ## Host is called to draw cards for the user
 func _on_draw_pressed():
-	drawCards.rpc_id(1)
+	drawCards.rpc_id(1, 2)
