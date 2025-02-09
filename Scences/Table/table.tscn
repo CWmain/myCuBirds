@@ -12,7 +12,7 @@ script = ExtResource("1_nujd4")
 position = Vector2(1102, 344)
 
 [node name="LocalHand" parent="." instance=ExtResource("7_fr4bn")]
-position = Vector2(246, 540)
+position = Vector2(576, 550)
 newHome = Vector2(200, 200)
 tname = "host"
 
@@ -43,7 +43,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Deck" parent="." node_paths=PackedStringArray("localHand") instance=ExtResource("4_cpqd4")]
-position = Vector2(122, 326)
+position = Vector2(0, 326)
 localHand = NodePath("../LocalHand")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
