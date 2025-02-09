@@ -20,7 +20,7 @@ func _ready():
 
 func generateCardArray():
 	for item in cardsToMake:
-		for i in range(0,cardsToMake[item]):
+		for i in range(cardsToMake[item]):
 			cards.append(item)
 
 @rpc("any_peer","call_local","reliable")
