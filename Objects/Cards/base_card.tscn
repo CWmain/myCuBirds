@@ -29,6 +29,8 @@ theme_override_font_sizes/font_size = 120
 text = "X/X"
 
 [node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2.5, 1)

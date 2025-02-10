@@ -8,6 +8,7 @@ class_name BaseCard
 @onready var label = $Label
 @onready var icon = $Icon
 @onready var color_rect = $ColorRect
+@onready var area_2d = $Area2D
 
 var canGrab: bool = false
 var isGrabbing: bool = false
@@ -31,6 +32,7 @@ func _process(delta):
 	# When a card is grabbed, free in from the hand
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing) and handIsFreeOrHolding:
 		Global.isHolding = self
+		area_2d.monitorable = true
 		# Adjust the location of same named cards the same amount as the moved card
 		for c in get_tree().get_nodes_in_group("card"):
 			if c != self and data.id == c.data.id:
@@ -43,7 +45,7 @@ func _process(delta):
 		
 	if Input.is_action_just_released("Grab") and isGrabbing:
 		Global.isHolding = null
-
+		area_2d.monitorable = false
 		cardReleased.emit()
 		isGrabbing = false
 		# Set all cards with same id to goHome
