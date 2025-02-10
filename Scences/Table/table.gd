@@ -21,9 +21,9 @@ func _ready():
 		all_points.add_child(idToLabel[p])
 
 func _process(_delta):
+	# TODO: Consider moving this logic into hand
 	# The added Vector is due to cards being centered, so this gives some extra magin
 	if (hand.container.size+Vector2(256,256) > self.size and hand.container.get_theme_constant("separation") > hand.MIN_SEP):
-		#hand.cardScale -= 0.01 
 		hand.container.add_theme_constant_override("separation", hand.container.get_theme_constant("separation")-1)
 	if (hand.container.size+Vector2(256,256) < self.size && hand.container.get_theme_constant("separation") < hand.MAX_SEP):
 		hand.container.add_theme_constant_override("separation", hand.container.get_theme_constant("separation")+1)

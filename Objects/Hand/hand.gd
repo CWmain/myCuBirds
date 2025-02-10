@@ -3,14 +3,16 @@ extends Control
 class_name Hand
 
 var id: int = 0
+@onready var container = $Container
+
 @export var newHome: Vector2 = Vector2.ZERO
 @export var tname: String = "default"
 @export var cardScale: float = 0.2:
 	set(value):
 		cardScale = value
-		updateCardScale()
+		if container != null:
+			updateCardScale()
 		
-@onready var container = $Container
 @export var MAX_SEP: int = 128
 @export var MIN_SEP: int = 0
 var catCard = preload("res://Objects/Cards/Cat/cat_card.tscn")
@@ -22,6 +24,8 @@ func _ready():
 	addCard(catCard)
 	addCard(flamingoCard)
 	addCard(owlCard)
+	container.add_theme_constant_override("separation", MAX_SEP)
+	
 
 func _process(_delta):
 	pass

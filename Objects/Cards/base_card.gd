@@ -34,7 +34,8 @@ func _process(delta):
 		# Adjust the location of same named cards the same amount as the moved card
 		for c in get_tree().get_nodes_in_group("card"):
 			if c != self and data.id == c.data.id:
-				c.position += get_global_mouse_position() - get_parent().global_position - position 
+				c.position += get_global_mouse_position() - get_parent().global_position - position
+				 
 		position = get_global_mouse_position() - get_parent().global_position
 	
 		isGrabbing = true
@@ -45,6 +46,7 @@ func _process(delta):
 
 		cardReleased.emit()
 		isGrabbing = false
+		# Set all cards with same id to goHome
 		for c in get_tree().get_nodes_in_group("card"):
 			c.goHome = true
 	
