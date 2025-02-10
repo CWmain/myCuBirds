@@ -31,8 +31,20 @@ func addCard(toAdd):
 	var cc = Control.new()
 	var newCard = toAdd.instantiate()
 	newCard.scale = Vector2(cardScale,cardScale)
+	# Scan for the index of the same card 
+	var toAddIndex: int = firstInstance(newCard.data.id)
 	cc.add_child(newCard)
 	container.add_child(cc)
+	container.move_child(cc,toAddIndex)
+
+func firstInstance(matchId: String) -> int:
+	var matchIndex: int = 0
+	# Loop thru all children of container
+	for item in container.get_children():
+		if item.get_child(0).data.id == matchId:
+			break
+		matchIndex += 1
+	return matchIndex
 
 ## Set cardScale off all created cards
 func updateCardScale():
