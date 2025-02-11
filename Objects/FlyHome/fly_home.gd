@@ -15,12 +15,19 @@ func _process(delta):
 	if cardHeld != null and Input.is_action_just_released("Grab"):
 		# Check the count of the given id and if that is enough birds to fly home
 		
+		
 		# Free all like cards 
 		for c in get_tree().get_nodes_in_group("card"):
 			if c.data.id == cardHeld.data.id:
 				# Free the parent control and than itself
-				c.get_parent().queue_free()
-				c.queue_free()
+				myHand.removeCard(c)
+
+
+## Get the score associated with the amount of birds flown home
+## Returns 0 on fail, 1 on min met and 2 on max met
+func scoreFromBird(c: Object) -> int:
+	
+	return 0
 
 func _on_area_2d_area_entered(area):
 	indicator.color = Color(0,0,0,1)

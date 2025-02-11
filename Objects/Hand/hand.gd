@@ -15,6 +15,9 @@ var id: int = 0
 		
 @export var MAX_SEP: int = 128
 @export var MIN_SEP: int = 0
+
+var cardsInHand: Array[Object]
+
 var catCard = preload("res://Objects/Cards/Cat/cat_card.tscn")
 var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
 var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
@@ -40,7 +43,16 @@ func addCard(toAdd):
 	cc.add_child(newCard)
 	container.add_child(cc)
 	container.move_child(cc,toAddIndex)
+	cardsInHand.append(newCard)
 
+## Frees the given object from the array and tree
+func removeCard(toRemove: Object):
+	cardsInHand.remove_at(cardsInHand.find(toRemove))
+	toRemove.get_parent().queue_free()
+	toRemove.queue_free()
+
+## Scans thru the current hand to find the first instance of the same card.
+## If non is found returns end of hand index
 func firstInstance(matchId: String) -> int:
 	var matchIndex: int = 0
 	# Loop thru all children of container
