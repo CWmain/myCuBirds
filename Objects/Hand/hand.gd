@@ -16,8 +16,6 @@ var id: int = 0
 @export var MAX_SEP: int = 128
 @export var MIN_SEP: int = 0
 
-var cardsInHand: Array[Object]
-
 var catCard = preload("res://Objects/Cards/Cat/cat_card.tscn")
 var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
 var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
@@ -43,11 +41,11 @@ func addCard(toAdd):
 	cc.add_child(newCard)
 	container.add_child(cc)
 	container.move_child(cc,toAddIndex)
-	cardsInHand.append(newCard)
+	Global.cardsInHand.append(newCard)
 
 ## Frees the given object from the array and tree
 func removeCard(toRemove: Object):
-	cardsInHand.remove_at(cardsInHand.find(toRemove))
+	Global.cardsInHand.remove_at(Global.cardsInHand.find(toRemove))
 	toRemove.get_parent().queue_free()
 	toRemove.queue_free()
 

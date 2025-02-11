@@ -34,7 +34,7 @@ func _process(delta):
 		Global.isHolding = self
 		area_2d.monitorable = true
 		# Adjust the location of same named cards the same amount as the moved card
-		for c in get_tree().get_nodes_in_group("card"):
+		for c in Global.cardsInHand:
 			if c != self and data.id == c.data.id:
 				c.position += get_global_mouse_position() - get_parent().global_position - position
 				 
