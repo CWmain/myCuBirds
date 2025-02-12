@@ -15,6 +15,10 @@ func _ready():
 	else:
 		print("Is client")
 	
+	idToLabel[multiplayer.get_unique_id()] = Label.new()
+	idToLabel[multiplayer.get_unique_id()].text = str(multiplayer.get_unique_id())
+	all_points.add_child(idToLabel[multiplayer.get_unique_id()])
+	
 	for p in Global.PLAYERS:
 		idToLabel[p] = Label.new()
 		idToLabel[p].text = str(p)
@@ -33,7 +37,7 @@ func _on_button_pressed():
 	my_points.text = str(points)
 	updatePoints.rpc(multiplayer.get_unique_id(), points)
 
-@rpc("any_peer", "call_remote")
+@rpc("any_peer", "call_local")
 func updatePoints(id: int, p: int):
 	idToLabel[id].text = "%d: %d" % [id, p]
 	
