@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dub6sjankxwuu"]
+
+[ext_resource type="Script" path="res://Objects/PointDisplay/point_display.gd" id="1_mfqo1"]
+
+[node name="PointDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_mfqo1")
+cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([null])
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 2

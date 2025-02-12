@@ -6,6 +6,7 @@ var idToLabel: Dictionary
 @onready var all_points = $AllPoints
 
 @onready var hand = $Hand
+@onready var point_display = $PointDisplay
 
 var points: int = 0
 
@@ -38,6 +39,6 @@ func _on_button_pressed():
 	updatePoints.rpc(multiplayer.get_unique_id(), points)
 
 @rpc("any_peer", "call_local")
-func updatePoints(id: int, p: int):
-	idToLabel[id].text = "%d: %d" % [id, p]
+func updatePoints(uid: int, p: int):
+	idToLabel[uid].text = "%d: %d" % [uid, p]
 	
