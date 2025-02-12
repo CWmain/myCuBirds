@@ -1,14 +1,10 @@
 extends Control
 
-@onready var my_points = $MyPoints
+@onready var all_points = $AllPoints
+@onready var hand = $Hand
 
 var idToLabel: Dictionary
-@onready var all_points = $AllPoints
-
-@onready var hand = $Hand
-@onready var point_display = $PointDisplay
-
-var points: int = 0
+var pointsDisplay = preload("res://Objects/PointDisplay/point_display.tscn")
 
 func _ready():
 	if multiplayer.is_server():
@@ -16,14 +12,13 @@ func _ready():
 	else:
 		print("Is client")
 	
-	idToLabel[multiplayer.get_unique_id()] = Label.new()
-	idToLabel[multiplayer.get_unique_id()].text = str(multiplayer.get_unique_id())
+	idToLabel[multiplayer.get_unique_id()] = pointsDisplay.instantiate()
 	all_points.add_child(idToLabel[multiplayer.get_unique_id()])
-	
+	idToLabel[multiplayer.get_unique_id()].setOwnerText(str(multiplayer.get_unique_id()))
 	for p in Global.PLAYERS:
-		idToLabel[p] = Label.new()
-		idToLabel[p].text = str(p)
+		idToLabel[p] = pointsDisplay.instantiate()
 		all_points.add_child(idToLabel[p])
+		idToLabel[p].setOwnerText(str(p))
 
 func _process(_delta):
 	# TODO: Consider moving this logic into hand
@@ -33,12 +28,8 @@ func _process(_delta):
 	if (hand.container.size+Vector2(256,256) < self.size && hand.container.get_theme_constant("separation") < hand.MAX_SEP):
 		hand.container.add_theme_constant_override("separation", hand.container.get_theme_constant("separation")+1)
 
-func _on_button_pressed():
-	points += 1
-	my_points.text = str(points)
-	updatePoints.rpc(multiplayer.get_unique_id(), points)
-
 @rpc("any_peer", "call_local")
-func updatePoints(uid: int, p: int):
-	idToLabel[uid].text = "%d: %d" % [uid, p]
+func updatePoints(uid: int, cid: String, p: int):
+	assert(idToLabel.has(uid), str(idToLabel))
+	idToLabel[uid].addPoints(cid, p)
 	

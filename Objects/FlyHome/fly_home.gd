@@ -23,9 +23,7 @@ func _process(delta):
 					myHand.removeCard(c)
 		#TODO: Current setting score to 1 or 2, need a score tracking 
 		#		object to highlight which birds are flown home and how many points
-		get_parent().updatePoints.rpc(multiplayer.get_unique_id(), pointsEarned)
-		get_parent().point_display.addPoints(cardHeld.data.id, pointsEarned)
-
+		get_parent().updatePoints.rpc(multiplayer.get_unique_id(), cardHeld.data.id, pointsEarned)
 
 ## Get the score associated with the amount of birds flown home
 ## Returns 0 on fail, 1 on min met and 2 on max met
