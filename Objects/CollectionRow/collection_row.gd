@@ -35,7 +35,7 @@ func _process(_delta):
 				c.get_parent().reparent(row)
 				row.move_child(c.get_parent(),1)
 				c.position = Vector2(0,0)
-				
+
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
 			i += 1
