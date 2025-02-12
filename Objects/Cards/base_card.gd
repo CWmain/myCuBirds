@@ -36,6 +36,7 @@ func _process(delta):
 		# Adjust the location of same named cards the same amount as the moved card
 		for c in Global.cardsInHand:
 			if c != self and data.id == c.data.id:
+				c.goHome = false
 				c.position += get_global_mouse_position() - get_parent().global_position - position
 				 
 		position = get_global_mouse_position() - get_parent().global_position
