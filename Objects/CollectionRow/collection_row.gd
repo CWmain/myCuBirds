@@ -7,7 +7,10 @@ extends Control
 # card, move all cards into the players hand (Oppisite for right side)
 # If non of the same card is found, allow the player to draw
 
-@export var MAX_SEP: int = 128
+@export var MAX_SEP: int = 128:
+	set(value):
+		MAX_SEP = value
+		row.add_theme_constant_override("separation", MAX_SEP)
 @export var MIN_SEP: int = 0
 
 @onready var row = $Row
@@ -17,13 +20,14 @@ var rightCard: Object = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	row.add_theme_constant_override("separation", MAX_SEP)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	var windowSize: Vector2 = Vector2(DisplayServer.window_get_size())
 	var currentSeparation: int = row.get_theme_constant("separation")
+
 	# The added Vector is due to cards being centered, so this gives some extra magin
 	if (row.size+Vector2(256,256) > windowSize and currentSeparation > MIN_SEP):
 		row.add_theme_constant_override("separation", currentSeparation-1)
@@ -78,7 +82,6 @@ func _process(_delta):
 		# Ensure rightCard is reset
 		rightCard = null
 
-
 func _on_left_area_2d_area_entered(_area):
 	print("Left Detected")
 	leftCard = Global.isHolding
@@ -91,7 +94,7 @@ func _on_right_area_2d_area_entered(_area):
 	rightCard = Global.isHolding
 
 
-func _on_right_area_2d_area_exited(area):
+func _on_right_area_2d_area_exited(_area):
 	rightCard = null
 
 

@@ -9,7 +9,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	
 	# A given player card is dragged and dropped onto the detector
 	if cardHeld != null and Input.is_action_just_released("Grab"):
@@ -37,11 +37,11 @@ func scoreFromBird(scoreCard: Object) -> int:
 		return 1
 	return 0
 
-func _on_area_2d_area_entered(area):
+func _on_area_2d_area_entered(_area):
 	indicator.color = Color(0,0,0,1)
 	cardHeld = Global.isHolding
 
 
-func _on_area_2d_area_exited(area):
+func _on_area_2d_area_exited(_area):
 	indicator.color = Color(1,1,1,1)
 	cardHeld = null
