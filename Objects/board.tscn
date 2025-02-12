@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdb0cidacp8en"]
+[gd_scene load_steps=3 format=3 uid="uid://cdb0cidacp8en"]
 
 [ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_sp8q8"]
+[ext_resource type="PackedScene" uid="uid://cbje21c7gku8r" path="res://Objects/Cards/Cat/cat_card.tscn" id="2_6j15j"]
 
 [node name="Board" type="Control"]
 layout_mode = 3
@@ -18,3 +19,80 @@ grow_vertical = 2
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("1_sp8q8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 128
+
+[node name="Row1" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/Row1"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row1/Control" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
+
+[node name="Control2" type="Control" parent="VBoxContainer/Row1"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row1/Control2" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
+
+[node name="Row2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/Row2"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row2/Control" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
+
+[node name="Control2" type="Control" parent="VBoxContainer/Row2"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row2/Control2" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
+
+[node name="Row3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/Row3"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row3/Control" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
+
+[node name="Control2" type="Control" parent="VBoxContainer/Row3"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row3/Control2" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
+
+[node name="Row4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/Row4"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row4/Control" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
+
+[node name="Control2" type="Control" parent="VBoxContainer/Row4"]
+layout_mode = 2
+
+[node name="catCard" parent="VBoxContainer/Row4/Control2" instance=ExtResource("2_6j15j")]
+scale = Vector2(0.15, 0.15)
