@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdb0cidacp8en"]
+[gd_scene load_steps=5 format=3 uid="uid://cdb0cidacp8en"]
 
 [ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_sp8q8"]
+[ext_resource type="Script" path="res://Objects/Board/board.gd" id="1_vh40g"]
 [ext_resource type="PackedScene" uid="uid://cbje21c7gku8r" path="res://Objects/Cards/Cat/cat_card.tscn" id="2_6j15j"]
+[ext_resource type="PackedScene" uid="uid://t0cu2cumqjme" path="res://Objects/CollectionRow/collection_row.tscn" id="4_d7ovq"]
 
 [node name="Board" type="Control"]
 layout_mode = 3
@@ -16,6 +18,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_vh40g")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("1_sp8q8")
@@ -80,19 +83,5 @@ layout_mode = 2
 [node name="catCard" parent="VBoxContainer/Row3/Control2" instance=ExtResource("2_6j15j")]
 scale = Vector2(0.15, 0.15)
 
-[node name="Row4" type="HBoxContainer" parent="VBoxContainer"]
+[node name="CollectionRow" parent="VBoxContainer" instance=ExtResource("4_d7ovq")]
 layout_mode = 2
-theme_override_constants/separation = 128
-alignment = 1
-
-[node name="Control" type="Control" parent="VBoxContainer/Row4"]
-layout_mode = 2
-
-[node name="catCard" parent="VBoxContainer/Row4/Control" instance=ExtResource("2_6j15j")]
-scale = Vector2(0.15, 0.15)
-
-[node name="Control2" type="Control" parent="VBoxContainer/Row4"]
-layout_mode = 2
-
-[node name="catCard" parent="VBoxContainer/Row4/Control2" instance=ExtResource("2_6j15j")]
-scale = Vector2(0.15, 0.15)
