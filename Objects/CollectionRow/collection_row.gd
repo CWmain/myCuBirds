@@ -19,7 +19,6 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 @onready var row = $Row
 var leftCard: Object = null
 var rightCard: Object = null
-var collectBirds: bool = false
 
 enum RowSide {
 	RIGHT,
@@ -61,9 +60,10 @@ func _process(_delta):
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
 			i += 1
+		collectBirds(curCard.data.id, RowSide.LEFT)
+		
 		# Ensure leftCard is reset
 		leftCard = null
-		collectBirds = true
 				
 	if rightCard != null and Input.is_action_just_released("Grab"):
 		# Use curCard as when the original is reparent is triggers 
@@ -84,13 +84,62 @@ func _process(_delta):
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
 			i += 1
+		
+		collectBirds(curCard.data.id, RowSide.RIGHT)
+		
 		# Ensure rightCard is reset
 		rightCard = null
-		collectBirds = true
-	if collectBirds:
-		moveBoardCardToHand(2)
-		removeBoardCard.rpc(2)
-		collectBirds = false
+
+		
+		
+func collectBirds(cid: String, side: RowSide):
+	var birdsToCollect: Array[int] = findBirdsToCollect(cid, side)
+	for index in birdsToCollect:
+		moveBoardCardToHand(index)
+		removeBoardCard.rpc(index)
+
+func sort_descending(a, b):
+	if a > b:
+		return true
+	return false	
+
+func findBirdsToCollect(cid: String, side: RowSide) -> Array[int]:
+	var toCollect: Array[int] = []
+	var index: int = 0
+	var rowChildren = row.get_children()
+	var firstInstance: bool = false
+	var startCounting: bool = false
+	var endFound: bool = false
+	for childControl in rowChildren:
+		if index == 0 or index == rowChildren.size()-1:
+			index += 1
+			continue
+		print("%s vs %s" % [cid, childControl.get_child(0).data.id])
+		
+		# First instance of cid found, next not matching we start counting
+		if !firstInstance and childControl.get_child(0).data.id == cid:
+			firstInstance = true
+		
+		# We have started counting and the end is found
+		if startCounting and childControl.get_child(0).data.id == cid:
+			print("END FOUND")
+			endFound = true
+			break
+		
+		# Already found the first instance and will start counting	
+		if firstInstance and childControl.get_child(0).data.id != cid:
+			startCounting = true
+			toCollect.append(index)
+			
+		index += 1
+	# Return an empty array if the right side does not have another instance
+	if !endFound:
+		print("Returning empty array")
+		return []
+	toCollect.sort_custom(sort_descending)
+	return toCollect
+		
+
 ## Constructs new bird cards on collection row
 @rpc("any_peer","call_local","reliable")
 func addCardToBoard(cardDataString: String, side: RowSide):
