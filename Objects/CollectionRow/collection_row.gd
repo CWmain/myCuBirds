@@ -97,6 +97,7 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	newCard.data = cardData
 	newCard.scale = Vector2(CARD_SCALE, CARD_SCALE)
 	
+	# Place the card on the given side
 	var pc = Control.new()
 	pc.add_child(newCard)
 	row.add_child(pc)
@@ -106,6 +107,12 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 		row.move_child(pc,-2)
 	else:
 		assert(false, "Invalid Side Given")
+		
+	# Create list of cards to collect
+	
+	# Delete those cards from all boards
+	
+	# Add those cards to the callers hand
 		
 	
 func _on_left_area_2d_area_entered(_area):
