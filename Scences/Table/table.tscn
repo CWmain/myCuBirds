@@ -36,12 +36,13 @@ MAX_SEP = 96
 MIN_SEP = 16
 metadata/_edit_use_anchors_ = true
 
-[node name="Board" parent="." instance=ExtResource("5_3m5us")]
+[node name="Board" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("5_3m5us")]
 layout_mode = 1
 offset_top = -78.0
 offset_bottom = -38.0
 MAX_SEP = 96
 MIN_SEP = 16
+myHand = NodePath("../Hand")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1

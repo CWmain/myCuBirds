@@ -14,6 +14,7 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 		row.add_theme_constant_override("separation", MAX_SEP)
 @export var MIN_SEP: int = 0
 @export var CARD_SCALE: float = 0.2
+@export var myHand: Hand
 
 @onready var row = $Row
 var leftCard: Object = null
@@ -51,15 +52,11 @@ func _process(_delta):
 			var c = Global.cardsInHand[i]
 
 			if c.data.id == curCard.data.id:
-				# Remove from cardsInHand array
-				Global.cardsInHand.remove_at(i)
-
 				# Reconstructs the given card onto all boards
 				addCardToBoard.rpc(var_to_str(c.data), RowSide.LEFT)
 				
-				# Deletes the old card
-				c.get_parent().queue_free()
-				c.queue_free()
+				# Deletes the old card from hand
+				myHand.removeCard(c)
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
 			i += 1
@@ -75,16 +72,12 @@ func _process(_delta):
 		while (i < Global.cardsInHand.size()):
 			var c = Global.cardsInHand[i]
 
-			if c.data.id == curCard.data.id:
-				# Remove from cardsInHand array
-				Global.cardsInHand.remove_at(i)
-				
+			if c.data.id == curCard.data.id:				
 				# Reconstructs the given card onto all boards
 				addCardToBoard.rpc(var_to_str(c.data), RowSide.RIGHT)
 				
-				# Deletes the old card
-				c.get_parent().queue_free()
-				c.queue_free()
+				# Deletes the old card from hand
+				myHand.removeCard(c)
 				
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
