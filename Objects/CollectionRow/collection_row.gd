@@ -60,7 +60,7 @@ func _process(_delta):
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
 			i += 1
-		collectBirds(curCard.data.id, RowSide.LEFT)
+		collectBirds(curCard.data.id)
 		
 		# Ensure leftCard is reset
 		leftCard = null
@@ -85,15 +85,15 @@ func _process(_delta):
 				i -= 1
 			i += 1
 		
-		collectBirds(curCard.data.id, RowSide.RIGHT)
+		collectBirds(curCard.data.id)
 		
 		# Ensure rightCard is reset
 		rightCard = null
 
 		
 		
-func collectBirds(cid: String, side: RowSide):
-	var birdsToCollect: Array[int] = findBirdsToCollect(cid, side)
+func collectBirds(cid: String):
+	var birdsToCollect: Array[int] = findBirdsToCollect(cid)
 	for index in birdsToCollect:
 		moveBoardCardToHand(index)
 		removeBoardCard.rpc(index)
@@ -103,7 +103,7 @@ func sort_descending(a, b):
 		return true
 	return false	
 
-func findBirdsToCollect(cid: String, side: RowSide) -> Array[int]:
+func findBirdsToCollect(cid: String) -> Array[int]:
 	var toCollect: Array[int] = []
 	var index: int = 0
 	var rowChildren = row.get_children()
@@ -114,7 +114,6 @@ func findBirdsToCollect(cid: String, side: RowSide) -> Array[int]:
 		if index == 0 or index == rowChildren.size()-1:
 			index += 1
 			continue
-		print("%s vs %s" % [cid, childControl.get_child(0).data.id])
 		
 		# First instance of cid found, next not matching we start counting
 		if !firstInstance and childControl.get_child(0).data.id == cid:
@@ -122,7 +121,6 @@ func findBirdsToCollect(cid: String, side: RowSide) -> Array[int]:
 		
 		# We have started counting and the end is found
 		if startCounting and childControl.get_child(0).data.id == cid:
-			print("END FOUND")
 			endFound = true
 			break
 		
@@ -134,7 +132,6 @@ func findBirdsToCollect(cid: String, side: RowSide) -> Array[int]:
 		index += 1
 	# Return an empty array if the right side does not have another instance
 	if !endFound:
-		print("Returning empty array")
 		return []
 	toCollect.sort_custom(sort_descending)
 	return toCollect
