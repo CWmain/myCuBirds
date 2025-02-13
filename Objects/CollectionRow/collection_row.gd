@@ -19,6 +19,7 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 @onready var row = $Row
 var leftCard: Object = null
 var rightCard: Object = null
+var collectBirds: bool = false
 
 enum RowSide {
 	RIGHT,
@@ -62,6 +63,7 @@ func _process(_delta):
 			i += 1
 		# Ensure leftCard is reset
 		leftCard = null
+		collectBirds = true
 				
 	if rightCard != null and Input.is_action_just_released("Grab"):
 		# Use curCard as when the original is reparent is triggers 
@@ -84,7 +86,10 @@ func _process(_delta):
 			i += 1
 		# Ensure rightCard is reset
 		rightCard = null
-
+		collectBirds = true
+	if collectBirds:
+		moveBoardCardToHand(2)
+		collectBirds = false
 ## Constructs new bird cards on collection row
 @rpc("any_peer","call_local","reliable")
 func addCardToBoard(cardDataString: String, side: RowSide):
@@ -113,8 +118,16 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	# Delete those cards from all boards
 	
 	# Add those cards to the callers hand
-		
-	
+
+# Passed the child index of the cards to remove
+@rpc("any_peer","call_remote","reliable")
+func removeBoardCard():
+	pass		
+## cardToMove: The child index of the given card
+func moveBoardCardToHand(cardToMove: int):
+	var curCard = row.get_children()[cardToMove].get_child(0)
+	myHand.addCardFromResource(curCard.data)	
+
 func _on_left_area_2d_area_entered(_area):
 	print("Left Detected")
 	leftCard = Global.isHolding
