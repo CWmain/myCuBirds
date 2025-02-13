@@ -89,6 +89,7 @@ func _process(_delta):
 		collectBirds = true
 	if collectBirds:
 		moveBoardCardToHand(2)
+		removeBoardCard.rpc(2)
 		collectBirds = false
 ## Constructs new bird cards on collection row
 @rpc("any_peer","call_local","reliable")
@@ -119,14 +120,19 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	
 	# Add those cards to the callers hand
 
-# Passed the child index of the cards to remove
+## cardToRemove: The child index of the given card
 @rpc("any_peer","call_remote","reliable")
-func removeBoardCard():
-	pass		
+func removeBoardCard(cardToRemove: int):
+	var curCard = row.get_children()[cardToRemove].get_child(0)
+	row.get_children()[cardToRemove].queue_free()
+	curCard.queue_free()
+	
 ## cardToMove: The child index of the given card
 func moveBoardCardToHand(cardToMove: int):
 	var curCard = row.get_children()[cardToMove].get_child(0)
-	myHand.addCardFromResource(curCard.data)	
+	myHand.addCardFromResource(curCard.data)
+	row.get_children()[cardToMove].queue_free()
+	curCard.queue_free()
 
 func _on_left_area_2d_area_entered(_area):
 	print("Left Detected")
