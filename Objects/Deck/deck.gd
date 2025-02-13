@@ -15,7 +15,7 @@ func _ready():
 	# Generate all cardsToMake in a random array order
 	if multiplayer.get_unique_id() == 1:
 		generateCardArray()
-
+	cards.shuffle()
 	card_count_display.text = "Count: %d" % cards.size()
 
 func generateCardArray():

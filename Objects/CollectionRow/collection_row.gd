@@ -159,12 +159,6 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 		row.move_child(pc,-2)
 	else:
 		assert(false, "Invalid Side Given")
-		
-	# Create list of cards to collect
-	
-	# Delete those cards from all boards
-	
-	# Add those cards to the callers hand
 
 ## cardToRemove: The child index of the given card
 @rpc("any_peer","call_remote","reliable")
@@ -190,7 +184,6 @@ func _on_left_area_2d_area_exited(_area):
 func _on_right_area_2d_area_entered(_area):
 	print("Right Detected")
 	rightCard = Global.isHolding
-
 
 func _on_right_area_2d_area_exited(_area):
 	rightCard = null
