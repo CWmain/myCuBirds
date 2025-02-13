@@ -6,17 +6,23 @@ extends Control
 # When placed on the left scan left to right, at the first instance of the same 
 # card, move all cards into the players hand (Oppisite for right side)
 # If non of the same card is found, allow the player to draw
+const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 
 @export var MAX_SEP: int = 128:
 	set(value):
 		MAX_SEP = value
 		row.add_theme_constant_override("separation", MAX_SEP)
 @export var MIN_SEP: int = 0
+@export var CARD_SCALE: float = 0.2
 
 @onready var row = $Row
-
 var leftCard: Object = null
 var rightCard: Object = null
+
+enum RowSide {
+	RIGHT,
+	LEFT
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,13 +51,15 @@ func _process(_delta):
 			var c = Global.cardsInHand[i]
 
 			if c.data.id == curCard.data.id:
-				c.goHome = false
 				# Remove from cardsInHand array
 				Global.cardsInHand.remove_at(i)
-				# Reparent cards control parent to CollectionRow
-				c.get_parent().reparent(row)
-				row.move_child(c.get_parent(),1)
-				c.position = Vector2(0,0)
+
+				# Reconstructs the given card onto all boards
+				addCardToBoard.rpc(var_to_str(c.data), RowSide.LEFT)
+				
+				# Deletes the old card
+				c.get_parent().queue_free()
+				c.queue_free()
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
 			i += 1
@@ -70,11 +78,13 @@ func _process(_delta):
 			if c.data.id == curCard.data.id:
 				# Remove from cardsInHand array
 				Global.cardsInHand.remove_at(i)
-
-				# Reparent cards control parent to CollectionRow
-				c.get_parent().reparent(row)
-				row.move_child(c.get_parent(),-2)
-				c.position = Vector2(0,0)
+				
+				# Reconstructs the given card onto all boards
+				addCardToBoard.rpc(var_to_str(c.data), RowSide.RIGHT)
+				
+				# Deletes the old card
+				c.get_parent().queue_free()
+				c.queue_free()
 				
 				# Since we remove an element from the array, subtract 1 from index
 				i -= 1
@@ -82,6 +92,29 @@ func _process(_delta):
 		# Ensure rightCard is reset
 		rightCard = null
 
+## Constructs new bird cards on collection row
+@rpc("any_peer","call_local","reliable")
+func addCardToBoard(cardDataString: String, side: RowSide):
+	# Ensure card data is passed correctly
+	var cardData = str_to_var(cardDataString)
+	assert(cardData is CustomCard, "cardDataString was not CustomCard Resource")
+	
+	# Construct the new card
+	var newCard = BASE_CARD.instantiate()
+	newCard.data = cardData
+	newCard.scale = Vector2(CARD_SCALE, CARD_SCALE)
+	
+	var pc = Control.new()
+	pc.add_child(newCard)
+	row.add_child(pc)
+	if (side == RowSide.LEFT):
+		row.move_child(pc,1)
+	elif (side == RowSide.RIGHT):
+		row.move_child(pc,-2)
+	else:
+		assert(false, "Invalid Side Given")
+		
+	
 func _on_left_area_2d_area_entered(_area):
 	print("Left Detected")
 	leftCard = Global.isHolding
