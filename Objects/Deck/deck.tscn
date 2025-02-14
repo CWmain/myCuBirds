@@ -14,7 +14,7 @@ properties/1/replication_mode = 1
 script = ExtResource("1_4n7g4")
 cardsToMake = {
 "res://Objects/Cards/Cat/cat_card.tscn": 2,
-"res://Objects/Cards/Flamingo/flamingo_card.tscn": 4,
+"res://Objects/Cards/Flamingo/flamingo_card.tscn": 7,
 "res://Objects/Cards/Owl/owl_card.tscn": 10
 }
 

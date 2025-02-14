@@ -11,6 +11,8 @@ extends Control
 
 @onready var v_box_container = $VBoxContainer
 
+signal birdsPlaced(birdsCollected: bool)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assert(myHand != null, "Hand not assigned on Board")
@@ -20,8 +22,9 @@ func _ready():
 		row.MIN_SEP = MIN_SEP
 		row.CARD_SCALE = CARD_SCALE
 		row.myHand = myHand
+		row.birdsPlaced.connect(_on_birds_placed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
+# Pass the signal up from any row
+func _on_birds_placed(birdsCollected: bool):
+	birdsPlaced.emit(birdsCollected)
+	

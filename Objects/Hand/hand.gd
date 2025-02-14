@@ -16,6 +16,8 @@ var id: int = 0
 @export var MAX_SEP: int = 128
 @export var MIN_SEP: int = 0
 
+var locked: bool = false
+
 const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 var catCard = preload("res://Objects/Cards/Cat/cat_card.tscn")
 var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
@@ -27,6 +29,7 @@ func _ready():
 	addCard(flamingoCard)
 	addCard(owlCard)
 	container.add_theme_constant_override("separation", MAX_SEP)
+	lockHand()
 	
 
 func _process(_delta):
@@ -44,6 +47,7 @@ func addCard(toAdd):
 	var cc = Control.new()
 	var newCard = toAdd.instantiate()
 	newCard.scale = Vector2(cardScale,cardScale)
+	newCard.isActive = !locked
 	# Scan for the index of the same card 
 	var toAddIndex: int = firstInstance(newCard.data.id)
 	cc.add_child(newCard)
@@ -56,6 +60,7 @@ func addCardFromResource(toAdd: CustomCard):
 	var newCard = BASE_CARD.instantiate()
 	newCard.data = toAdd
 	newCard.scale = Vector2(cardScale,cardScale)
+	newCard.isActive = !locked
 	# Scan for the index of the same card 
 	var toAddIndex: int = firstInstance(newCard.data.id)
 	cc.add_child(newCard)
@@ -84,3 +89,13 @@ func firstInstance(matchId: String) -> int:
 func updateCardScale():
 	for c in container.get_children():
 		c.get_child(0).scale = Vector2(cardScale,cardScale)
+		
+func lockHand():
+	locked = true
+	for c in container.get_children():
+		c.get_child(0).isActive = false
+		
+func unlockHand():
+	locked = false
+	for c in container.get_children():
+		c.get_child(0).isActive = true

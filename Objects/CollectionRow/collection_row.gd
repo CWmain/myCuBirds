@@ -20,6 +20,9 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 var leftCard: Object = null
 var rightCard: Object = null
 
+## birdCollected informs if player collected cards from the board
+signal birdsPlaced(birdsCollected: bool)
+
 enum RowSide {
 	RIGHT,
 	LEFT
@@ -97,6 +100,8 @@ func collectBirds(cid: String):
 	for index in birdsToCollect:
 		moveBoardCardToHand(index)
 		removeBoardCard.rpc(index)
+		
+	birdsPlaced.emit(birdsToCollect.size() > 0)
 
 func sort_descending(a, b):
 	if a > b:
