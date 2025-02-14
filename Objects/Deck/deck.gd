@@ -56,6 +56,7 @@ func notEnoughCards():
 func _on_draw_pressed():
 	if !locked:
 		drawCards.rpc_id(1, 2)
+		lockDeck()
 	else:
 		print("Deck Locked")
 
