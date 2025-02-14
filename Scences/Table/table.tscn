@@ -26,6 +26,14 @@ grow_horizontal = 0
 myHand = NodePath("../Hand")
 metadata/_edit_use_anchors_ = true
 
+[node name="Board" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("5_3m5us")]
+layout_mode = 1
+offset_top = -78.0
+offset_bottom = -38.0
+MAX_SEP = 96
+MIN_SEP = 16
+myHand = NodePath("../Hand")
+
 [node name="Hand" parent="." instance=ExtResource("7_fr4bn")]
 layout_mode = 1
 anchors_preset = -1
@@ -35,14 +43,6 @@ cardScale = 0.15
 MAX_SEP = 96
 MIN_SEP = 16
 metadata/_edit_use_anchors_ = true
-
-[node name="Board" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("5_3m5us")]
-layout_mode = 1
-offset_top = -78.0
-offset_bottom = -38.0
-MAX_SEP = 96
-MIN_SEP = 16
-myHand = NodePath("../Hand")
 
 [node name="AllPoints" type="VBoxContainer" parent="."]
 layout_mode = 1
