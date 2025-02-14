@@ -1,8 +1,9 @@
-extends Node2D
+extends Control
 
 @export var localHand: Hand
-@export var cardsToMake: Dictionary
-@export var cards: Array
+@export var cardTypes: Array[CustomCard]
+@export var cardTypesCount: Array[int]
+@export var cards: Array[CustomCard]
 
 @onready var card_count_display = $CardCountDisplay
 @onready var cards_sync = $cardsSync
@@ -22,21 +23,24 @@ func _ready():
 	card_count_display.text = "Count: %d" % cards.size()
 
 func generateCardArray():
-	for item in cardsToMake:
-		for i in range(cardsToMake[item]):
-			cards.append(item)
+	assert(cardTypes.size() == cardTypesCount.size(), "cardTypes and cardTypesCount size do not equal")
+	for i in range(cardTypes.size()):
+		for j in range(cardTypesCount[i]):
+			cards.append(cardTypes[i])
+	print(cards)
 
 @rpc("any_peer","call_local","reliable")
 func drawCards(toDraw: int):
 	assert(multiplayer.get_unique_id() == 1, "Attempting to draw cards on non-host")
 	var sender_id: int = multiplayer.get_remote_sender_id()
+	# Convert resource to string so it can be sent via rcp
 	var drawnCards: Array[String] = []
 	for i in range(toDraw):
 		var attemptToAdd = cards.pop_front()
 		if attemptToAdd == null:
 			notEnoughCards()
 			return
-		drawnCards.append(attemptToAdd)
+		drawnCards.append(var_to_str(attemptToAdd))
 
 	print("%d: Am drawing cards" % sender_id)
 	print(drawnCards)
@@ -48,7 +52,7 @@ func drawCards(toDraw: int):
 @rpc("any_peer","call_local","reliable")
 func addCardsToHand(toAdd: Array):
 	for card in toAdd:
-		localHand.addCard(load(card))
+		localHand.addCardFromResource(str_to_var(card))
 
 func notEnoughCards():
 	print("Not Enough Cards in Deck!!!")

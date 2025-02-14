@@ -2,24 +2,23 @@
 
 [ext_resource type="Script" path="res://Objects/Deck/deck.gd" id="1_4n7g4"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rotpc"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_78xvj"]
 properties/0/path = NodePath(".:cards")
-properties/0/spawn = false
+properties/0/spawn = true
 properties/0/replication_mode = 1
 properties/1/path = NodePath("CardCountDisplay:text")
-properties/1/spawn = false
+properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Deck" type="Node2D"]
+[node name="Deck" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("1_4n7g4")
-cardsToMake = {
-"res://Objects/Cards/Cat/cat_card.tscn": 2,
-"res://Objects/Cards/Flamingo/flamingo_card.tscn": 7,
-"res://Objects/Cards/Owl/owl_card.tscn": 10
-}
 
 [node name="CardCountDisplay" type="Label" parent="."]
-offset_right = 40.0
+offset_right = 42.0
 offset_bottom = 23.0
 text = "DECK"
 
@@ -31,6 +30,6 @@ offset_bottom = 64.0
 text = "Draw"
 
 [node name="cardsSync" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_rotpc")
+replication_config = SubResource("SceneReplicationConfig_78xvj")
 
 [connection signal="pressed" from="Draw" to="." method="_on_draw_pressed"]

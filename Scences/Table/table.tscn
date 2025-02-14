@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=10 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_nujd4"]
 [ext_resource type="PackedScene" uid="uid://b4wtukdksx2k1" path="res://Objects/Deck/deck.tscn" id="4_cpqd4"]
 [ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/Board/board.tscn" id="5_3m5us"]
 [ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="5_rb701"]
+[ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="6_iijuq"]
+[ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="7_bn6yr"]
 [ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="7_fr4bn"]
+[ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="8_fthec"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rek8b"]
 properties/0/path = NodePath(".:playerTurn")
@@ -60,8 +63,11 @@ theme_override_constants/separation = 100
 metadata/_edit_use_anchors_ = true
 
 [node name="Deck" parent="." node_paths=PackedStringArray("localHand") instance=ExtResource("4_cpqd4")]
-position = Vector2(0, 326)
+offset_top = 326.0
+offset_bottom = 366.0
 localHand = NodePath("../Hand")
+cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("6_iijuq"), ExtResource("7_bn6yr"), ExtResource("8_fthec")])
+cardTypesCount = Array[int]([10, 7, 10])
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
