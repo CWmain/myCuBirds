@@ -8,6 +8,7 @@ extends Node2D
 @onready var cards_sync = $cardsSync
 
 var locked: bool = false
+signal cardsDrawn
 
 func _ready():
 	assert(localHand != null)
@@ -57,6 +58,7 @@ func _on_draw_pressed():
 	if !locked:
 		drawCards.rpc_id(1, 2)
 		lockDeck()
+		cardsDrawn.emit()
 	else:
 		print("Deck Locked")
 

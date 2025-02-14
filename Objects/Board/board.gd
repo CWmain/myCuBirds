@@ -22,9 +22,17 @@ func _ready():
 		row.MIN_SEP = MIN_SEP
 		row.CARD_SCALE = CARD_SCALE
 		row.myHand = myHand
+		row.locked = false
 		row.birdsPlaced.connect(_on_birds_placed)
 
 # Pass the signal up from any row
 func _on_birds_placed(birdsCollected: bool):
 	birdsPlaced.emit(birdsCollected)
 	
+func lockBoard():
+	for row in v_box_container.get_children():
+		row.locked = true
+		
+func unlockBoard():
+	for row in v_box_container.get_children():
+		row.locked = false

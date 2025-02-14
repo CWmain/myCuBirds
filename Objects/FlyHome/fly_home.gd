@@ -3,6 +3,9 @@ extends Control
 @export var myHand: Hand
 @onready var indicator = $Indicator
 var cardHeld: Object = null
+
+var locked: bool = false
+signal flownHome
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assert(myHand != null)
@@ -10,7 +13,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	# If locked do nothing
+	if locked:
+		return
+		
 	# A given player card is dragged and dropped onto the detector
 	if cardHeld != null and Input.is_action_just_released("Grab"):
 		# Check the count of the given id and if that is enough birds to fly home
@@ -23,6 +29,9 @@ func _process(delta):
 				if c.data.id == cardHeld.data.id:
 					# Free the parent control and than itself
 					myHand.removeCard(c)
+					
+			# Since cards are flown home emit
+			flownHome.emit()
 
 		get_parent().updatePoints.rpc(multiplayer.get_unique_id(), cardHeld.data.id, pointsEarned)
 
@@ -38,6 +47,12 @@ func scoreFromBird(scoreCard: Object) -> int:
 	if cardCount >= scoreCard.data.small:
 		return 1
 	return 0
+
+func lockFlyHome():
+	locked = true
+	
+func unlockFlyHome():
+	locked = false
 
 func _on_area_2d_area_entered(area):
 	indicator.color = Color(0,0,0,1)

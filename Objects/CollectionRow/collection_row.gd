@@ -20,6 +20,8 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 var leftCard: Object = null
 var rightCard: Object = null
 
+var locked: bool = false
+
 ## birdCollected informs if player collected cards from the board
 signal birdsPlaced(birdsCollected: bool)
 
@@ -182,6 +184,8 @@ func moveBoardCardToHand(cardToMove: int):
 	curCard.queue_free()
 
 func _on_left_area_2d_area_entered(_area):
+	if locked:
+		return
 	print("Left Detected")
 	leftCard = Global.isHolding
 
@@ -189,6 +193,8 @@ func _on_left_area_2d_area_exited(_area):
 	leftCard = null
 
 func _on_right_area_2d_area_entered(_area):
+	if locked:
+		return
 	print("Right Detected")
 	rightCard = Global.isHolding
 

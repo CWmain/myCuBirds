@@ -3,6 +3,8 @@ extends Control
 @onready var all_points = $AllPoints
 @onready var hand = $Hand
 @onready var deck = $Deck
+@onready var fly_home = $FlyHome
+@onready var board = $Board
 
 @onready var label = $Label
 
@@ -23,6 +25,8 @@ func _ready():
 		print("Is client")
 	deck.lockDeck()
 	hand.lockHand()
+	fly_home.lockFlyHome()
+	board.lockBoard()
 	for p in Global.PLAYERS:
 		idToLabel[p] = pointsDisplay.instantiate()
 		all_points.add_child(idToLabel[p])
@@ -44,7 +48,8 @@ func nextTurn():
 @rpc("any_peer", "call_local", "reliable")
 func startTurn():
 	print("Allow %s to place birds on board" % str(multiplayer.get_unique_id()))
-	hand.unlockHand()	
+	hand.unlockHand()
+	board.unlockBoard()
 
 @rpc("any_peer", "call_local")
 func updatePoints(uid: int, cid: String, p: int):
@@ -57,14 +62,28 @@ func _on_button_pressed():
 		return
 	hand.lockHand()
 	deck.lockDeck()
+	fly_home.lockFlyHome()
 	nextTurn.rpc_id(1)
 
 
 func _on_board_birds_placed(birdsCollected: bool):
 	# Since birds have been placed lock hand
-	hand.lockHand()
+	board.lockBoard()
+
 	if (birdsCollected == false):
 		deck.unlockDeck()
 	else:
 		deck.lockDeck()
+		fly_home.unlockFlyHome()
 	print("Birds Collected: %s" % str(birdsCollected))
+
+
+func _on_deck_cards_drawn():
+	fly_home.unlockFlyHome()
+
+
+func _on_fly_home_flown_home():
+	fly_home.lockFlyHome()
+	hand.lockHand()
+	nextTurn.rpc_id(1)
+	

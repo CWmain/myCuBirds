@@ -79,5 +79,7 @@ text = "NEXT TURN"
 [node name="TurnSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rek8b")
 
+[connection signal="flownHome" from="FlyHome" to="." method="_on_fly_home_flown_home"]
 [connection signal="birdsPlaced" from="Board" to="." method="_on_board_birds_placed"]
+[connection signal="cardsDrawn" from="Deck" to="." method="_on_deck_cards_drawn"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
