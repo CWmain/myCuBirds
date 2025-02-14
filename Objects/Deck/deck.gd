@@ -25,6 +25,7 @@ func generateCardArray():
 
 @rpc("any_peer","call_local","reliable")
 func drawCards(toDraw: int):
+	assert(multiplayer.get_unique_id() == 1, "Attempting to draw cards on non-host")
 	var sender_id: int = multiplayer.get_remote_sender_id()
 	var drawnCards: Array[String] = []
 	for i in range(toDraw):
