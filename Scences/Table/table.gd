@@ -23,15 +23,19 @@ func _ready():
 		print("Is host")
 	else:
 		print("Is client")
+	
+	label.text = str(playerTurn)
 	deck.lockDeck()
 	hand.lockHand()
 	fly_home.lockFlyHome()
 	board.lockBoard()
+		
 	for p in Global.PLAYERS:
 		idToLabel[p] = pointsDisplay.instantiate()
 		all_points.add_child(idToLabel[p])
 		idToLabel[p].setOwnerText(str(p))
 
+	startTurn.rpc_id(playerTurn)
 
 func _process(_delta):
 	pass
@@ -69,16 +73,19 @@ func _on_button_pressed():
 func _on_board_birds_placed(birdsCollected: bool):
 	# Since birds have been placed lock hand
 	board.lockBoard()
+	hand.lockHand()
 
 	if (birdsCollected == false):
 		deck.unlockDeck()
 	else:
 		deck.lockDeck()
+		hand.unlockHand()
 		fly_home.unlockFlyHome()
 	print("Birds Collected: %s" % str(birdsCollected))
 
 
 func _on_deck_cards_drawn():
+	hand.unlockHand()
 	fly_home.unlockFlyHome()
 
 
