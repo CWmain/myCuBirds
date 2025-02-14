@@ -7,6 +7,8 @@ extends Node2D
 @onready var card_count_display = $CardCountDisplay
 @onready var cards_sync = $cardsSync
 
+var locked: bool = false
+
 func _ready():
 	assert(localHand != null)
 	# Only the host can modify the deck
@@ -52,4 +54,13 @@ func notEnoughCards():
 
 ## Host is called to draw cards for the user
 func _on_draw_pressed():
-	drawCards.rpc_id(1, 2)
+	if !locked:
+		drawCards.rpc_id(1, 2)
+	else:
+		print("Deck Locked")
+
+func lockDeck():
+	locked = true
+	
+func unlockDeck():
+	locked = false

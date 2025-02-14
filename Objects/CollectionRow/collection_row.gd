@@ -166,6 +166,7 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	else:
 		assert(false, "Invalid Side Given")
 
+# NOTE: call_remote so it is only applied to others
 ## cardToRemove: The child index of the given card
 @rpc("any_peer","call_remote","reliable")
 func removeBoardCard(cardToRemove: int):

@@ -2,6 +2,7 @@ extends Control
 
 @onready var all_points = $AllPoints
 @onready var hand = $Hand
+@onready var deck = $Deck
 
 @onready var label = $Label
 
@@ -20,7 +21,8 @@ func _ready():
 		print("Is host")
 	else:
 		print("Is client")
-	
+	deck.lockDeck()
+	hand.lockHand()
 	for p in Global.PLAYERS:
 		idToLabel[p] = pointsDisplay.instantiate()
 		all_points.add_child(idToLabel[p])
@@ -50,9 +52,19 @@ func updatePoints(uid: int, cid: String, p: int):
 	idToLabel[uid].addPoints(cid, p)
 	
 func _on_button_pressed():
+	if playerTurn != multiplayer.get_unique_id():
+		print("NOT TURN")
+		return
 	hand.lockHand()
+	deck.lockDeck()
 	nextTurn.rpc_id(1)
 
 
 func _on_board_birds_placed(birdsCollected: bool):
+	# Since birds have been placed lock hand
+	hand.lockHand()
+	if (birdsCollected == false):
+		deck.unlockDeck()
+	else:
+		deck.lockDeck()
 	print("Birds Collected: %s" % str(birdsCollected))
