@@ -19,6 +19,7 @@ func _on_host_pressed():
 	peer.create_server(PORT, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
 	status.text = "Host"
+	Global.PLAYERS.append(1)
 
 func _on_join_pressed():
 	var peer = ENetMultiplayerPeer.new()
@@ -28,6 +29,7 @@ func _on_join_pressed():
 func _on_server_connect():
 	print("Connected")
 	status.text = "Client"
+	Global.PLAYERS.append(multiplayer.get_unique_id())
 
 # With current method does not include own id in list of PLAYERS
 func _on_peer_connect(id: int):
@@ -38,6 +40,6 @@ func _on_start_pressed():
 	if multiplayer.is_server():
 		startGame.rpc()
 
-@rpc("call_local","authority")
+@rpc("call_local","authority", "reliable")
 func startGame():
 	get_tree().change_scene_to_packed(table)
