@@ -17,6 +17,8 @@ var goHome: bool = false
 ## Home should always be (0,0) since the control determins location
 var home: Vector2 = Vector2(0,0)
 
+var isActive: bool = true
+
 signal cardGrabbed
 signal cardReleased
 
@@ -28,6 +30,9 @@ func _ready():
 	icon.texture = load(data.image)
 
 func _process(delta):
+	# If card is inactive do nothing
+	if !isActive:
+		return
 	var handIsFreeOrHolding = Global.isHolding == null or Global.isHolding == self
 	# When a card is grabbed, free in from the hand
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing) and handIsFreeOrHolding:

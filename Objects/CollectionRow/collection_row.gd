@@ -148,6 +148,7 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	var newCard = BASE_CARD.instantiate()
 	newCard.data = cardData
 	newCard.scale = Vector2(CARD_SCALE, CARD_SCALE)
+	newCard.isActive = false
 	
 	# Place the card on the given side
 	var pc = Control.new()
