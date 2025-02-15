@@ -3,7 +3,8 @@ extends Control
 @export var localHand: Hand
 @export var cardTypes: Array[CustomCard]
 @export var cardTypesCount: Array[int]
-@export var cards: Array[CustomCard]
+@export var cards: Array[String]
+@export var discardPile: Array[String]
 
 @onready var card_count_display = $CardCountDisplay
 @onready var cards_sync = $cardsSync
@@ -26,7 +27,7 @@ func generateCardArray():
 	assert(cardTypes.size() == cardTypesCount.size(), "cardTypes and cardTypesCount size do not equal")
 	for i in range(cardTypes.size()):
 		for j in range(cardTypesCount[i]):
-			cards.append(cardTypes[i])
+			cards.append(var_to_str(cardTypes[i]))
 	print(cards)
 
 @rpc("any_peer","call_local","reliable")
@@ -40,7 +41,7 @@ func drawCards(toDraw: int):
 		if attemptToAdd == null:
 			notEnoughCards()
 			return
-		drawnCards.append(var_to_str(attemptToAdd))
+		drawnCards.append(attemptToAdd)
 
 	print("%d: Am drawing cards" % sender_id)
 	print(drawnCards)

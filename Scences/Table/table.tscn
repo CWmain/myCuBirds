@@ -30,9 +30,9 @@ anchor_left = 0.944444
 anchor_top = 0.0817901
 anchor_right = 0.944444
 anchor_bottom = 0.0817901
-grow_horizontal = 0
+grow_horizontal = 2
+grow_vertical = 2
 myHand = NodePath("../Hand")
-metadata/_edit_use_anchors_ = true
 
 [node name="Board" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("5_3m5us")]
 layout_mode = 1

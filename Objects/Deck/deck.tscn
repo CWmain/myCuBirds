@@ -3,12 +3,15 @@
 [ext_resource type="Script" path="res://Objects/Deck/deck.gd" id="1_4n7g4"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_78xvj"]
-properties/0/path = NodePath(".:cards")
+properties/0/path = NodePath("CardCountDisplay:text")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("CardCountDisplay:text")
+properties/1/path = NodePath(".:cards")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath(".:discardPile")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Deck" type="Control"]
 layout_mode = 3
@@ -18,11 +21,13 @@ offset_bottom = 40.0
 script = ExtResource("1_4n7g4")
 
 [node name="CardCountDisplay" type="Label" parent="."]
+layout_mode = 0
 offset_right = 42.0
 offset_bottom = 23.0
 text = "DECK"
 
 [node name="Draw" type="Button" parent="."]
+layout_mode = 0
 offset_left = 1.0
 offset_top = 33.0
 offset_right = 51.0
