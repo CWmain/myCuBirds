@@ -24,7 +24,7 @@ func _ready():
 	if multiplayer.get_unique_id() == 1:
 		generateCardArray()
 	cards.shuffle()
-	card_count_display.text = "Count: %d" % cards.size()
+	updateCardCount()
 	if multiplayer.is_server():
 		setUpTable()
 
@@ -37,7 +37,7 @@ func generateCardArray():
 
 @rpc("any_peer","call_local","reliable")
 func drawCardsToHand(toDraw: int):
-	assert(multiplayer.get_unique_id() == 1, "Attempting to draw cards on non-host")
+	assert(multiplayer.is_server(), "Attempting to draw cards on non-host")
 	var sender_id: int = multiplayer.get_remote_sender_id()
 	# Convert resource to string so it can be sent via rcp
 	var drawnCards: Array[String] = []
@@ -45,23 +45,29 @@ func drawCardsToHand(toDraw: int):
 		var attemptToAdd = cards.pop_front()
 		if attemptToAdd == null:
 			notEnoughCards()
-			return
+			attemptToAdd = cards.pop_front()
 		drawnCards.append(attemptToAdd)
 
 	print("%d: Am drawing cards" % sender_id)
 
-	card_count_display.text = "Count: %d" % cards.size()
+	updateCardCount()
 		
 	addCardsToHand.rpc_id(sender_id, drawnCards)
 	
 # Called locally by the sender of the draw request
-@rpc("any_peer","call_local","reliable")
+@rpc("authority","call_local","reliable")
 func addCardsToHand(toAdd: Array):
 	for card in toAdd:
 		localHand.addCardFromResource(str_to_var(card))
 
 func notEnoughCards():
-	print("Not Enough Cards in Deck!!!")
+	assert(cards.size() == 0, "Attempting we reshuffle discard into draw when non-empty")
+	assert(discardPile.size() != 0, "Discard Pile is empty")
+	# Reshuffle discard pile into draw pile
+	cards = discardPile
+	cards.shuffle()
+	updateCardCount()
+
 
 ## cardToDiscard is a var_to_str of a CustomCard
 func discardCard(cardToDiscard: String):
@@ -72,9 +78,9 @@ func setUpTable():
 	# Layout 4 rows of 3 cards, each row must contain unique cards
 	var startingBoard: Array = generateStartingBoard()
 	populateBoard.rpc(startingBoard)
-	card_count_display.text = "Count: %d" % cards.size()
+	updateCardCount()
 	# Give 8 birds to each player
-	
+	newRoundCards()
 	# Draw 1 card and give the player the associated point
 
 # Generates a 4x3 board of cards drawn from the draw pile
@@ -91,6 +97,7 @@ func generateStartingBoard() -> Array:
 				assert(false, "Ran out of cards making starting board")
 			if (startingBoard[i].has(curCard)):
 				print("Card Already placed so skip")
+				discardCard(curCard)
 				continue
 			startingBoard[i].append(curCard)
 			j += 1
@@ -107,6 +114,14 @@ func populateBoard(startingBoard: Array):
 		for j in range(startingBoard[i].size()):
 			allRows[i].addCardToBoard(startingBoard[i][j], allRows[i].RowSide.LEFT)
 
+@rpc("any_peer", "call_local", "reliable")
+func newRoundCards():
+	# Discard current hand
+	
+	# Draw 8 new cards
+	drawCardsToHand.rpc_id(1, 8)
+	pass
+
 ## Host is called to draw cards for the user
 func _on_draw_pressed():
 	if !locked:
@@ -115,6 +130,9 @@ func _on_draw_pressed():
 		cardsDrawn.emit()
 	else:
 		print("Deck Locked")
+
+func updateCardCount():
+	card_count_display.text = "Count: %d" % cards.size()
 
 func lockDeck():
 	locked = true
