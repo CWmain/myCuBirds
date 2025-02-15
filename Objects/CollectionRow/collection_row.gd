@@ -143,7 +143,7 @@ func findBirdsToCollect(cid: String) -> Array[int]:
 	toCollect.sort_custom(sort_descending)
 	return toCollect
 		
-
+# Passed the var_to_str(customCard)
 ## Constructs new bird cards on collection row
 @rpc("any_peer","call_local","reliable")
 func addCardToBoard(cardDataString: String, side: RowSide):

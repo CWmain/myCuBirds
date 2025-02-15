@@ -23,7 +23,7 @@ func _ready():
 		print("Is host")
 	else:
 		print("Is client")
-	
+
 	label.text = str(playerTurn)
 	deck.lockDeck()
 	hand.lockHand()

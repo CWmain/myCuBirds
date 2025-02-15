@@ -1,5 +1,7 @@
 extends Control
 
+class_name Board
+
 # The host will have full authority over the board
 # Clients will send requests to the rows of what cards they are adding, and the 
 # host will respond with what cards they have collected, than removes those cards
@@ -36,3 +38,6 @@ func lockBoard():
 func unlockBoard():
 	for row in v_box_container.get_children():
 		row.locked = false
+
+func getAllRows() -> Array:
+	return v_box_container.get_children()
