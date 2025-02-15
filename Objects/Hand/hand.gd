@@ -24,10 +24,6 @@ var flamingoCard = preload("res://Objects/Cards/Flamingo/flamingo_card.tscn")
 var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
 
 func _ready():
-	addCard(flamingoCard)
-	addCard(catCard)
-	addCard(flamingoCard)
-	addCard(owlCard)
 	container.add_theme_constant_override("separation", MAX_SEP)
 	lockHand()
 	

@@ -34,8 +34,11 @@ func _ready():
 		idToLabel[p] = pointsDisplay.instantiate()
 		all_points.add_child(idToLabel[p])
 		idToLabel[p].setOwnerText(str(p))
+	
+	# Called here to ensure that all_points is set up to store the points
 	if multiplayer.is_server():
 		deck.setUpTable()
+		
 	startTurn.rpc_id(playerTurn)
 
 func _process(_delta):
