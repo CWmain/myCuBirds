@@ -34,7 +34,8 @@ func _ready():
 		idToLabel[p] = pointsDisplay.instantiate()
 		all_points.add_child(idToLabel[p])
 		idToLabel[p].setOwnerText(str(p))
-
+	if multiplayer.is_server():
+		deck.setUpTable()
 	startTurn.rpc_id(playerTurn)
 
 func _process(_delta):
@@ -55,9 +56,9 @@ func startTurn():
 	hand.unlockHand()
 	board.unlockBoard()
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer", "call_local", "reliable")
 func updatePoints(uid: int, cid: String, p: int):
-	assert(idToLabel.has(uid), str(idToLabel))
+	assert(idToLabel.has(uid), "UID not in idToLabel\n"+str(idToLabel))
 	idToLabel[uid].addPoints(cid, p)
 	
 func _on_button_pressed():

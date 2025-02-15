@@ -25,8 +25,6 @@ func _ready():
 		generateCardArray()
 	cards.shuffle()
 	updateCardCount()
-	if multiplayer.is_server():
-		setUpTable()
 
 func generateCardArray():
 	assert(cardTypes.size() == cardTypesCount.size(), "cardTypes and cardTypesCount size do not equal")
@@ -82,6 +80,9 @@ func setUpTable():
 	# Give 8 birds to each player
 	newRoundCards()
 	# Draw 1 card and give the player the associated point
+	for p in Global.PLAYERS:
+		var scoreCard = cards.pop_front()
+		get_parent().updatePoints.rpc(p, str_to_var(scoreCard).id, 1)
 
 # Generates a 4x3 board of cards drawn from the draw pile
 func generateStartingBoard() -> Array:
