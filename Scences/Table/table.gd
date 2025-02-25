@@ -78,16 +78,17 @@ func _on_button_pressed():
 
 
 func _on_board_birds_placed(birdsCollected: bool):
+	state_machine.curState = state_machine.curState._birdState(birdsCollected)
 	# Since birds have been placed lock hand
-	board.lockSelf()
-	hand.lockSelf()
-
-	if (birdsCollected == false):
-		deck.unlockSelf()
-	else:
-		deck.lockSelf()
-		hand.unlockSelf()
-		fly_home.unlockSelf()
+	#board.lockSelf()
+	#hand.lockSelf()
+#
+	#if (birdsCollected == false):
+		#deck.unlockSelf()
+	#else:
+		#deck.lockSelf()
+		#hand.unlockSelf()
+		#fly_home.unlockSelf()
 	print("Birds Collected: %s" % str(birdsCollected))
 
 

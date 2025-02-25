@@ -89,15 +89,15 @@ text = "NEXT TURN"
 [node name="StateMachine" parent="." node_paths=PackedStringArray("curState") instance=ExtResource("9_8x34f")]
 curState = NodePath("Wait")
 
-[node name="Wait" parent="StateMachine" node_paths=PackedStringArray("place", "toLock", "nextStateCause") instance=ExtResource("10_f2xcg")]
+[node name="Wait" parent="StateMachine" node_paths=PackedStringArray("place", "toLock") instance=ExtResource("10_f2xcg")]
 place = NodePath("../placeCard")
 toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../Deck")]
-nextStateCause = NodePath("../..")
 
-[node name="placeCard" parent="StateMachine" node_paths=PackedStringArray("toLock", "toUnlock", "nextStateCause") instance=ExtResource("11_mpsnw")]
+[node name="placeCard" parent="StateMachine" node_paths=PackedStringArray("flyHome", "Draw2", "toLock", "toUnlock") instance=ExtResource("11_mpsnw")]
+flyHome = NodePath("../Wait")
+Draw2 = NodePath("../Wait")
 toLock = [NodePath("../../Deck"), NodePath("../../FlyHome")]
 toUnlock = [NodePath("../../Board"), NodePath("../../Hand")]
-nextStateCause = NodePath("../../Board")
 
 [node name="TurnSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rek8b")

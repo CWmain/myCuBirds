@@ -5,12 +5,10 @@ extends State
 
 var birdsCollected: bool
 
-func _ready():
-	nextStateCause.birdsPlaced.connect(_birdState)
 
-func _birdState(value: bool):
+func _birdState(value: bool) -> State:
 	birdsCollected = value
-	_nextState()
+	return _nextState()
 
 func _nextState() -> State:
 	if birdsCollected:
