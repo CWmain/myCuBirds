@@ -7,6 +7,9 @@ extends Control
 @onready var board = $Board
 
 @onready var label = $Label
+@onready var state_machine = $StateMachine
+
+signal nextState
 
 var idToLabel: Dictionary
 var pointsDisplay = preload("res://Objects/PointDisplay/point_display.tscn")
@@ -25,10 +28,10 @@ func _ready():
 		print("Is client")
 
 	label.text = str(playerTurn)
-	deck.lockDeck()
-	hand.lockHand()
-	fly_home.lockFlyHome()
-	board.lockBoard()
+	deck.lockSelf()
+	hand.lockSelf()
+	fly_home.lockSelf()
+	board.lockSelf()
 		
 	for p in Global.PLAYERS:
 		idToLabel[p] = pointsDisplay.instantiate()
@@ -46,7 +49,7 @@ func _process(_delta):
 
 @rpc("any_peer", "call_local", "reliable")
 func nextTurn():
-	assert(multiplayer.get_unique_id() == 1, "Non-Host attempted to start next turn")
+	assert(multiplayer.is_server(), "Non-Host attempted to start next turn")
 	playerTurnIndex += 1
 	if playerTurnIndex >= Global.PLAYERS.size():
 		playerTurnIndex = 0
@@ -55,9 +58,10 @@ func nextTurn():
 
 @rpc("any_peer", "call_local", "reliable")
 func startTurn():
+	
 	print("Allow %s to place birds on board" % str(multiplayer.get_unique_id()))
-	hand.unlockHand()
-	board.unlockBoard()
+	state_machine.curState = state_machine.curState._nextState()
+	print("State: %s", str(state_machine.curState))
 
 @rpc("any_peer", "call_local", "reliable")
 func updatePoints(uid: int, cid: String, p: int):
@@ -68,33 +72,32 @@ func _on_button_pressed():
 	if playerTurn != multiplayer.get_unique_id():
 		print("NOT TURN")
 		return
-	hand.lockHand()
-	deck.lockDeck()
-	fly_home.lockFlyHome()
+	state_machine.curState = state_machine.states["Wait"]
+	state_machine.curState.stateActive()
 	nextTurn.rpc_id(1)
 
 
 func _on_board_birds_placed(birdsCollected: bool):
 	# Since birds have been placed lock hand
-	board.lockBoard()
-	hand.lockHand()
+	board.lockSelf()
+	hand.lockSelf()
 
 	if (birdsCollected == false):
-		deck.unlockDeck()
+		deck.unlockSelf()
 	else:
-		deck.lockDeck()
-		hand.unlockHand()
-		fly_home.unlockFlyHome()
+		deck.lockSelf()
+		hand.unlockSelf()
+		fly_home.unlockSelf()
 	print("Birds Collected: %s" % str(birdsCollected))
 
 
 func _on_deck_cards_drawn():
-	hand.unlockHand()
-	fly_home.unlockFlyHome()
+	hand.unlockSelf()
+	fly_home.unlockSelf()
 
 
 func _on_fly_home_flown_home():
-	fly_home.lockFlyHome()
-	hand.lockHand()
+	fly_home.lockSelf()
+	hand.lockSelf()
 	nextTurn.rpc_id(1)
 	

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgnl6mklarq8v"]
+
+[ext_resource type="Script" path="res://Objects/StateMachine/States/wait/wait.gd" id="1_e0c6f"]
+
+[node name="Wait" type="Node"]
+script = ExtResource("1_e0c6f")

@@ -25,7 +25,7 @@ var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
 
 func _ready():
 	container.add_theme_constant_override("separation", MAX_SEP)
-	lockHand()
+	lockSelf()
 	
 
 func _process(_delta):
@@ -86,12 +86,12 @@ func updateCardScale():
 	for c in container.get_children():
 		c.get_child(0).scale = Vector2(cardScale,cardScale)
 		
-func lockHand():
+func lockSelf():
 	locked = true
 	for c in container.get_children():
 		c.get_child(0).isActive = false
 		
-func unlockHand():
+func unlockSelf():
 	locked = false
 	for c in container.get_children():
 		c.get_child(0).isActive = true

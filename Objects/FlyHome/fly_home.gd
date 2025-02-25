@@ -48,10 +48,10 @@ func scoreFromBird(scoreCard: Object) -> int:
 		return 1
 	return 0
 
-func lockFlyHome():
+func lockSelf():
 	locked = true
 	
-func unlockFlyHome():
+func unlockSelf():
 	locked = false
 
 func _on_area_2d_area_entered(area):

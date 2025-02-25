@@ -31,11 +31,11 @@ func _ready():
 func _on_birds_placed(birdsCollected: bool):
 	birdsPlaced.emit(birdsCollected)
 	
-func lockBoard():
+func lockSelf():
 	for row in v_box_container.get_children():
 		row.locked = true
 		
-func unlockBoard():
+func unlockSelf():
 	for row in v_box_container.get_children():
 		row.locked = false
 

@@ -127,7 +127,7 @@ func newRoundCards():
 func _on_draw_pressed():
 	if !locked:
 		drawCardsToHand.rpc_id(1, 2)
-		lockDeck()
+		lockSelf()
 		cardsDrawn.emit()
 	else:
 		print("Deck Locked")
@@ -135,8 +135,8 @@ func _on_draw_pressed():
 func updateCardCount():
 	card_count_display.text = "Count: %d" % cards.size()
 
-func lockDeck():
+func lockSelf():
 	locked = true
 	
-func unlockDeck():
+func unlockSelf():
 	locked = false
