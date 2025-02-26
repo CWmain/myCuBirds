@@ -63,7 +63,6 @@ func nextTurn():
 
 @rpc("any_peer", "call_local", "reliable")
 func startTurn():
-	
 	print("Allow %s to place birds on board" % str(multiplayer.get_unique_id()))
 	curState = curState._nextState()
 	print("State: %s" % str(curState))
@@ -84,26 +83,14 @@ func _on_button_pressed():
 
 func _on_board_birds_placed(birdsCollected: bool):
 	curState = curState._birdState(birdsCollected)
-	# Since birds have been placed lock hand
-	#board.lockSelf()
-	#hand.lockSelf()
-#
-	#if (birdsCollected == false):
-		#deck.unlockSelf()
-	#else:
-		#deck.lockSelf()
-		#hand.unlockSelf()
-		#fly_home.unlockSelf()
 	print("Birds Collected: %s" % str(birdsCollected))
 
 
 func _on_deck_cards_drawn():
-	hand.unlockSelf()
-	fly_home.unlockSelf()
+	curState = curState._nextState()
 
 
 func _on_fly_home_flown_home():
-	fly_home.lockSelf()
-	hand.lockSelf()
+	curState = curState._nextState()
 	nextTurn.rpc_id(1)
 	

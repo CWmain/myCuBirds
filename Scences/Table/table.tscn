@@ -73,7 +73,7 @@ offset_bottom = 366.0
 localHand = NodePath("../Hand")
 localBoard = NodePath("../Board")
 cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("6_iijuq"), ExtResource("7_bn6yr"), ExtResource("8_fthec")])
-cardTypesCount = Array[int]([20, 7, 10])
+cardTypesCount = Array[int]([50, 7, 10])
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -102,14 +102,14 @@ toLock = [NodePath("../../Deck"), NodePath("../../FlyHome")]
 toUnlock = [NodePath("../../Board"), NodePath("../../Hand")]
 
 [node name="Draw2" parent="StateMachine" node_paths=PackedStringArray("flyHome", "toLock", "toUnlock") instance=ExtResource("12_0mkss")]
-flyHome = NodePath("../Wait")
+flyHome = NodePath("../Flyhome")
 toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand")]
 toUnlock = [NodePath("../../Deck")]
 
 [node name="Flyhome" parent="StateMachine" node_paths=PackedStringArray("wait", "toLock", "toUnlock") instance=ExtResource("13_rqou3")]
 wait = NodePath("../Wait")
-toLock = [NodePath("../../Hand"), NodePath("../../FlyHome")]
-toUnlock = [NodePath("../../Board"), NodePath("../../Deck")]
+toLock = [NodePath("../../Deck"), NodePath("../../Board")]
+toUnlock = [NodePath("../../FlyHome"), NodePath("../../Hand")]
 
 [node name="TurnSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rek8b")
