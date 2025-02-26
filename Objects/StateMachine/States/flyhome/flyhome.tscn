@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmitblctjxy5i"]
+
+[ext_resource type="Script" path="res://Objects/StateMachine/States/flyhome/Flyhome.gd" id="1_vnyx2"]
+
+[node name="Flyhome" type="Node"]
+script = ExtResource("1_vnyx2")
