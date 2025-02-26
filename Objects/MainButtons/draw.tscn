@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://bdxilk67qjg6k"]
+
+[node name="Draw" type="Button"]
+text = "Draw"

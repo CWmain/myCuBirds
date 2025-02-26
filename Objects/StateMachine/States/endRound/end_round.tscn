@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://csgkovoiwt1ph"]
+
+[ext_resource type="Script" path="res://Objects/StateMachine/States/endRound/end_round.gd" id="1_cftol"]
+
+[node name="EndRound" type="Node"]
+script = ExtResource("1_cftol")
