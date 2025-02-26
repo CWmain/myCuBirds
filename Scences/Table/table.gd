@@ -46,14 +46,6 @@ func _ready():
 		deck.setUpTable()		
 		startTurn.rpc_id(playerTurn)
 
-func _process(_delta):
-	# Temp placement to ensure that all clients have joined before running
-	if !temp:
-		temp = true
-		# Called here to ensure that all_points is set up to store the points
-		
-		
-
 @rpc("any_peer", "call_local", "reliable")
 func nextTurn():
 	assert(multiplayer.is_server(), "Non-Host attempted to start next turn")

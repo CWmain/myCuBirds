@@ -16,10 +16,14 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connect)
 
 func _process(_delta):
+	# Ensure loadedPeers are above 0, as when no one has connected 
+	# loadedPeers is equal to Players.size()-1 as the host is part of
+	# the list (0 == 0)
 	if loadedPeers > 0 and loadedPeers == Global.PLAYERS.size()-1:
 		get_tree().change_scene_to_packed(table)
-		
 
+# Assumed when tree is exited client has loaded into the game scene,
+# should think about how client's will disconect
 func _exit_tree():
 	# Inform the host that you have swapped scenes
 	if !multiplayer.is_server():
