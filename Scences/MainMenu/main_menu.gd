@@ -9,10 +9,21 @@ var table = preload("res://Scences/Table/table.tscn")
 
 @onready var lobby = $Lobby
 @onready var status = $Status
+var loadedPeers: int = 0
 
 func _ready():
 	multiplayer.connected_to_server.connect(_on_server_connect)
 	multiplayer.peer_connected.connect(_on_peer_connect)
+
+func _process(_delta):
+	if loadedPeers > 0 and loadedPeers == Global.PLAYERS.size()-1:
+		get_tree().change_scene_to_packed(table)
+		
+
+func _exit_tree():
+	# Inform the host that you have swapped scenes
+	if !multiplayer.is_server():
+		informExit.rpc_id(1)
 
 func _on_host_pressed():
 	var peer = ENetMultiplayerPeer.new()
@@ -40,6 +51,11 @@ func _on_start_pressed():
 	if multiplayer.is_server():
 		startGame.rpc()
 
-@rpc("call_local","authority", "reliable")
+@rpc("call_remote", "any_peer", "reliable")
+func informExit():
+	loadedPeers += 1;
+	
+
+@rpc("call_remote","authority", "reliable")
 func startGame():
 	get_tree().change_scene_to_packed(table)
