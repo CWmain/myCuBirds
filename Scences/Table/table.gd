@@ -7,7 +7,12 @@ extends Control
 @onready var board = $Board
 
 @onready var label = $Label
-@onready var state_machine = $StateMachine
+@onready var curState:
+	set(value):
+		curState = value
+		curState.stateActive()
+
+@onready var wait = $StateMachine/Wait
 
 signal nextState
 
@@ -26,7 +31,7 @@ func _ready():
 		print("Is host")
 	else:
 		print("Is client")
-
+	curState = wait
 	label.text = str(playerTurn)
 	deck.lockSelf()
 	hand.lockSelf()
@@ -60,8 +65,8 @@ func nextTurn():
 func startTurn():
 	
 	print("Allow %s to place birds on board" % str(multiplayer.get_unique_id()))
-	state_machine.curState = state_machine.curState._nextState()
-	print("State: %s", str(state_machine.curState))
+	curState = curState._nextState()
+	print("State: %s" % str(curState))
 
 @rpc("any_peer", "call_local", "reliable")
 func updatePoints(uid: int, cid: String, p: int):
@@ -72,13 +77,13 @@ func _on_button_pressed():
 	if playerTurn != multiplayer.get_unique_id():
 		print("NOT TURN")
 		return
-	state_machine.curState = state_machine.states["Wait"]
-	state_machine.curState.stateActive()
+	curState = wait
+	curState.stateActive()
 	nextTurn.rpc_id(1)
 
 
 func _on_board_birds_placed(birdsCollected: bool):
-	state_machine.curState = state_machine.curState._birdState(birdsCollected)
+	curState = curState._birdState(birdsCollected)
 	# Since birds have been placed lock hand
 	#board.lockSelf()
 	#hand.lockSelf()
