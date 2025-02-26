@@ -26,17 +26,15 @@ var pointsDisplay = preload("res://Objects/PointDisplay/point_display.tscn")
 		label.text = str(value)
 var playerTurnIndex: int = 0
 
+var temp: bool = false
+
 func _ready():
+	curState = wait
 	if multiplayer.is_server():
 		print("Is host")
 	else:
 		print("Is client")
-	curState = wait
 	label.text = str(playerTurn)
-	deck.lockSelf()
-	hand.lockSelf()
-	fly_home.lockSelf()
-	board.lockSelf()
 		
 	for p in Global.PLAYERS:
 		idToLabel[p] = pointsDisplay.instantiate()
@@ -44,13 +42,20 @@ func _ready():
 		idToLabel[p].setOwnerText(str(p))
 	
 	# Called here to ensure that all_points is set up to store the points
-	if multiplayer.is_server():
-		deck.setUpTable()
-		
-	startTurn.rpc_id(playerTurn)
+	#if multiplayer.is_server():
+		#deck.setUpTable()
+		#
+	#startTurn.rpc_id(playerTurn)
 
 func _process(_delta):
-	pass
+	if !temp:
+		temp = true
+		# Called here to ensure that all_points is set up to store the points
+		if multiplayer.is_server():
+			deck.setUpTable()
+			
+		startTurn.rpc_id(playerTurn)
+		
 
 @rpc("any_peer", "call_local", "reliable")
 func nextTurn():

@@ -115,13 +115,26 @@ func populateBoard(startingBoard: Array):
 		for j in range(startingBoard[i].size()):
 			allRows[i].addCardToBoard(startingBoard[i][j], allRows[i].RowSide.LEFT)
 
-@rpc("any_peer", "call_local", "reliable")
+
 func newRoundCards():
 	# Discard current hand
 	
-	# Draw 8 new cards
-	drawCardsToHand.rpc_id(1, 8)
-	pass
+	# Draw 8 new cards for each player
+	for p in Global.PLAYERS:
+		# Convert resource to string so it can be sent via rcp
+		var drawnCards: Array[String] = []
+		for i in range(8):
+			var attemptToAdd = cards.pop_front()
+			if attemptToAdd == null:
+				notEnoughCards()
+				attemptToAdd = cards.pop_front()
+			drawnCards.append(attemptToAdd)
+
+		print("%d: Am drawing cards" % p)
+
+		updateCardCount()
+			
+		addCardsToHand.rpc_id(p, drawnCards)
 
 ## Host is called to draw cards for the user
 func _on_draw_pressed():

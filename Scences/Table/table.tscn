@@ -73,7 +73,7 @@ offset_bottom = 366.0
 localHand = NodePath("../Hand")
 localBoard = NodePath("../Board")
 cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("6_iijuq"), ExtResource("7_bn6yr"), ExtResource("8_fthec")])
-cardTypesCount = Array[int]([50, 7, 10])
+cardTypesCount = Array[int]([50, 50, 50])
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
