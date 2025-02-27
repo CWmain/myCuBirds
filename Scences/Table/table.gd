@@ -79,16 +79,13 @@ func _on_board_birds_placed(birdsCollected: bool):
 	curState = curState._birdState(birdsCollected)
 	print("Birds Collected: %s" % str(birdsCollected))
 
-
 func _on_deck_cards_drawn():
 	curState = curState._nextState()
-
 
 func _on_fly_home_flown_home():
 	curState = curState._nextState()
 	nextTurn.rpc_id(1)
 	
-
 
 func _on_pass_pressed():
 	curState = curState._nextState()
@@ -96,10 +93,11 @@ func _on_pass_pressed():
 	if curState == wait:
 		nextTurn.rpc_id(1)
 
-
 func _on_draw_pressed():
 	deck._on_draw_pressed()
 
-
 func _on_end_round_pressed():
+	deck.triggerNewRound.rpc_id(1)
+	curState = curState._nextState()
+	nextTurn.rpc_id(1)
 	print("End the round and reset everyone's hands")

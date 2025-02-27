@@ -66,6 +66,12 @@ func notEnoughCards():
 	cards.shuffle()
 	updateCardCount()
 
+@rpc("authority", "call_local", "reliable")
+func discardHand():
+	for card in Global.cardsInHand:
+		# Remove from hand and add same card to discard pile
+		discardCard(var_to_str(card.data))
+		localHand.removeCard(card)
 
 ## cardToDiscard is a var_to_str of a CustomCard
 func discardCard(cardToDiscard: String):
@@ -117,10 +123,11 @@ func populateBoard(startingBoard: Array):
 
 
 func newRoundCards():
-	# Discard current hand
 	
-	# Draw 8 new cards for each player
+	# Discard the hand and Draw 8 new cards for each player
 	for p in Global.PLAYERS:
+		# Discard current hand
+		discardHand.rpc_id(p)
 		# Convert resource to string so it can be sent via rcp
 		var drawnCards: Array[String] = []
 		for i in range(8):
@@ -153,3 +160,8 @@ func lockSelf():
 	
 func unlockSelf():
 	locked = false
+
+@rpc("any_peer","call_local","reliable")
+func triggerNewRound():
+	assert(multiplayer.is_server())
+	newRoundCards()
