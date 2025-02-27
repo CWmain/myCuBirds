@@ -68,7 +68,8 @@ func notEnoughCards():
 
 @rpc("authority", "call_local", "reliable")
 func discardHand():
-	for card in Global.cardsInHand:
+	var localCardInHand: Array[Object] = Global.cardsInHand.duplicate()
+	for card in localCardInHand:
 		# Remove from hand and add same card to discard pile
 		discardCard(var_to_str(card.data))
 		localHand.removeCard(card)
@@ -137,7 +138,7 @@ func newRoundCards():
 				attemptToAdd = cards.pop_front()
 			drawnCards.append(attemptToAdd)
 
-		print("%d: Am drawing cards" % p)
+		print("%d: Am drawing %d cards" % [p, drawnCards.size()])
 
 		updateCardCount()
 			
