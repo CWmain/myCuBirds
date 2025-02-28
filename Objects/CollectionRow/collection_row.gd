@@ -94,8 +94,7 @@ func _process(_delta):
 		
 		# Ensure rightCard is reset
 		rightCard = null
-
-		
+	
 		
 func collectBirds(cid: String):
 	var birdsToCollect: Array[int] = findBirdsToCollect(cid)

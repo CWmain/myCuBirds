@@ -24,9 +24,9 @@ signal cardReleased
 
 func _ready():
 	assert(data != null)
-	assert(FileAccess.file_exists(data.image))
-	
 	label.text = str(data.small) + " / " + str(data.large)
+	
+	assert(FileAccess.file_exists(data.image))
 	icon.texture = load(data.image)
 
 func _process(delta):
