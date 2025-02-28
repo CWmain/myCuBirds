@@ -1,7 +1,8 @@
-extends Node2D
+extends Control
 
 const PORT = 8712
-const IP_ADDRESS = "127.0.0.1"
+# Lan IP Address
+var IP_ADDRESS = "192.168.0.99"
 const MAX_CLIENTS = 6
 
 
@@ -9,6 +10,7 @@ var table = preload("res://Scences/Table/table.tscn")
 
 @onready var lobby = $Lobby
 @onready var status = $Status
+@onready var text_edit = $VBoxContainer/TextEdit
 var loadedPeers: int = 0
 
 func _ready():
@@ -63,3 +65,7 @@ func informExit():
 @rpc("call_remote","authority", "reliable")
 func startGame():
 	get_tree().change_scene_to_packed(table)
+
+
+func _on_text_edit_text_changed():
+	IP_ADDRESS = text_edit.text
