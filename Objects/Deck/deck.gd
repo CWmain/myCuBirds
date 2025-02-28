@@ -60,9 +60,13 @@ func addCardsToHand(toAdd: Array):
 
 func notEnoughCards():
 	assert(cards.size() == 0, "Attempting we reshuffle discard into draw when non-empty")
-	assert(discardPile.size() != 0, "Discard Pile is empty")
+
+	if discardPile.size() == 0:
+		print("Trigger game over, winner is player with most points")
+		assert(false, "Need to implement game over")
 	# Reshuffle discard pile into draw pile
-	cards = discardPile
+	for c in discardPile:
+		cards.append(c)
 	cards.shuffle()
 	updateCardCount()
 
@@ -119,6 +123,7 @@ func populateBoard(startingBoard: Array):
 		for j in range(startingBoard[i].size()):
 			allRows[i].addCardToBoard(startingBoard[i][j], allRows[i].RowSide.LEFT)
 
+## Use this to access the deck
 func topCard() -> String:
 	var curCard = cards.pop_front()
 	if curCard == null:
