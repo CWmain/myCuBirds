@@ -15,7 +15,7 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 @export var MIN_SEP: int = 0
 @export var CARD_SCALE: float = 0.2
 @export var myHand: Hand
-
+@export var myDeck: Deck
 @onready var row = $Row
 var leftCard: Object = null
 var rightCard: Object = null
@@ -94,7 +94,10 @@ func _process(_delta):
 		
 		# Ensure rightCard is reset
 		rightCard = null
-	
+
+	if multiplayer.is_server() and allBirdsInRowSame():
+		var drawnCard: String = myDeck.topCard()
+		addCardToBoard.rpc(drawnCard, RowSide.RIGHT)
 		
 func collectBirds(cid: String):
 	var birdsToCollect: Array[int] = findBirdsToCollect(cid)
@@ -181,6 +184,21 @@ func moveBoardCardToHand(cardToMove: int):
 	myHand.addCardFromResource(curCard.data)
 	row.get_children()[cardToMove].queue_free()
 	curCard.queue_free()
+
+func allBirdsInRowSame() -> bool:
+	var rowChildren: Array = row.get_children()
+	var prev: String = "unset"
+	for childControl in rowChildren:
+		if !(childControl.get_child(0) is BaseCard):
+			continue
+		if prev == "unset":
+			prev = childControl.get_child(0).data.id
+			continue
+		if childControl.get_child(0).data.id != prev:
+			return false
+			
+	return true
+
 
 func _on_left_area_2d_area_entered(_area):
 	if locked:

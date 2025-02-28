@@ -1,10 +1,13 @@
 extends Control
 
+class_name Deck
+
 @export var localHand: Hand
 @export var localBoard: Board
 
 @export var cardTypes: Array[CustomCard]
 @export var cardTypesCount: Array[int]
+## var_to_str of custom_card
 @export var cards: Array[String]
 @export var discardPile: Array[String]
 
@@ -40,10 +43,7 @@ func drawCardsToHand(toDraw: int):
 	# Convert resource to string so it can be sent via rcp
 	var drawnCards: Array[String] = []
 	for i in range(toDraw):
-		var attemptToAdd = cards.pop_front()
-		if attemptToAdd == null:
-			notEnoughCards()
-			attemptToAdd = cards.pop_front()
+		var attemptToAdd = topCard()
 		drawnCards.append(attemptToAdd)
 
 	print("%d: Am drawing cards" % sender_id)
@@ -83,14 +83,14 @@ func setUpTable():
 	# Layout 4 rows of 3 cards, each row must contain unique cards
 	var startingBoard: Array = generateStartingBoard()
 	populateBoard.rpc(startingBoard)
-	updateCardCount()
 	# Give 8 birds to each player
 	newRoundCards()
 	# Draw 1 card and give the player the associated point
 	for p in Global.PLAYERS:
-		var scoreCard = cards.pop_front()
+		var scoreCard = topCard()
 		get_parent().updatePoints.rpc(p, str_to_var(scoreCard).id, 1)
-
+	updateCardCount()
+	
 # Generates a 4x3 board of cards drawn from the draw pile
 func generateStartingBoard() -> Array:
 	var i = 0
@@ -99,10 +99,7 @@ func generateStartingBoard() -> Array:
 		startingBoard.append([])
 		var j = 0
 		while j < 3:
-			var curCard = cards.pop_front()
-			if curCard == null:
-				notEnoughCards()
-				assert(false, "Ran out of cards making starting board")
+			var curCard = topCard()
 			if (startingBoard[i].has(curCard)):
 				print("Card Already placed so skip")
 				discardCard(curCard)
@@ -122,6 +119,14 @@ func populateBoard(startingBoard: Array):
 		for j in range(startingBoard[i].size()):
 			allRows[i].addCardToBoard(startingBoard[i][j], allRows[i].RowSide.LEFT)
 
+func topCard() -> String:
+	var curCard = cards.pop_front()
+	if curCard == null:
+		notEnoughCards()
+		curCard = cards.pop_front()
+		assert(curCard != null, "Ran out of cards making starting board")
+	updateCardCount()
+	return curCard
 
 func newRoundCards():
 	
@@ -132,10 +137,7 @@ func newRoundCards():
 		# Convert resource to string so it can be sent via rcp
 		var drawnCards: Array[String] = []
 		for i in range(8):
-			var attemptToAdd = cards.pop_front()
-			if attemptToAdd == null:
-				notEnoughCards()
-				attemptToAdd = cards.pop_front()
+			var attemptToAdd = topCard()
 			drawnCards.append(attemptToAdd)
 
 		print("%d: Am drawing %d cards" % [p, drawnCards.size()])

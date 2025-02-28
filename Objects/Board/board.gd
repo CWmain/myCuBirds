@@ -10,7 +10,7 @@ class_name Board
 @export var MIN_SEP: int = 0
 @export var CARD_SCALE: float = 0.15
 @export var myHand: Hand
-
+@export var myDeck: Deck
 @onready var v_box_container = $VBoxContainer
 
 signal birdsPlaced(birdsCollected: bool)
@@ -18,12 +18,14 @@ signal birdsPlaced(birdsCollected: bool)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assert(myHand != null, "Hand not assigned on Board")
+	assert(myDeck != null, "Deck not assinged on Board")
 	# Only the host can edit the board
 	for row in v_box_container.get_children():
 		row.MAX_SEP = MAX_SEP
 		row.MIN_SEP = MIN_SEP
 		row.CARD_SCALE = CARD_SCALE
 		row.myHand = myHand
+		row.myDeck = myDeck
 		row.locked = false
 		row.birdsPlaced.connect(_on_birds_placed)
 

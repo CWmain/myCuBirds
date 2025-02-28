@@ -41,13 +41,14 @@ grow_horizontal = 2
 grow_vertical = 2
 myHand = NodePath("../Hand")
 
-[node name="Board" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("5_3m5us")]
+[node name="Board" parent="." node_paths=PackedStringArray("myHand", "myDeck") instance=ExtResource("5_3m5us")]
 layout_mode = 1
 offset_top = -78.0
 offset_bottom = -38.0
 MAX_SEP = 96
 MIN_SEP = 16
 myHand = NodePath("../Hand")
+myDeck = NodePath("../Deck")
 
 [node name="Hand" parent="." instance=ExtResource("7_fr4bn")]
 layout_mode = 1
