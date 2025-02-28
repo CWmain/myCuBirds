@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CustomCard" load_steps=2 format=3 uid="uid://cabqix7cr4eys"]
+[gd_resource type="Resource" script_class="CustomCard" load_steps=3 format=3 uid="uid://cabqix7cr4eys"]
 
 [ext_resource type="Script" path="res://Objects/Cards/custom_card.gd" id="1_0v6s4"]
+[ext_resource type="Texture2D" uid="uid://bonlbiuxtqat" path="res://Objects/Cards/Flamingo/Flamingo.png" id="1_080il"]
 
 [resource]
 script = ExtResource("1_0v6s4")
 id = "flamingo"
 small = 2
 large = 3
-image = "res://Objects/Cards/Flamingo/Flamingo.png"
+image = ExtResource("1_080il")

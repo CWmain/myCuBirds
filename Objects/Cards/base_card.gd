@@ -26,8 +26,8 @@ func _ready():
 	assert(data != null)
 	label.text = str(data.small) + " / " + str(data.large)
 	
-	assert(FileAccess.file_exists(data.image))
-	icon.texture = load(data.image)
+	assert(data.image != null)
+	icon.texture = data.image
 
 func _process(delta):
 	# If card is inactive do nothing

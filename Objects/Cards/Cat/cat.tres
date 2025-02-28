@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CustomCard" load_steps=2 format=3 uid="uid://h5q2k2kx0mj1"]
+[gd_resource type="Resource" script_class="CustomCard" load_steps=3 format=3 uid="uid://h5q2k2kx0mj1"]
 
 [ext_resource type="Script" path="res://Objects/Cards/custom_card.gd" id="1_2xg35"]
+[ext_resource type="Texture2D" uid="uid://molds8erhw1g" path="res://Objects/Cards/Cat/Cat.png" id="1_ob84q"]
 
 [resource]
 script = ExtResource("1_2xg35")
 id = "cat"
 small = 1
 large = 2
-image = "res://Objects/Cards/Cat/Cat.png"
+image = ExtResource("1_ob84q")

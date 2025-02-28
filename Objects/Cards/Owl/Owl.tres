@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CustomCard" load_steps=2 format=3 uid="uid://cxk4wyluqi6rd"]
+[gd_resource type="Resource" script_class="CustomCard" load_steps=3 format=3 uid="uid://cxk4wyluqi6rd"]
 
 [ext_resource type="Script" path="res://Objects/Cards/custom_card.gd" id="1_34ona"]
+[ext_resource type="Texture2D" uid="uid://bl1f6tif5bhu5" path="res://Objects/Cards/Owl/Owl.png" id="1_a8bnc"]
 
 [resource]
 script = ExtResource("1_34ona")
 id = "owl"
 small = 3
 large = 4
-image = "res://Objects/Cards/Owl/Owl.png"
+image = ExtResource("1_a8bnc")
