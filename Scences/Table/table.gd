@@ -12,6 +12,7 @@ extends Control
 		curState = value
 		curState.stateActive()
 
+var main_menu = preload("res://Scences/MainMenu/main_menu.tscn")
 @onready var wait = $StateMachine/Wait
 
 signal nextState
@@ -41,10 +42,13 @@ func _ready():
 		all_points.add_child(idToLabel[p])
 		idToLabel[p].setOwnerText(str(p))
 	
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	
 	# Called here to ensure that all_points is set up to store the points
 	if multiplayer.is_server():
 		deck.setUpTable()		
 		startTurn.rpc_id(playerTurn)
+
 
 ## Any player can inform the host to start the next turn
 @rpc("any_peer", "call_local", "reliable")
@@ -94,3 +98,8 @@ func _on_draw_pressed():
 func _on_end_round_pressed():
 	deck.triggerNewRound.rpc_id(1)
 	curState = curState._nextState()
+
+func _on_server_disconnected():
+	multiplayer.multiplayer_peer = null
+	Global.PLAYERS.clear()
+	get_tree().change_scene_to_packed(main_menu)
