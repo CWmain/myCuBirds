@@ -14,6 +14,7 @@ extends Control
 
 var main_menu = load("res://Scences/MainMenu/main_menu.tscn")
 @onready var wait = $StateMachine/Wait
+@onready var win_screen = $WinScreen
 
 signal nextState
 
@@ -82,10 +83,28 @@ func _on_deck_cards_drawn():
 func checkGameOver():
 	# Check the point total for each player
 	for p in Global.PLAYERS:
+		var sevenSpecies: int = 0
+		var twoWithThree: int = 0
 		var playerPoints: Dictionary = idToLabel[p].scoreTracker
 		print(p)
 		for key in playerPoints:
+			if playerPoints[key] >= 3:
+				sevenSpecies += 1
+				twoWithThree += 1
+			elif playerPoints[key] > 0:
+				sevenSpecies += 1
 			print("%s: %d" % [key, playerPoints[key]])
+			
+		if sevenSpecies >= 7 or twoWithThree >= 2:
+			print("Attempting to endGame(1)")
+			endGame.rpc(str(p))
+	
+@rpc("any_peer","call_local","reliable")
+func endGame(winner: String):
+	print("Attempting to endGame")
+	win_screen.assignWinner(winner)
+	win_screen.show()
+
 
 # Loops back to wait, since wait does not trigger endturn manually call it
 func _on_fly_home_flown_home():
