@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=18 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_51q64"]
 [ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="2_e8ppo"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="7_e00qf"]
 [ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="8_gowg7"]
 [ext_resource type="Script" path="res://Objects/MainButtons/buttonLock.gd" id="9_3nhmk"]
+[ext_resource type="PackedScene" uid="uid://5u6g4ldrk4xy" path="res://Objects/WinScreen/win_screen.tscn" id="10_0f4is"]
 [ext_resource type="PackedScene" uid="uid://c1gs4cu8xto73" path="res://Objects/StateMachine/state_machine.tscn" id="10_8lu5u"]
 [ext_resource type="PackedScene" uid="uid://dgnl6mklarq8v" path="res://Objects/StateMachine/States/wait/wait.tscn" id="11_etb1q"]
 [ext_resource type="PackedScene" uid="uid://cnkxy5k0dpt8f" path="res://Objects/StateMachine/States/placeCard/place_card.tscn" id="12_huadr"]
@@ -60,16 +61,6 @@ MAX_SEP = 96
 MIN_SEP = 16
 metadata/_edit_use_anchors_ = true
 
-[node name="AllPoints" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.0601852
-anchor_bottom = 0.0601852
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 100
-metadata/_edit_use_anchors_ = true
-
 [node name="Deck" parent="." node_paths=PackedStringArray("localHand", "localBoard") instance=ExtResource("5_yalua")]
 offset_top = 326.0
 offset_bottom = 366.0
@@ -114,6 +105,19 @@ offset_left = 207.0
 offset_top = 98.0
 offset_right = 247.0
 offset_bottom = 121.0
+
+[node name="WinScreen" parent="." instance=ExtResource("10_0f4is")]
+layout_mode = 1
+
+[node name="AllPoints" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0601852
+anchor_bottom = 0.0601852
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 100
+metadata/_edit_use_anchors_ = true
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("curState") instance=ExtResource("10_8lu5u")]
 curState = NodePath("Wait")
