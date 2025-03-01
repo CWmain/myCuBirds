@@ -1,20 +1,20 @@
 [gd_scene load_steps=17 format=3 uid="uid://drm6nyaq22w1m"]
 
-[ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_nujd4"]
-[ext_resource type="PackedScene" uid="uid://b4wtukdksx2k1" path="res://Objects/Deck/deck.tscn" id="4_cpqd4"]
-[ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/Board/board.tscn" id="5_3m5us"]
-[ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="5_rb701"]
-[ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="6_iijuq"]
-[ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="7_bn6yr"]
-[ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="7_fr4bn"]
-[ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="8_fthec"]
-[ext_resource type="Script" path="res://Objects/MainButtons/buttonLock.gd" id="9_8ep1e"]
-[ext_resource type="PackedScene" uid="uid://c1gs4cu8xto73" path="res://Objects/StateMachine/state_machine.tscn" id="9_8x34f"]
-[ext_resource type="PackedScene" uid="uid://dgnl6mklarq8v" path="res://Objects/StateMachine/States/wait/wait.tscn" id="10_f2xcg"]
-[ext_resource type="PackedScene" uid="uid://cnkxy5k0dpt8f" path="res://Objects/StateMachine/States/placeCard/place_card.tscn" id="11_mpsnw"]
-[ext_resource type="PackedScene" uid="uid://co3misvhxtnjh" path="res://Objects/StateMachine/States/draw2/draw_2.tscn" id="12_0mkss"]
-[ext_resource type="PackedScene" uid="uid://cmitblctjxy5i" path="res://Objects/StateMachine/States/flyhome/flyhome.tscn" id="13_rqou3"]
-[ext_resource type="PackedScene" uid="uid://csgkovoiwt1ph" path="res://Objects/StateMachine/States/endRound/end_round.tscn" id="15_87xbv"]
+[ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_51q64"]
+[ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="2_e8ppo"]
+[ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/Board/board.tscn" id="3_c27w5"]
+[ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="4_ijx3e"]
+[ext_resource type="PackedScene" uid="uid://b4wtukdksx2k1" path="res://Objects/Deck/deck.tscn" id="5_yalua"]
+[ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="6_op8pj"]
+[ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="7_e00qf"]
+[ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="8_gowg7"]
+[ext_resource type="Script" path="res://Objects/MainButtons/buttonLock.gd" id="9_3nhmk"]
+[ext_resource type="PackedScene" uid="uid://c1gs4cu8xto73" path="res://Objects/StateMachine/state_machine.tscn" id="10_8lu5u"]
+[ext_resource type="PackedScene" uid="uid://dgnl6mklarq8v" path="res://Objects/StateMachine/States/wait/wait.tscn" id="11_etb1q"]
+[ext_resource type="PackedScene" uid="uid://cnkxy5k0dpt8f" path="res://Objects/StateMachine/States/placeCard/place_card.tscn" id="12_huadr"]
+[ext_resource type="PackedScene" uid="uid://co3misvhxtnjh" path="res://Objects/StateMachine/States/draw2/draw_2.tscn" id="13_qwfcs"]
+[ext_resource type="PackedScene" uid="uid://cmitblctjxy5i" path="res://Objects/StateMachine/States/flyhome/flyhome.tscn" id="14_toc50"]
+[ext_resource type="PackedScene" uid="uid://csgkovoiwt1ph" path="res://Objects/StateMachine/States/endRound/end_round.tscn" id="15_3aps7"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rek8b"]
 properties/0/path = NodePath(".:playerTurn")
@@ -28,9 +28,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nujd4")
+script = ExtResource("1_51q64")
 
-[node name="FlyHome" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("5_rb701")]
+[node name="FlyHome" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("2_e8ppo")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.944444
@@ -41,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 myHand = NodePath("../Hand")
 
-[node name="Board" parent="." node_paths=PackedStringArray("myHand", "myDeck") instance=ExtResource("5_3m5us")]
+[node name="Board" parent="." node_paths=PackedStringArray("myHand", "myDeck") instance=ExtResource("3_c27w5")]
 layout_mode = 1
 offset_top = -78.0
 offset_bottom = -38.0
@@ -50,7 +50,7 @@ MIN_SEP = 16
 myHand = NodePath("../Hand")
 myDeck = NodePath("../Deck")
 
-[node name="Hand" parent="." instance=ExtResource("7_fr4bn")]
+[node name="Hand" parent="." instance=ExtResource("4_ijx3e")]
 layout_mode = 1
 anchors_preset = -1
 offset_bottom = 40.0
@@ -70,12 +70,12 @@ offset_bottom = 40.0
 theme_override_constants/separation = 100
 metadata/_edit_use_anchors_ = true
 
-[node name="Deck" parent="." node_paths=PackedStringArray("localHand", "localBoard") instance=ExtResource("4_cpqd4")]
+[node name="Deck" parent="." node_paths=PackedStringArray("localHand", "localBoard") instance=ExtResource("5_yalua")]
 offset_top = 326.0
 offset_bottom = 366.0
 localHand = NodePath("../Hand")
 localBoard = NodePath("../Board")
-cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("6_iijuq"), ExtResource("7_bn6yr"), ExtResource("8_fthec")])
+cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("6_op8pj"), ExtResource("7_e00qf"), ExtResource("8_gowg7")])
 cardTypesCount = Array[int]([50, 50, 50])
 
 [node name="MainButtons" type="HBoxContainer" parent="."]
@@ -94,19 +94,19 @@ grow_vertical = 2
 [node name="Draw" type="Button" parent="MainButtons"]
 layout_mode = 2
 text = "Draw"
-script = ExtResource("9_8ep1e")
+script = ExtResource("9_3nhmk")
 
 [node name="Pass" type="Button" parent="MainButtons"]
 layout_mode = 2
 text = "Pass
 "
-script = ExtResource("9_8ep1e")
+script = ExtResource("9_3nhmk")
 
 [node name="End Round" type="Button" parent="MainButtons"]
 layout_mode = 2
 text = "End Round
 "
-script = ExtResource("9_8ep1e")
+script = ExtResource("9_3nhmk")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -115,31 +115,31 @@ offset_top = 98.0
 offset_right = 247.0
 offset_bottom = 121.0
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("curState") instance=ExtResource("9_8x34f")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("curState") instance=ExtResource("10_8lu5u")]
 curState = NodePath("Wait")
 
-[node name="Wait" parent="StateMachine" node_paths=PackedStringArray("place", "toLock") instance=ExtResource("10_f2xcg")]
+[node name="Wait" parent="StateMachine" node_paths=PackedStringArray("place", "toLock") instance=ExtResource("11_etb1q")]
 place = NodePath("../placeCard")
 toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../Deck"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]
 
-[node name="placeCard" parent="StateMachine" node_paths=PackedStringArray("flyHome", "Draw2", "toLock", "toUnlock") instance=ExtResource("11_mpsnw")]
+[node name="placeCard" parent="StateMachine" node_paths=PackedStringArray("flyHome", "Draw2", "toLock", "toUnlock") instance=ExtResource("12_huadr")]
 flyHome = NodePath("../Flyhome")
 Draw2 = NodePath("../Draw2")
 toLock = [NodePath("../../Deck"), NodePath("../../FlyHome"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]
 toUnlock = [NodePath("../../Board"), NodePath("../../Hand")]
 
-[node name="Draw2" parent="StateMachine" node_paths=PackedStringArray("flyHome", "toLock", "toUnlock") instance=ExtResource("12_0mkss")]
+[node name="Draw2" parent="StateMachine" node_paths=PackedStringArray("flyHome", "toLock", "toUnlock") instance=ExtResource("13_qwfcs")]
 flyHome = NodePath("../Flyhome")
 toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../MainButtons/End Round")]
 toUnlock = [NodePath("../../Deck"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass")]
 
-[node name="Flyhome" parent="StateMachine" node_paths=PackedStringArray("wait", "endRound", "toLock", "toUnlock") instance=ExtResource("13_rqou3")]
+[node name="Flyhome" parent="StateMachine" node_paths=PackedStringArray("wait", "endRound", "toLock", "toUnlock") instance=ExtResource("14_toc50")]
 wait = NodePath("../Wait")
 endRound = NodePath("../EndRound")
 toLock = [NodePath("../../Deck"), NodePath("../../Board"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/End Round")]
 toUnlock = [NodePath("../../FlyHome"), NodePath("../../Hand"), NodePath("../../MainButtons/Pass")]
 
-[node name="EndRound" parent="StateMachine" node_paths=PackedStringArray("placeCard", "toLock", "toUnlock") instance=ExtResource("15_87xbv")]
+[node name="EndRound" parent="StateMachine" node_paths=PackedStringArray("placeCard", "toLock", "toUnlock") instance=ExtResource("15_3aps7")]
 placeCard = NodePath("../placeCard")
 toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../Deck"), NodePath("../../MainButtons/Draw")]
 toUnlock = [NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]

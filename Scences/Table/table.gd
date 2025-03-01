@@ -12,7 +12,7 @@ extends Control
 		curState = value
 		curState.stateActive()
 
-var main_menu = preload("res://Scences/MainMenu/main_menu.tscn")
+var main_menu = load("res://Scences/MainMenu/main_menu.tscn")
 @onready var wait = $StateMachine/Wait
 
 signal nextState
