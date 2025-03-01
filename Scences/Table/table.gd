@@ -79,9 +79,18 @@ func _on_board_birds_placed(birdsCollected: bool):
 func _on_deck_cards_drawn():
 	curState = curState._nextState()
 
+func checkGameOver():
+	# Check the point total for each player
+	for p in Global.PLAYERS:
+		var playerPoints: Dictionary = idToLabel[p].scoreTracker
+		print(p)
+		for key in playerPoints:
+			print("%s: %d" % [key, playerPoints[key]])
+
 # Loops back to wait, since wait does not trigger endturn manually call it
 func _on_fly_home_flown_home():
 	curState = curState._nextState()
+	checkGameOver()
 	# If we have cycled to wait, than trigger next turn
 	if curState == wait:
 		nextTurn.rpc_id(1)

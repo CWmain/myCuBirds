@@ -18,6 +18,7 @@ script = ExtResource("1_mfqo1")
 cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("2_gr88b"), ExtResource("3_m56lq"), ExtResource("4_7ofw1")])
 
 [node name="PlayerName" type="Label" parent="."]
+layout_mode = 0
 offset_top = -27.0
 offset_right = 38.0
 offset_bottom = -4.0

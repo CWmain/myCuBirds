@@ -31,9 +31,9 @@ func _process(delta):
 					myHand.removeCard(c)
 					
 			# Since cards are flown home emit
+			get_parent().updatePoints.rpc(multiplayer.get_unique_id(), cardHeld.data.id, pointsEarned)
 			flownHome.emit()
 
-		get_parent().updatePoints.rpc(multiplayer.get_unique_id(), cardHeld.data.id, pointsEarned)
 
 ## Get the score associated with the amount of birds flown home
 ## Returns 0 on fail, 1 on min met and 2 on max met
