@@ -46,6 +46,7 @@ func _ready():
 		deck.setUpTable()		
 		startTurn.rpc_id(playerTurn)
 
+## Any player can inform the host to start the next turn
 @rpc("any_peer", "call_local", "reliable")
 func nextTurn():
 	assert(multiplayer.is_server(), "Non-Host attempted to start next turn")
@@ -55,7 +56,8 @@ func nextTurn():
 	playerTurn = Global.PLAYERS[playerTurnIndex]
 	startTurn.rpc_id(playerTurn)
 
-@rpc("any_peer", "call_local", "reliable")
+## Sets the currrent turns players state to placeCard
+@rpc("authority", "call_local", "reliable")
 func startTurn():
 	print("Allow %s to place birds on board" % str(multiplayer.get_unique_id()))
 	curState = curState._nextState()
@@ -65,15 +67,6 @@ func startTurn():
 func updatePoints(uid: int, cid: String, p: int):
 	assert(idToLabel.has(uid), "UID not in idToLabel\n"+str(idToLabel))
 	idToLabel[uid].addPoints(cid, p)
-	
-func _on_button_pressed():
-	if playerTurn != multiplayer.get_unique_id():
-		print("NOT TURN")
-		return
-	curState = wait
-	curState.stateActive()
-	nextTurn.rpc_id(1)
-
 
 func _on_board_birds_placed(birdsCollected: bool):
 	curState = curState._birdState(birdsCollected)
@@ -82,10 +75,10 @@ func _on_board_birds_placed(birdsCollected: bool):
 func _on_deck_cards_drawn():
 	curState = curState._nextState()
 
+# Loops back to wait, since wait does not trigger endturn manually call it
 func _on_fly_home_flown_home():
 	curState = curState._nextState()
 	nextTurn.rpc_id(1)
-	
 
 func _on_pass_pressed():
 	curState = curState._nextState()
@@ -100,4 +93,3 @@ func _on_end_round_pressed():
 	deck.triggerNewRound.rpc_id(1)
 	curState = curState._nextState()
 	nextTurn.rpc_id(1)
-	print("End the round and reset everyone's hands")
