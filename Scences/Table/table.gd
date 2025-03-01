@@ -78,7 +78,9 @@ func _on_deck_cards_drawn():
 # Loops back to wait, since wait does not trigger endturn manually call it
 func _on_fly_home_flown_home():
 	curState = curState._nextState()
-	nextTurn.rpc_id(1)
+	# If we have cycled to wait, than trigger next turn
+	if curState == wait:
+		nextTurn.rpc_id(1)
 
 func _on_pass_pressed():
 	curState = curState._nextState()
@@ -92,4 +94,3 @@ func _on_draw_pressed():
 func _on_end_round_pressed():
 	deck.triggerNewRound.rpc_id(1)
 	curState = curState._nextState()
-	nextTurn.rpc_id(1)

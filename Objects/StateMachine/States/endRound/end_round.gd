@@ -1,6 +1,6 @@
 extends State
 
-@export var wait: State
+@export var placeCard: State
 
 func _nextState() -> State:
-	return wait
+	return placeCard

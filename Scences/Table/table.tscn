@@ -139,10 +139,10 @@ endRound = NodePath("../EndRound")
 toLock = [NodePath("../../Deck"), NodePath("../../Board"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/End Round")]
 toUnlock = [NodePath("../../FlyHome"), NodePath("../../Hand"), NodePath("../../MainButtons/Pass")]
 
-[node name="EndRound" parent="StateMachine" node_paths=PackedStringArray("wait", "toLock", "toUnlock") instance=ExtResource("15_87xbv")]
-wait = NodePath("../Wait")
-toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../MainButtons/Draw")]
-toUnlock = [NodePath("../../Deck"), NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]
+[node name="EndRound" parent="StateMachine" node_paths=PackedStringArray("placeCard", "toLock", "toUnlock") instance=ExtResource("15_87xbv")]
+placeCard = NodePath("../placeCard")
+toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../Deck"), NodePath("../../MainButtons/Draw")]
+toUnlock = [NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]
 
 [node name="TurnSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rek8b")
