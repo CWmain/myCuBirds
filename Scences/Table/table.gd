@@ -28,7 +28,10 @@ var pointsDisplay = preload("res://Objects/PointDisplay/point_display.tscn")
 		label.text = str(value)
 var playerTurnIndex: int = 0
 
-var temp: bool = false
+var loadedPeers: int = 0
+
+var mainMenuBool: bool = false
+var reloadTable: bool = false
 
 func _ready():
 	curState = wait
@@ -50,6 +53,10 @@ func _ready():
 		deck.setUpTable()		
 		startTurn.rpc_id(playerTurn)
 
+func _process(_delta):
+	if Input.is_action_just_pressed("DebugWin"):
+		endGame.rpc("Debug")
+		
 
 ## Any player can inform the host to start the next turn
 @rpc("any_peer", "call_local", "reliable")
@@ -131,3 +138,35 @@ func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
 	Global.PLAYERS.clear()
 	get_tree().change_scene_to_packed(main_menu)
+
+func _exit_tree():
+	print("\nExited tree\n")
+	Global.cardsInHand.clear()
+	Global.isHolding = null
+	if !multiplayer.is_server():
+		informExit.rpc_id(1)
+
+@rpc("call_remote", "any_peer", "reliable")
+func informExit():
+	loadedPeers += 1;
+	if mainMenuBool and loadedPeers == Global.PLAYERS.size()-1:
+		get_tree().change_scene_to_packed(main_menu)
+	if reloadTable and loadedPeers == Global.PLAYERS.size()-1:
+		get_tree().reload_current_scene()
+
+@rpc("call_remote","authority", "reliable")
+func GoToMainMenu():
+	get_tree().change_scene_to_packed(main_menu)
+	
+@rpc("call_remote","authority", "reliable")
+func GoToTable():
+	get_tree().reload_current_scene()
+	
+func _on_win_screen_main_menu():
+	mainMenuBool = true
+	GoToMainMenu.rpc()
+
+
+func _on_win_screen_rematch():
+	reloadTable = true
+	GoToTable.rpc()

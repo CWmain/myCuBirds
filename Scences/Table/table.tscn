@@ -158,3 +158,5 @@ replication_config = SubResource("SceneReplicationConfig_rek8b")
 [connection signal="pressed" from="MainButtons/Draw" to="." method="_on_draw_pressed"]
 [connection signal="pressed" from="MainButtons/Pass" to="." method="_on_pass_pressed"]
 [connection signal="pressed" from="MainButtons/End Round" to="." method="_on_end_round_pressed"]
+[connection signal="main_menu" from="WinScreen" to="." method="_on_win_screen_main_menu"]
+[connection signal="rematch" from="WinScreen" to="." method="_on_win_screen_rematch"]
