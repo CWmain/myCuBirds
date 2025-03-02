@@ -45,3 +45,18 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Cameron"
 horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Rematch" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Rematch"
+
+[node name="MainMenu" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Main Menu
+"
+
+[connection signal="pressed" from="VBoxContainer/Buttons/Rematch" to="." method="_on_rematch_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
