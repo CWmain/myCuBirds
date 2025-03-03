@@ -175,6 +175,8 @@ func GoToTable():
 	get_tree().reload_current_scene()
 	
 func _on_win_screen_main_menu():
+	if !multiplayer.is_server():
+		multiplayer.multiplayer_peer.disconnect_peer(1)
 	mainMenuBool = true
 	GoToMainMenu.rpc()
 
