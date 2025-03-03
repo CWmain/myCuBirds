@@ -47,6 +47,7 @@ func _ready():
 		idToLabel[p].setOwnerText(str(p))
 	
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	
 	# Called here to ensure that all_points is set up to store the points
 	if multiplayer.is_server():
@@ -139,6 +140,16 @@ func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
 	Global.clearGlobals()
 	get_tree().change_scene_to_packed(main_menu)
+
+## Remove all references to Player
+func _on_peer_disconnected(id: int):
+	# If you are host and it is peers turn, go to next turn
+	if multiplayer.is_server() and playerTurn == id:
+		nextTurn.rpc_id(1)
+	# Remove peers points from AllPoints
+	idToLabel[id].queue_free()
+	idToLabel.erase(id)
+	Global.PLAYERS.erase(id)
 
 func _exit_tree():
 	print("\nExited tree\n")
