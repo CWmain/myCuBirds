@@ -134,9 +134,10 @@ func _on_end_round_pressed():
 	deck.triggerNewRound.rpc_id(1)
 	curState = curState._nextState()
 
+## When the server goes down, disconnect from server
 func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
-	Global.PLAYERS.clear()
+	Global.clearGlobals()
 	get_tree().change_scene_to_packed(main_menu)
 
 func _exit_tree():
@@ -170,3 +171,4 @@ func _on_win_screen_main_menu():
 func _on_win_screen_rematch():
 	reloadTable = true
 	GoToTable.rpc()
+
