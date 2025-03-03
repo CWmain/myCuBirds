@@ -48,7 +48,8 @@ func _ready():
 	
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-	
+	multiplayer.peer_connected.connect(_refuse_new_connection)
+
 	# Called here to ensure that all_points is set up to store the points
 	if multiplayer.is_server():
 		deck.setUpTable()		
@@ -143,6 +144,11 @@ func _on_server_disconnected():
 
 ## Remove all references to Player
 func _on_peer_disconnected(id: int):
+	# Preventing the disconnect signal causes weird errors, therefore allow
+	# disconnect signal and filter out new connects here 
+	if (!Global.PLAYERS.has(id)):
+		return
+	print("Disconnect Peer Triggered")
 	# If you are host and it is peers turn, go to next turn
 	if multiplayer.is_server() and playerTurn == id:
 		nextTurn.rpc_id(1)
@@ -150,6 +156,13 @@ func _on_peer_disconnected(id: int):
 	idToLabel[id].queue_free()
 	idToLabel.erase(id)
 	Global.PLAYERS.erase(id)
+
+func _refuse_new_connection(id: int):
+	if multiplayer.is_server():
+		# Preventing the disconnect signal causes weird errors, therefore allow
+		# disconnect signal and filter out in _on_peer_disconnect()
+		multiplayer.multiplayer_peer.disconnect_peer(id, false)
+	
 
 func _exit_tree():
 	print("\nExited tree\n")

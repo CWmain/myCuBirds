@@ -20,6 +20,9 @@ var loadedPeers: int = 0
 func _ready():
 	multiplayer.connected_to_server.connect(_on_server_connect)
 	multiplayer.peer_connected.connect(_on_peer_connect)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+	multiplayer.server_disconnected.connect(_on_server_disconnect)
+	multiplayer.connection_failed.connect(_on_server_disconnect)
 
 	if Global.PLAYERS.size() > 0:
 		toggleButtons()
@@ -28,6 +31,7 @@ func _process(_delta):
 	# Ensure loadedPeers are above 0, as when no one has connected 
 	# loadedPeers is equal to Players.size()-1 as the host is part of
 	# the list (0 == 0)
+
 	if loadedPeers > 0 and loadedPeers == Global.PLAYERS.size()-1:
 		get_tree().change_scene_to_packed(table)
 
@@ -43,6 +47,11 @@ func toggleButtons():
 	join.disabled = true
 	if !multiplayer.is_server():
 		start.disabled = true
+
+func resetButtons():
+	host.disabled = false
+	join.disabled = false
+	start.disabled = false
 
 func _on_host_pressed():
 	var peer = ENetMultiplayerPeer.new()
@@ -68,6 +77,15 @@ func _on_server_connect():
 func _on_peer_connect(id: int):
 	lobby.addUser(id)
 	Global.PLAYERS.append(id)
+
+func _on_peer_disconnected(id: int):
+	Global.PLAYERS.erase(id)
+	lobby.eraseUser(id)
+
+func _on_server_disconnect():
+	Global.PLAYERS.clear()
+	lobby.clearUsers()
+	resetButtons()
 
 func _on_start_pressed():
 	if multiplayer.is_server():
