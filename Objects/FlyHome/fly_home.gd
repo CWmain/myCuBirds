@@ -1,6 +1,7 @@
 extends Control
 
 @export var myHand: Hand
+@export var myDeck: Deck
 @onready var indicator = $Indicator
 var cardHeld: Object = null
 
@@ -9,6 +10,7 @@ signal flownHome
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assert(myHand != null)
+	assert(myDeck != null)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,7 +29,8 @@ func _process(delta):
 			var localCardsInHand: Array = Global.cardsInHand.duplicate()
 			for c in localCardsInHand:
 				if c.data.id == cardHeld.data.id:
-					# Free the parent control and than itself
+					# Free the parent control and than itself while adding to discard pile
+					myDeck.clientDiscardHand.rpc_id(1,var_to_str(c.data))
 					myHand.removeCard(c)
 					
 			# Since cards are flown home emit

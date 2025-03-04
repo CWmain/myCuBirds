@@ -11,12 +11,17 @@ class_name Deck
 @export var cards: Array[String]
 @export var discardPile: Array[String]
 
-@onready var card_count_display = $CardCountDisplay
+@onready var discard_count_display = $HBoxContainer/DiscardCountDisplay
+@onready var card_count_display = $HBoxContainer/CardCountDisplay
 @onready var cards_sync = $cardsSync
+
+## A card which topCard gives once all cards are exhausted to prevent errors
+## Should be find as endgame is triggered 
+@export var failCard: CustomCard
 
 var locked: bool = false
 signal cardsDrawn
-
+signal outOfCards
 func _ready():
 	assert(localHand != null, "Assign hand")
 	assert(localBoard != null, "Assign board")
@@ -64,10 +69,13 @@ func notEnoughCards():
 
 	if discardPile.size() == 0:
 		print("Trigger game over, winner is player with most points")
-		assert(false, "Need to implement game over")
+		outOfCards.emit()
+		return
+		
 	# Reshuffle discard pile into draw pile
 	for c in discardPile:
 		cards.append(c)
+	discardPile.clear()
 	cards.shuffle()
 	updateCardCount()
 
@@ -79,9 +87,16 @@ func discardHand():
 		discardCard(var_to_str(card.data))
 		localHand.removeCard(card)
 
+## discard hand to be used on clients, who call it on host
+@rpc("any_peer","call_local","reliable")
+func clientDiscardHand(cardToDiscard: String):
+	assert(multiplayer.is_server(), "Attempting to call discard hand on client")
+	discardCard(cardToDiscard)
+
 ## cardToDiscard is a var_to_str of a CustomCard
 func discardCard(cardToDiscard: String):
 	discardPile.append(cardToDiscard)
+	updateCardCount()
 
 # Called by the host and causes the game board to be set up
 func setUpTable():
@@ -130,6 +145,9 @@ func topCard() -> String:
 	if curCard == null:
 		notEnoughCards()
 		curCard = cards.pop_front()
+		if (curCard == null):
+			print("Ran out of cards in deck")
+			curCard = var_to_str(failCard)
 		assert(curCard != null, "Ran out of cards making starting board")
 	updateCardCount()
 	return curCard
@@ -163,6 +181,7 @@ func _on_draw_pressed():
 
 func updateCardCount():
 	card_count_display.text = "Count: %d" % cards.size()
+	discard_count_display.text = "Discard: %d" % discardPile.size()
 
 func lockSelf():
 	locked = true

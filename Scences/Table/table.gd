@@ -59,6 +59,9 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("DebugWin"):
 		endGame.rpc("Debug")
+	if Input.is_action_just_pressed("RemoveCardsInDeck"):
+		deck.cards.clear()
+		deck.updateCardCount()
 		
 
 ## Any player can inform the host to start the next turn
@@ -202,3 +205,8 @@ func _on_win_screen_rematch():
 func _on_end_round_end_round():
 	deck.triggerNewRound.rpc_id(1)
 	curState = curState._nextState()
+
+
+func _on_deck_out_of_cards():
+	print("OUT OF CARDS!!!")
+	endGame.rpc("Out of cards!!!")

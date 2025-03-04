@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=24 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_51q64"]
 [ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="2_e8ppo"]
 [ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/Board/board.tscn" id="3_c27w5"]
 [ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="4_ijx3e"]
 [ext_resource type="PackedScene" uid="uid://b4wtukdksx2k1" path="res://Objects/Deck/deck.tscn" id="5_yalua"]
+[ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="6_op8pj"]
 [ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="7_e00qf"]
 [ext_resource type="Resource" uid="uid://cnht6ic7khq3g" path="res://Objects/Cards/Tucan/Tucan.tres" id="8_a0kue"]
 [ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="8_gowg7"]
@@ -36,7 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_51q64")
 
-[node name="FlyHome" parent="." node_paths=PackedStringArray("myHand") instance=ExtResource("2_e8ppo")]
+[node name="FlyHome" parent="." node_paths=PackedStringArray("myHand", "myDeck") instance=ExtResource("2_e8ppo")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.944444
@@ -46,6 +47,7 @@ anchor_bottom = 0.0817901
 grow_horizontal = 2
 grow_vertical = 2
 myHand = NodePath("../Hand")
+myDeck = NodePath("../Deck")
 
 [node name="Board" parent="." node_paths=PackedStringArray("myHand", "myDeck") instance=ExtResource("3_c27w5")]
 layout_mode = 1
@@ -78,6 +80,7 @@ localHand = NodePath("../Hand")
 localBoard = NodePath("../Board")
 cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("7_e00qf"), ExtResource("8_gowg7"), ExtResource("8_a0kue"), ExtResource("9_krynu"), ExtResource("10_agcot"), ExtResource("11_wmced"), ExtResource("12_shty0"), ExtResource("13_6n3m1")])
 cardTypesCount = Array[int]([7, 10, 10, 13, 13, 17, 20, 20])
+failCard = ExtResource("6_op8pj")
 metadata/_edit_use_anchors_ = true
 
 [node name="MainButtons" type="HBoxContainer" parent="."]
@@ -172,6 +175,7 @@ replication_config = SubResource("SceneReplicationConfig_rek8b")
 [connection signal="flownHome" from="FlyHome" to="." method="_on_fly_home_flown_home"]
 [connection signal="birdsPlaced" from="Board" to="." method="_on_board_birds_placed"]
 [connection signal="cardsDrawn" from="Deck" to="." method="_on_deck_cards_drawn"]
+[connection signal="outOfCards" from="Deck" to="." method="_on_deck_out_of_cards"]
 [connection signal="pressed" from="MainButtons/Draw" to="." method="_on_draw_pressed"]
 [connection signal="pressed" from="MainButtons/Pass" to="." method="_on_pass_pressed"]
 [connection signal="pressed" from="MainButtons/End Round" to="." method="_on_end_round_pressed"]
