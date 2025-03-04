@@ -14,7 +14,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	# If locked do nothing
 	if locked:
 		return
@@ -57,11 +57,11 @@ func lockSelf():
 func unlockSelf():
 	locked = false
 
-func _on_area_2d_area_entered(area):
+func _on_area_2d_area_entered(_area):
 	indicator.color = Color(0,0,0,1)
 	cardHeld = Global.isHolding
 
 
-func _on_area_2d_area_exited(area):
+func _on_area_2d_area_exited(_area):
 	indicator.color = Color(1,1,1,1)
 	cardHeld = null

@@ -114,7 +114,7 @@ func setUpTable():
 # Generates a 4x3 board of cards drawn from the draw pile
 func generateStartingBoard() -> Array:
 	var i = 0
-	var startingBoard: Array
+	var startingBoard: Array = []
 	while i < 4:
 		startingBoard.append([])
 		var j = 0
