@@ -28,6 +28,7 @@ func _ready():
 		generateCardArray()
 	cards.shuffle()
 	updateCardCount()
+	print("Number of Starting Cards: %d" % cards.size() )
 
 func generateCardArray():
 	assert(cardTypes.size() == cardTypesCount.size(), "cardTypes and cardTypesCount size do not equal")
