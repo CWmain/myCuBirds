@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CustomCard" load_steps=3 format=3 uid="uid://cnht6ic7khq3g"]
+
+[ext_resource type="Texture2D" uid="uid://bqastkpgwqwn0" path="res://Objects/Cards/Tucan/Tucan.png" id="1_tu6u5"]
+[ext_resource type="Script" path="res://Objects/Cards/custom_card.gd" id="1_xpqwk"]
+
+[resource]
+script = ExtResource("1_xpqwk")
+id = "Tucan"
+small = 3
+large = 4
+image = ExtResource("1_tu6u5")

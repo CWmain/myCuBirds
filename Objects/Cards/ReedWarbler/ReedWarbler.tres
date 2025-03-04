@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CustomCard" load_steps=3 format=3 uid="uid://clm1j1skr7rcn"]
+
+[ext_resource type="Script" path="res://Objects/Cards/custom_card.gd" id="1_0igqp"]
+[ext_resource type="Texture2D" uid="uid://cybbxoxyijncb" path="res://Objects/Cards/ReedWarbler/ReedWarbler.png" id="1_ttpr1"]
+
+[resource]
+script = ExtResource("1_0igqp")
+id = "ReedWarbler"
+small = 6
+large = 9
+image = ExtResource("1_ttpr1")

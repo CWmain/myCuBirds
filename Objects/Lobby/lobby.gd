@@ -22,7 +22,7 @@ func eraseUser(id: int):
 		if user.text == str(id):
 			user.queue_free()
 			return
-	assert(true, "%d: No such id in lobby" % id)
+	assert(false, "%d: No such id in lobby" % id)
 
 func clearUsers():
 	for user in v_box_container.get_children():

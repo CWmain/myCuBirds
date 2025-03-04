@@ -1,18 +1,23 @@
-[gd_scene load_steps=18 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=23 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_51q64"]
 [ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="2_e8ppo"]
 [ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/Board/board.tscn" id="3_c27w5"]
 [ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="4_ijx3e"]
 [ext_resource type="PackedScene" uid="uid://b4wtukdksx2k1" path="res://Objects/Deck/deck.tscn" id="5_yalua"]
-[ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="6_op8pj"]
 [ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="7_e00qf"]
+[ext_resource type="Resource" uid="uid://cnht6ic7khq3g" path="res://Objects/Cards/Tucan/Tucan.tres" id="8_a0kue"]
 [ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="8_gowg7"]
 [ext_resource type="Script" path="res://Objects/MainButtons/buttonLock.gd" id="9_3nhmk"]
+[ext_resource type="Resource" uid="uid://bx2ej35n4xxlf" path="res://Objects/Cards/Duck/Duck.tres" id="9_krynu"]
 [ext_resource type="PackedScene" uid="uid://5u6g4ldrk4xy" path="res://Objects/WinScreen/win_screen.tscn" id="10_0f4is"]
 [ext_resource type="PackedScene" uid="uid://c1gs4cu8xto73" path="res://Objects/StateMachine/state_machine.tscn" id="10_8lu5u"]
+[ext_resource type="Resource" uid="uid://c6yyp4yqd2myh" path="res://Objects/Cards/Parrot/Parrot.tres" id="10_agcot"]
 [ext_resource type="PackedScene" uid="uid://dgnl6mklarq8v" path="res://Objects/StateMachine/States/wait/wait.tscn" id="11_etb1q"]
+[ext_resource type="Resource" uid="uid://b0wo4u3mb7biu" path="res://Objects/Cards/Magpie/Magpie.tres" id="11_wmced"]
 [ext_resource type="PackedScene" uid="uid://cnkxy5k0dpt8f" path="res://Objects/StateMachine/States/placeCard/place_card.tscn" id="12_huadr"]
+[ext_resource type="Resource" uid="uid://clm1j1skr7rcn" path="res://Objects/Cards/ReedWarbler/ReedWarbler.tres" id="12_shty0"]
+[ext_resource type="Resource" uid="uid://bxx7vg3sx6dx5" path="res://Objects/Cards/Robin/Robin.tres" id="13_6n3m1"]
 [ext_resource type="PackedScene" uid="uid://co3misvhxtnjh" path="res://Objects/StateMachine/States/draw2/draw_2.tscn" id="13_qwfcs"]
 [ext_resource type="PackedScene" uid="uid://cmitblctjxy5i" path="res://Objects/StateMachine/States/flyhome/flyhome.tscn" id="14_toc50"]
 [ext_resource type="PackedScene" uid="uid://csgkovoiwt1ph" path="res://Objects/StateMachine/States/endRound/end_round.tscn" id="15_3aps7"]
@@ -66,8 +71,8 @@ offset_top = 326.0
 offset_bottom = 366.0
 localHand = NodePath("../Hand")
 localBoard = NodePath("../Board")
-cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("6_op8pj"), ExtResource("7_e00qf"), ExtResource("8_gowg7")])
-cardTypesCount = Array[int]([50, 50, 50])
+cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("7_e00qf"), ExtResource("8_gowg7"), ExtResource("8_a0kue"), ExtResource("9_krynu"), ExtResource("10_agcot"), ExtResource("11_wmced"), ExtResource("12_shty0"), ExtResource("13_6n3m1")])
+cardTypesCount = Array[int]([7, 10, 10, 13, 13, 17, 20, 20])
 
 [node name="MainButtons" type="HBoxContainer" parent="."]
 layout_mode = 1
