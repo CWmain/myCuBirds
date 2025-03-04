@@ -198,3 +198,6 @@ func _on_win_screen_rematch():
 	reloadTable = true
 	GoToTable.rpc()
 
+func _on_end_round_end_round():
+	deck.triggerNewRound.rpc_id(1)
+	curState = curState._nextState()
