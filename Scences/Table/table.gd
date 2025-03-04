@@ -43,6 +43,7 @@ func _ready():
 		
 	for p in Global.PLAYERS:
 		idToLabel[p] = pointsDisplay.instantiate()
+		idToLabel[p].myDeck = deck
 		all_points.add_child(idToLabel[p])
 		idToLabel[p].setOwnerText(str(p))
 	

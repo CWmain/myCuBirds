@@ -1,9 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dub6sjankxwuu"]
+[gd_scene load_steps=2 format=3 uid="uid://dub6sjankxwuu"]
 
 [ext_resource type="Script" path="res://Objects/PointDisplay/point_display.gd" id="1_mfqo1"]
-[ext_resource type="Resource" uid="uid://h5q2k2kx0mj1" path="res://Objects/Cards/Cat/cat.tres" id="2_gr88b"]
-[ext_resource type="Resource" uid="uid://cabqix7cr4eys" path="res://Objects/Cards/Flamingo/Flamingo.tres" id="3_m56lq"]
-[ext_resource type="Resource" uid="uid://cxk4wyluqi6rd" path="res://Objects/Cards/Owl/Owl.tres" id="4_7ofw1"]
 
 [node name="PointDisplay" type="Control"]
 layout_mode = 3
@@ -15,7 +12,6 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfqo1")
-cardTypes = Array[Resource("res://Objects/Cards/custom_card.gd")]([ExtResource("2_gr88b"), ExtResource("3_m56lq"), ExtResource("4_7ofw1")])
 
 [node name="PlayerName" type="Label" parent="."]
 layout_mode = 0
