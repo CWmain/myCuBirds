@@ -179,5 +179,5 @@ replication_config = SubResource("SceneReplicationConfig_rek8b")
 [connection signal="pressed" from="MainButtons/Pass" to="." method="_on_pass_pressed"]
 [connection signal="main_menu" from="WinScreen" to="." method="_on_win_screen_main_menu"]
 [connection signal="rematch" from="WinScreen" to="." method="_on_win_screen_rematch"]
-[connection signal="noCardsToFlyHome" from="StateMachine/Flyhome" to="." method="_on_flyhome_no_cards_to_fly_home"]
+[connection signal="noCardsToFlyHome" from="StateMachine/Flyhome" to="." method="_on_pass_pressed"]
 [connection signal="endRound" from="StateMachine/EndRound" to="." method="_on_end_round_end_round"]

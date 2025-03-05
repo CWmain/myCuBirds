@@ -128,14 +128,17 @@ func _on_fly_home_flown_home():
 	if curState == wait:
 		nextTurn.rpc_id(1)
 
+# Both no birds to fly home and pass link to this
+# Store a local copy of curState to prevent weird race conditionsa for the next
+# turn check
 func _on_pass_pressed():
-	var prevState: State = curState
-	curState = curState._nextState()
-	print("On Pass: %s" % curState)
+	var localCurState = curState._nextState()
+	curState = localCurState
+	print("On Pass: %s" % localCurState)
 
 	# If we have cycled to wait, than trigger next turn
-	if curState == wait and prevState == flyhome:
-		print("AA: Pass next turn is used")
+	# Ensure the prevState was flyHome to avoid race conditions
+	if localCurState == wait:
 		nextTurn.rpc_id(1)
 
 func _on_draw_pressed():
