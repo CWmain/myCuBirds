@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj368npx1nv3c"]
+
+[ext_resource type="Script" path="res://Objects/PointDisplay/point_display_part/point_display_part.gd" id="1_e0g1l"]
+[ext_resource type="Texture2D" uid="uid://molds8erhw1g" path="res://Objects/Cards/Cat/Cat.png" id="2_kcedd"]
+
+[node name="point_display_part" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_e0g1l")
+img = ExtResource("2_kcedd")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 2
+
+[node name="ScoreDisplay" type="Label" parent="."]
+layout_mode = 2
+text = "Hello"
