@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=25 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_51q64"]
 [ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="2_e8ppo"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://co3misvhxtnjh" path="res://Objects/StateMachine/States/draw2/draw_2.tscn" id="13_qwfcs"]
 [ext_resource type="PackedScene" uid="uid://cmitblctjxy5i" path="res://Objects/StateMachine/States/flyhome/flyhome.tscn" id="14_toc50"]
 [ext_resource type="PackedScene" uid="uid://csgkovoiwt1ph" path="res://Objects/StateMachine/States/endRound/end_round.tscn" id="15_3aps7"]
+[ext_resource type="PackedScene" uid="uid://do27ysgqfcbrx" path="res://Objects/PauseMenu/pause_menu.tscn" id="17_ybhy8"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rek8b"]
 properties/0/path = NodePath(".:playerTurn")
@@ -139,6 +140,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/separation = 200
 metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("17_ybhy8")]
+visible = false
+layout_mode = 1
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("curState") instance=ExtResource("10_8lu5u")]
 curState = NodePath("Wait")
