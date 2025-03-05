@@ -23,6 +23,6 @@ func canFlyHome() -> bool:
 			if cardCount[key] >= goal:
 				return true
 		else:
-			cardCount[key] = 0
-
+			cardCount[key] = 1
+	print(cardCount)
 	return false
