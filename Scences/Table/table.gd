@@ -9,14 +9,15 @@ extends Control
 @onready var label = $Label
 @onready var curState:
 	set(value):
+		#print("Previous State: %s" % curState)
 		curState = value
+		#print("Current State: %s" % curState)
 		curState.stateActive()
 
 var main_menu = load("res://Scences/MainMenu/main_menu.tscn")
 @onready var wait = $StateMachine/Wait
+@onready var flyhome = $StateMachine/Flyhome
 @onready var win_screen = $WinScreen
-
-signal nextState
 
 var idToLabel: Dictionary
 var pointsDisplay = preload("res://Objects/PointDisplay/point_display.tscn")
@@ -128,9 +129,13 @@ func _on_fly_home_flown_home():
 		nextTurn.rpc_id(1)
 
 func _on_pass_pressed():
+	var prevState: State = curState
 	curState = curState._nextState()
+	print("On Pass: %s" % curState)
+
 	# If we have cycled to wait, than trigger next turn
-	if curState == wait:
+	if curState == wait and prevState == flyhome:
+		print("AA: Pass next turn is used")
 		nextTurn.rpc_id(1)
 
 func _on_draw_pressed():
@@ -206,3 +211,13 @@ func _on_end_round_end_round():
 func _on_deck_out_of_cards():
 	print("OUT OF CARDS!!!")
 	endGame.rpc("Out of cards!!!")
+
+
+func _on_flyhome_no_cards_to_fly_home():
+	curState = curState._nextState()
+	print("On No Fly Home: %s" % curState)
+
+	# If we have cycled to wait, than trigger next turn
+	if curState == wait:
+		print("AA: FlyHome next turn is used")
+		nextTurn.rpc_id(1)

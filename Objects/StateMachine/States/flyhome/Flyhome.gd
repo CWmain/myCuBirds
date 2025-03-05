@@ -8,7 +8,6 @@ signal noCardsToFlyHome
 func stateActive():
 	super()
 	if !Global.canFlyHome():
-		print("No birds to fly home")
 		noCardsToFlyHome.emit()
 
 func _nextState() -> State:

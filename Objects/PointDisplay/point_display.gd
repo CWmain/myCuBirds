@@ -6,7 +6,7 @@ var cardTypes: Array[CustomCard]
 @onready var player_name = $PlayerName
 @onready var grid_container = $GridContainer
 
-const PDP = preload("res://Objects/PointDisplay/point_display_part/point_display_part.tscn")
+const BASE_PDP = preload("res://Objects/PointDisplay/point_display_part/point_display_part.tscn")
 var scoreTracker: Dictionary
 
 # Called when the node enters the scene tree for the first time.
@@ -14,7 +14,7 @@ func _ready():
 	cardTypes = myDeck.cardTypes
 	for ct in cardTypes:
 		scoreTracker[ct.id] = 0
-		var l = PDP.instantiate()
+		var l = BASE_PDP.instantiate()
 		l.score = 0
 		l.img = ct.image
 		grid_container.add_child(l)
