@@ -136,10 +136,6 @@ func _on_pass_pressed():
 func _on_draw_pressed():
 	deck._on_draw_pressed()
 
-func _on_end_round_pressed():
-	deck.triggerNewRound.rpc_id(1)
-	curState = curState._nextState()
-
 ## When the server goes down, disconnect from server
 func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null

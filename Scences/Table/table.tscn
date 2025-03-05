@@ -108,12 +108,6 @@ text = "Pass
 "
 script = ExtResource("9_3nhmk")
 
-[node name="End Round" type="Button" parent="MainButtons"]
-layout_mode = 2
-text = "End Round
-"
-script = ExtResource("9_3nhmk")
-
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -150,29 +144,29 @@ curState = NodePath("Wait")
 
 [node name="Wait" parent="StateMachine" node_paths=PackedStringArray("place", "toLock") instance=ExtResource("11_etb1q")]
 place = NodePath("../placeCard")
-toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../Deck"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]
+toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../Deck"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass")]
 
 [node name="placeCard" parent="StateMachine" node_paths=PackedStringArray("flyHome", "Draw2", "toLock", "toUnlock") instance=ExtResource("12_huadr")]
 flyHome = NodePath("../Flyhome")
 Draw2 = NodePath("../Draw2")
-toLock = [NodePath("../../Deck"), NodePath("../../FlyHome"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]
+toLock = [NodePath("../../Deck"), NodePath("../../FlyHome"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass")]
 toUnlock = [NodePath("../../Board"), NodePath("../../Hand")]
 
 [node name="Draw2" parent="StateMachine" node_paths=PackedStringArray("flyHome", "toLock", "toUnlock") instance=ExtResource("13_qwfcs")]
 flyHome = NodePath("../Flyhome")
-toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../MainButtons/End Round")]
+toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand")]
 toUnlock = [NodePath("../../Deck"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/Pass")]
 
 [node name="Flyhome" parent="StateMachine" node_paths=PackedStringArray("wait", "endRound", "toLock", "toUnlock") instance=ExtResource("14_toc50")]
 wait = NodePath("../Wait")
 endRound = NodePath("../EndRound")
-toLock = [NodePath("../../Deck"), NodePath("../../Board"), NodePath("../../MainButtons/Draw"), NodePath("../../MainButtons/End Round")]
+toLock = [NodePath("../../Deck"), NodePath("../../Board"), NodePath("../../MainButtons/Draw")]
 toUnlock = [NodePath("../../FlyHome"), NodePath("../../Hand"), NodePath("../../MainButtons/Pass")]
 
 [node name="EndRound" parent="StateMachine" node_paths=PackedStringArray("placeCard", "toLock", "toUnlock") instance=ExtResource("15_3aps7")]
 placeCard = NodePath("../placeCard")
 toLock = [NodePath("../../FlyHome"), NodePath("../../Board"), NodePath("../../Hand"), NodePath("../../Deck"), NodePath("../../MainButtons/Draw")]
-toUnlock = [NodePath("../../MainButtons/Pass"), NodePath("../../MainButtons/End Round")]
+toUnlock = [NodePath("../../MainButtons/Pass")]
 
 [node name="TurnSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rek8b")
@@ -183,7 +177,6 @@ replication_config = SubResource("SceneReplicationConfig_rek8b")
 [connection signal="outOfCards" from="Deck" to="." method="_on_deck_out_of_cards"]
 [connection signal="pressed" from="MainButtons/Draw" to="." method="_on_draw_pressed"]
 [connection signal="pressed" from="MainButtons/Pass" to="." method="_on_pass_pressed"]
-[connection signal="pressed" from="MainButtons/End Round" to="." method="_on_end_round_pressed"]
 [connection signal="main_menu" from="WinScreen" to="." method="_on_win_screen_main_menu"]
 [connection signal="rematch" from="WinScreen" to="." method="_on_win_screen_rematch"]
 [connection signal="endRound" from="StateMachine/EndRound" to="." method="_on_end_round_end_round"]
