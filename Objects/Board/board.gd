@@ -12,7 +12,7 @@ class_name Board
 @export var CARD_SCALE: float = 0.15
 @export var myHand: Hand
 @export var myDeck: Deck
-@onready var v_box_container = $NinePatchRect/VBoxContainer
+@onready var v_box_container = %CollectionRowContainer
 
 signal birdsPlaced(birdsCollected: bool)
 
