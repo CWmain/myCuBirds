@@ -18,7 +18,7 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 @export var CARD_SCALE: float = 0.2
 @export var myHand: Hand
 @export var myDeck: Deck
-@onready var row = $Row
+@onready var row = $"."
 
 var leftCard: Object = null
 var rightCard: Object = null

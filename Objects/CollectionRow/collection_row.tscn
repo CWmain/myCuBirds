@@ -5,54 +5,43 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_od70j"]
 size = Vector2(18, 40)
 
-[node name="CollectionRow" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_iski5")
-
-[node name="Row" type="HBoxContainer" parent="."]
-layout_mode = 1
+[node name="CollectionRow" type="HBoxContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
+offset_left = -84.0
 offset_top = -20.0
-offset_right = 64.0
+offset_right = 84.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 128
 alignment = 1
+script = ExtResource("1_iski5")
 
-[node name="LeftDetector" type="ColorRect" parent="Row"]
+[node name="LeftDetector" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="LeftArea2D" type="Area2D" parent="Row/LeftDetector"]
+[node name="LeftArea2D" type="Area2D" parent="LeftDetector"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Row/LeftDetector/LeftArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftDetector/LeftArea2D"]
 position = Vector2(9, 20)
 shape = SubResource("RectangleShape2D_od70j")
 
-[node name="RightDetector" type="ColorRect" parent="Row"]
+[node name="RightDetector" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="RightArea2D" type="Area2D" parent="Row/RightDetector"]
+[node name="RightArea2D" type="Area2D" parent="RightDetector"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Row/RightDetector/RightArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightDetector/RightArea2D"]
 position = Vector2(9, 20)
 shape = SubResource("RectangleShape2D_od70j")
 
-[connection signal="area_entered" from="Row/LeftDetector/LeftArea2D" to="." method="_on_left_area_2d_area_entered"]
-[connection signal="area_exited" from="Row/LeftDetector/LeftArea2D" to="." method="_on_left_area_2d_area_exited"]
-[connection signal="area_entered" from="Row/RightDetector/RightArea2D" to="." method="_on_right_area_2d_area_entered"]
-[connection signal="area_exited" from="Row/RightDetector/RightArea2D" to="." method="_on_right_area_2d_area_exited"]
+[connection signal="area_entered" from="LeftDetector/LeftArea2D" to="." method="_on_left_area_2d_area_entered"]
+[connection signal="area_exited" from="LeftDetector/LeftArea2D" to="." method="_on_left_area_2d_area_exited"]
+[connection signal="area_entered" from="RightDetector/RightArea2D" to="." method="_on_right_area_2d_area_entered"]
+[connection signal="area_exited" from="RightDetector/RightArea2D" to="." method="_on_right_area_2d_area_exited"]

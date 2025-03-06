@@ -224,3 +224,7 @@ func _on_flyhome_no_cards_to_fly_home():
 	if curState == wait:
 		print("AA: FlyHome next turn is used")
 		nextTurn.rpc_id(1)
+
+
+func _on_test(area):
+	print("card work")
