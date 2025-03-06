@@ -56,6 +56,7 @@ offset_top = -78.0
 offset_bottom = -38.0
 MAX_SEP = 96
 MIN_SEP = 16
+margin = 512
 myHand = NodePath("../Hand")
 myDeck = NodePath("../Deck")
 

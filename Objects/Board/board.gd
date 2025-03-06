@@ -8,6 +8,7 @@ class_name Board
 # from the board
 @export var MAX_SEP: int = 128
 @export var MIN_SEP: int = 0
+@export var margin: int = 0
 @export var CARD_SCALE: float = 0.15
 @export var myHand: Hand
 @export var myDeck: Deck
@@ -27,6 +28,7 @@ func _ready():
 		row.myHand = myHand
 		row.myDeck = myDeck
 		row.locked = false
+		row.margin = margin
 		row.birdsPlaced.connect(_on_birds_placed)
 
 # Pass the signal up from any row

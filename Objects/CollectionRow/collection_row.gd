@@ -13,10 +13,13 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 		MAX_SEP = value
 		row.add_theme_constant_override("separation", MAX_SEP)
 @export var MIN_SEP: int = 0
+@export var margin: int = 0
+
 @export var CARD_SCALE: float = 0.2
 @export var myHand: Hand
 @export var myDeck: Deck
 @onready var row = $Row
+
 var leftCard: Object = null
 var rightCard: Object = null
 
@@ -37,14 +40,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	var windowSize: Vector2 = Vector2(DisplayServer.window_get_size())
+	var windowWidth: float = Vector2(DisplayServer.window_get_size()).x
 	var currentSeparation: int = row.get_theme_constant("separation")
 
 	# The added Vector is due to cards being centered, so this gives some extra magin
-	if (row.size+Vector2(256,256) > windowSize and currentSeparation > MIN_SEP):
+	if (row.size.x+margin > windowWidth and currentSeparation > MIN_SEP):
 		row.add_theme_constant_override("separation", currentSeparation-1)
 		currentSeparation -= 1
-	if (row.size+Vector2(256,256) < windowSize and currentSeparation < MAX_SEP):
+	if (row.size.x+margin < windowWidth and currentSeparation < MAX_SEP):
 		row.add_theme_constant_override("separation", currentSeparation+1)
 	
 	if leftCard != null and Input.is_action_just_released("Grab"):
