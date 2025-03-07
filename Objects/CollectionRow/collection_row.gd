@@ -43,7 +43,7 @@ func _process(_delta):
 	var currentSeparation: int = row.get_theme_constant("separation")
 	
 	# The added Vector is due to cards being centered, so this gives some extra magin
-	if !(row.size.x+margin > windowWidth and row.size.x+margin < windowWidth):
+	if !(row.size.x+margin > windowWidth - 10 and row.size.x+margin < windowWidth + 10):
 		if (row.size.x+margin > windowWidth and currentSeparation > MIN_SEP):
 			row.add_theme_constant_override("separation", currentSeparation-1)
 			currentSeparation -= 1
