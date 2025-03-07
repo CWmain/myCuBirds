@@ -1,7 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1oc5cn5xtnvv"]
+[gd_scene load_steps=7 format=3 uid="uid://d1oc5cn5xtnvv"]
 
 [ext_resource type="Script" path="res://Objects/Cards/base_card.gd" id="1_gkq62"]
 [ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_i6p2j"]
+[ext_resource type="Shader" path="res://Objects/Cards/roundedEdge.gdshader" id="2_jfw7k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ppv6r"]
+shader = ExtResource("2_jfw7k")
+shader_parameter/radius = 0.15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_usd2t"]
+shader = ExtResource("2_jfw7k")
+shader_parameter/radius = 0.1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8k0n"]
 size = Vector2(495, 756)
@@ -10,6 +19,7 @@ size = Vector2(495, 756)
 script = ExtResource("1_gkq62")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ppv6r")
 offset_left = -255.0
 offset_top = -383.0
 offset_right = 257.0
@@ -17,6 +27,7 @@ offset_bottom = 385.0
 color = Color(0, 0, 0, 1)
 
 [node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_usd2t")
 position = Vector2(1, -215)
 texture = ExtResource("1_i6p2j")
 

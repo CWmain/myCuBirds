@@ -35,15 +35,5 @@ text = "DECK"
 [node name="DiscardCountDisplay" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="Draw" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 33.0
-offset_right = 51.0
-offset_bottom = 64.0
-text = "Draw"
-
 [node name="cardsSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_78xvj")
-
-[connection signal="pressed" from="Draw" to="." method="_on_draw_pressed"]
