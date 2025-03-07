@@ -15,7 +15,7 @@ var id: int = 0
 		
 @export var MAX_SEP: int = 128
 @export var MIN_SEP: int = 0
-
+@export var margin: int = 0
 var locked: bool = false
 
 const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
@@ -32,10 +32,10 @@ func _process(_delta):
 	var windowSize: Vector2 = Vector2(DisplayServer.window_get_size())
 	var currentSeparation: int = container.get_theme_constant("separation")
 	# The added Vector is due to cards being centered, so this gives some extra magin
-	if (container.size+Vector2(256,256) > windowSize and currentSeparation > MIN_SEP):
+	if (container.size.x+margin > windowSize.x and currentSeparation > MIN_SEP):
 		container.add_theme_constant_override("separation", currentSeparation-1)
 		currentSeparation -= 1
-	if (container.size+Vector2(256,256) < windowSize and currentSeparation < MAX_SEP):
+	if (container.size.x+margin < windowSize.x and currentSeparation < MAX_SEP):
 		container.add_theme_constant_override("separation", currentSeparation+1)
 	
 ## Adds a card into your hand based on a given resource

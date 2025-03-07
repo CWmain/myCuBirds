@@ -8,10 +8,7 @@ extends Control
 # If non of the same card is found, allow the player to draw
 const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 
-@export var MAX_SEP: int = 128:
-	set(value):
-		MAX_SEP = value
-		row.add_theme_constant_override("separation", MAX_SEP)
+@export var MAX_SEP: int = 128
 @export var MIN_SEP: int = 0
 @export var margin: int = 0
 
@@ -46,14 +43,12 @@ func _process(_delta):
 	var currentSeparation: int = row.get_theme_constant("separation")
 	
 	# The added Vector is due to cards being centered, so this gives some extra magin
-	if !(row.size.x+margin > windowWidth - 10 and row.size.x+margin < windowWidth + 10):
+	if !(row.size.x+margin > windowWidth and row.size.x+margin < windowWidth):
 		if (row.size.x+margin > windowWidth and currentSeparation > MIN_SEP):
 			row.add_theme_constant_override("separation", currentSeparation-1)
 			currentSeparation -= 1
 		if (row.size.x+margin < windowWidth and currentSeparation < MAX_SEP):
 			row.add_theme_constant_override("separation", currentSeparation+1)
-			currentSeparation += 1
-		
 	
 	if leftCard != null and Input.is_action_just_released("Grab"):
 		# Use curCard as when the original is reparent is triggers 
