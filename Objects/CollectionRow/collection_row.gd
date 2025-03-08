@@ -157,12 +157,14 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	# Ensure card data is passed correctly
 	var cardData = str_to_var(cardDataString)
 	assert(cardData is CustomCard, "cardDataString was not CustomCard Resource")
+	
 	# Adjust the seperation of collection row such that its overall 
 	# size does not change from the addition of a card
 	if cardCount > 1:
 		var currentSeperation = row.get_theme_constant("separation")
 		row.add_theme_constant_override("separation", max(int(currentSeperation/cardCount),MIN_SEP))
 	cardCount += 1
+	
 	# Construct the new card
 	var newCard = BASE_CARD.instantiate()
 	newCard.data = cardData
