@@ -4,6 +4,7 @@ class_name BaseCard
 
 @export var data: CustomCard
 @export var SPEED: float = 1200.0
+@export var liftHeight: float = 30
 
 @onready var label = $Label
 @onready var icon = $Icon
@@ -66,9 +67,13 @@ func _process(delta):
 		goHome = false
 
 func _on_color_rect_mouse_entered():
+	if isActive and !isGrabbing:
+		position.y = - liftHeight
 	color_rect.color = Color(1,1,1,1)
 	canGrab = true
 
 func _on_color_rect_mouse_exited():
+	if isActive and !isGrabbing:
+		position.y = 0
 	color_rect.color = Color(0,0,0,1)
 	canGrab = false
