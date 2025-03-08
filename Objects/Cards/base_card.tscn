@@ -1,25 +1,31 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1oc5cn5xtnvv"]
+[gd_scene load_steps=9 format=3 uid="uid://d1oc5cn5xtnvv"]
 
+[ext_resource type="Shader" path="res://Objects/Cards/cardEffect.gdshader" id="1_7spm3"]
 [ext_resource type="Script" path="res://Objects/Cards/base_card.gd" id="1_gkq62"]
 [ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_i6p2j"]
-[ext_resource type="Shader" path="res://Objects/Cards/roundedEdge.gdshader" id="2_jfw7k"]
+[ext_resource type="Shader" path="res://Objects/Cards/IconEffect.gdshader" id="3_i2y53"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ppv6r"]
-shader = ExtResource("2_jfw7k")
-shader_parameter/radius = 0.15
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1ab4"]
+shader = ExtResource("1_7spm3")
+shader_parameter/radius = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1slew"]
+shader = ExtResource("1_7spm3")
+shader_parameter/radius = 0.3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_usd2t"]
-shader = ExtResource("2_jfw7k")
+shader = ExtResource("3_i2y53")
 shader_parameter/radius = 0.1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8k0n"]
 size = Vector2(495, 756)
 
 [node name="BaseCard" type="Node2D" groups=["card"]]
+material = SubResource("ShaderMaterial_y1ab4")
 script = ExtResource("1_gkq62")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_ppv6r")
+material = SubResource("ShaderMaterial_1slew")
 offset_left = -255.0
 offset_top = -383.0
 offset_right = 257.0
