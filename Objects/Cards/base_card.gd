@@ -39,11 +39,15 @@ func _process(delta):
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing) and handIsFreeOrHolding:
 		Global.isHolding = self
 		area_2d.monitorable = true
+		var cardOffset: Vector2 = Vector2(32,0)
+		var affectedCards: int = 1
+		var newPosition: Vector2 = get_global_mouse_position()
 		# Adjust the location of same named cards the same amount as the moved card
 		for c in Global.cardsInHand:
 			if c != self and data.id == c.data.id:
 				c.goHome = false
-				c.position += get_global_mouse_position() - get_parent().global_position - position
+				c.position = newPosition - c.get_parent().global_position + (cardOffset*affectedCards)
+				affectedCards += 1
 				 
 		position = get_global_mouse_position() - get_parent().global_position
 	
@@ -67,8 +71,10 @@ func _process(delta):
 		goHome = false
 
 func _on_color_rect_mouse_entered():
+	# Hover affect
 	if isActive and !isGrabbing:
 		position.y = - liftHeight
+		
 	color_rect.color = Color(1,1,1,1)
 	canGrab = true
 
