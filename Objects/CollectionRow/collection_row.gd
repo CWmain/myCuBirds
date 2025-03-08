@@ -17,6 +17,8 @@ const BASE_CARD = preload("res://Objects/Cards/base_card.tscn")
 @export var myDeck: Deck
 @onready var row = $"."
 
+var cardCount = 0
+
 var leftCard: Object = null
 var rightCard: Object = null
 
@@ -155,7 +157,12 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	# Ensure card data is passed correctly
 	var cardData = str_to_var(cardDataString)
 	assert(cardData is CustomCard, "cardDataString was not CustomCard Resource")
-	
+	# Adjust the seperation of collection row such that its overall 
+	# size does not change from the addition of a card
+	if cardCount > 1:
+		var currentSeperation = row.get_theme_constant("separation")
+		row.add_theme_constant_override("separation", max(int(currentSeperation/cardCount),MIN_SEP))
+	cardCount += 1
 	# Construct the new card
 	var newCard = BASE_CARD.instantiate()
 	newCard.data = cardData
@@ -177,12 +184,14 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 ## cardToRemove: The child index of the given card
 @rpc("any_peer","call_remote","reliable")
 func removeBoardCard(cardToRemove: int):
+	cardCount -= 1
 	var curCard = row.get_children()[cardToRemove].get_child(0)
 	row.get_children()[cardToRemove].queue_free()
 	curCard.queue_free()
 	
 ## cardToMove: The child index of the given card
 func moveBoardCardToHand(cardToMove: int):
+	cardCount -= 1
 	var curCard = row.get_children()[cardToMove].get_child(0)
 	myHand.addCardFromResource(curCard.data)
 	row.get_children()[cardToMove].queue_free()
