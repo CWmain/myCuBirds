@@ -58,6 +58,8 @@ func _ready():
 		startTurn.rpc_id(playerTurn)
 
 func _process(_delta):
+	if Input.is_action_just_pressed("GiveCard"):
+		hand.addCardFromResource(str_to_var(deck.topCard()))
 	if Input.is_action_just_pressed("DebugWin"):
 		endGame.rpc("Debug")
 	if Input.is_action_just_pressed("RemoveCardsInDeck"):
