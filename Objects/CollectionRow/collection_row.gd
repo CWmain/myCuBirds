@@ -35,28 +35,11 @@ enum RowSide {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	row.add_theme_constant_override("separation", MAX_SEP)
+	get_tree().get_root().size_changed.connect(_on_resized)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-
-
-	var windowWidth: float = Vector2(DisplayServer.window_get_size()).x
-	var currentSeparation: int = row.get_theme_constant("separation")
-	
-	# We want the separation to eqaute to windowWidth-margin
-	# Therefore separtion = windowWidth-margin / child count -1
-	
-	# The added Vector is due to cards being centered, so this gives some extra magin
-	if !(row.size.x+margin > windowWidth - 10 and row.size.x+margin < windowWidth + 10):
-		var newSeparation: int = clampi((windowWidth-margin)/row.get_child_count(), MIN_SEP, MAX_SEP)
-		row.add_theme_constant_override("separation", newSeparation)
-		#if (row.size.x+margin > windowWidth and currentSeparation > MIN_SEP):
-			#row.add_theme_constant_override("separation", currentSeparation-1)
-			#currentSeparation -= 1
-		#if (row.size.x+margin < windowWidth and currentSeparation < MAX_SEP):
-			#row.add_theme_constant_override("separation", currentSeparation+1)
-	
 	if leftCard != null and Input.is_action_just_released("Grab"):
 		# Use curCard as when the original is reparent is triggers 
 		# the area exit, resetting it
@@ -163,11 +146,6 @@ func addCardToBoard(cardDataString: String, side: RowSide):
 	var cardData = str_to_var(cardDataString)
 	assert(cardData is CustomCard, "cardDataString was not CustomCard Resource")
 	
-	# Adjust the seperation of collection row such that its overall 
-	# size does not change from the addition of a card
-	if cardCount > 1:
-		var currentSeperation = row.get_theme_constant("separation")
-		row.add_theme_constant_override("separation", max(int(currentSeperation/cardCount),MIN_SEP))
 	cardCount += 1
 	
 	# Construct the new card
@@ -236,3 +214,9 @@ func _on_right_area_2d_area_entered(_area):
 
 func _on_right_area_2d_area_exited(_area):
 	rightCard = null
+
+## Resize row when screen resized or when a card is added / removed
+func _on_resized():
+	var windowWidth: float = Vector2(DisplayServer.window_get_size()).x
+	var newSeparation: int = clampi((windowWidth-margin)/row.get_child_count(), MIN_SEP, MAX_SEP)
+	row.add_theme_constant_override("separation", newSeparation)

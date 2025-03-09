@@ -25,18 +25,12 @@ var owlCard = preload("res://Objects/Cards/Owl/owl_card.tscn")
 
 func _ready():
 	container.add_theme_constant_override("separation", MAX_SEP)
+	get_tree().get_root().size_changed.connect(_on_container_resized)
 	lockSelf()
 	
 
 func _process(_delta):
-	var windowSize: Vector2 = Vector2(DisplayServer.window_get_size())
-	var currentSeparation: int = container.get_theme_constant("separation")
-	# The added Vector is due to cards being centered, so this gives some extra magin
-	if (container.size.x+margin > windowSize.x and currentSeparation > MIN_SEP):
-		container.add_theme_constant_override("separation", currentSeparation-1)
-		currentSeparation -= 1
-	if (container.size.x+margin < windowSize.x and currentSeparation < MAX_SEP):
-		container.add_theme_constant_override("separation", currentSeparation+1)
+	pass
 	
 ## Adds a card into your hand based on a given resource
 func addCard(toAdd):
@@ -95,3 +89,9 @@ func unlockSelf():
 	locked = false
 	for c in container.get_children():
 		c.get_child(0).isActive = true
+
+
+func _on_container_resized():
+	var windowWidth: float = Vector2(DisplayServer.window_get_size()).x
+	var newSeparation: int = clampi((windowWidth-margin)/container.get_child_count(), MIN_SEP, MAX_SEP)
+	container.add_theme_constant_override("separation", newSeparation)
