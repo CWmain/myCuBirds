@@ -24,6 +24,21 @@ size = Vector2(495, 756)
 material = SubResource("ShaderMaterial_y1ab4")
 script = ExtResource("1_gkq62")
 
+[node name="Border" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1slew")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -287.5
+offset_top = -431.5
+offset_right = 287.5
+offset_bottom = 431.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_1slew")
 offset_left = -255.0
@@ -53,5 +68,7 @@ monitorable = false
 position = Vector2(-2.5, 1)
 shape = SubResource("RectangleShape2D_x8k0n")
 
+[connection signal="mouse_entered" from="Border" to="." method="_on_color_rect_mouse_entered"]
+[connection signal="mouse_exited" from="Border" to="." method="_on_color_rect_mouse_exited"]
 [connection signal="mouse_entered" from="ColorRect" to="." method="_on_color_rect_mouse_entered"]
 [connection signal="mouse_exited" from="ColorRect" to="." method="_on_color_rect_mouse_exited"]

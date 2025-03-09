@@ -74,6 +74,7 @@ func _on_color_rect_mouse_entered():
 	# Hover affect
 	if isActive and !isGrabbing:
 		position.y = - liftHeight
+		z_index = 1
 		
 	color_rect.color = Color(1,1,1,1)
 	canGrab = true
@@ -81,5 +82,6 @@ func _on_color_rect_mouse_entered():
 func _on_color_rect_mouse_exited():
 	if isActive and !isGrabbing:
 		position.y = 0
+		z_index = 0
 	color_rect.color = Color(0,0,0,1)
 	canGrab = false
