@@ -26,3 +26,11 @@ func canFlyHome() -> bool:
 			cardCount[key] = 1
 	print(cardCount)
 	return false
+
+# Return all card Objects with a matching id
+func getCardTypeInHand(id: String) -> Array[Object]:
+	var matchingCards: Array[Object] = []
+	for card in cardsInHand:
+		if (card.data.id == id):
+			matchingCards.append(card)
+	return matchingCards
