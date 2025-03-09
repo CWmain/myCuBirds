@@ -3,6 +3,8 @@ extends Node2D
 class_name BaseCard
 
 @export var data: CustomCard
+@export var defaultBorderColor: Color
+@export var highlightBorderColor: Color
 @export var SPEED: float = 1200.0
 @export var liftHeight: float = 30
 
@@ -10,6 +12,7 @@ class_name BaseCard
 @onready var icon = $Icon
 @onready var color_rect = $ColorRect
 @onready var area_2d = $Area2D
+@onready var border = $Border
 
 var canGrab: bool = false
 var isGrabbing: bool = false
@@ -26,9 +29,10 @@ signal cardReleased
 func _ready():
 	assert(data != null)
 	label.text = str(data.small) + " / " + str(data.large)
-	
 	assert(data.image != null)
 	icon.texture = data.image
+	
+	updateBorderColour(defaultBorderColor)
 
 func _process(delta):
 	# If card is inactive do nothing
@@ -75,7 +79,7 @@ func _on_color_rect_mouse_entered():
 	if isActive and !isGrabbing:
 		#position.y = - liftHeight
 		z_index = 1
-		for c in Global.getCardTypeInHand(data.id):
+		for c in Global.getCardTypeInHand([data.id]):
 			c.position.y = -liftHeight
 		
 	color_rect.color = Color(1,1,1,1)
@@ -85,7 +89,10 @@ func _on_color_rect_mouse_exited():
 	if isActive and !isGrabbing:
 		#position.y = 0
 		z_index = 0
-		for c in Global.getCardTypeInHand(data.id):
+		for c in Global.getCardTypeInHand([data.id]):
 			c.position.y = 0
 	color_rect.color = Color(0,0,0,1)
 	canGrab = false
+
+func updateBorderColour(col: Color):
+	border.color = col
