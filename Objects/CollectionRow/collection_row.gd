@@ -44,13 +44,18 @@ func _process(_delta):
 	var windowWidth: float = Vector2(DisplayServer.window_get_size()).x
 	var currentSeparation: int = row.get_theme_constant("separation")
 	
+	# We want the separation to eqaute to windowWidth-margin
+	# Therefore separtion = windowWidth-margin / child count -1
+	
 	# The added Vector is due to cards being centered, so this gives some extra magin
 	if !(row.size.x+margin > windowWidth - 10 and row.size.x+margin < windowWidth + 10):
-		if (row.size.x+margin > windowWidth and currentSeparation > MIN_SEP):
-			row.add_theme_constant_override("separation", currentSeparation-1)
-			currentSeparation -= 1
-		if (row.size.x+margin < windowWidth and currentSeparation < MAX_SEP):
-			row.add_theme_constant_override("separation", currentSeparation+1)
+		var newSeparation: int = clampi((windowWidth-margin)/row.get_child_count(), MIN_SEP, MAX_SEP)
+		row.add_theme_constant_override("separation", newSeparation)
+		#if (row.size.x+margin > windowWidth and currentSeparation > MIN_SEP):
+			#row.add_theme_constant_override("separation", currentSeparation-1)
+			#currentSeparation -= 1
+		#if (row.size.x+margin < windowWidth and currentSeparation < MAX_SEP):
+			#row.add_theme_constant_override("separation", currentSeparation+1)
 	
 	if leftCard != null and Input.is_action_just_released("Grab"):
 		# Use curCard as when the original is reparent is triggers 

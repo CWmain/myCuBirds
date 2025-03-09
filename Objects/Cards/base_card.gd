@@ -3,10 +3,16 @@ extends Node2D
 class_name BaseCard
 
 @export var data: CustomCard
-@export var defaultBorderColor: Color
-@export var highlightBorderColor: Color
 @export var SPEED: float = 1200.0
 @export var liftHeight: float = 30
+
+@export_category("Border Color")
+@export var defaultBorderColor: Color
+@export var highlightBorderColor: Color
+@export_category("Card Color")
+@export var defaultCardColor: Color
+@export var hoverCardColor: Color
+
 
 @onready var label = $Label
 @onready var icon = $Icon
@@ -31,7 +37,7 @@ func _ready():
 	label.text = str(data.small) + " / " + str(data.large)
 	assert(data.image != null)
 	icon.texture = data.image
-	
+	color_rect.color = defaultCardColor
 	updateBorderColour(defaultBorderColor)
 
 func _process(delta):
@@ -82,7 +88,7 @@ func _on_color_rect_mouse_entered():
 		for c in Global.getCardTypeInHand([data.id]):
 			c.position.y = -liftHeight
 		
-	color_rect.color = Color(1,1,1,1)
+	color_rect.color = hoverCardColor
 	canGrab = true
 
 func _on_color_rect_mouse_exited():
@@ -91,7 +97,7 @@ func _on_color_rect_mouse_exited():
 		z_index = 0
 		for c in Global.getCardTypeInHand([data.id]):
 			c.position.y = 0
-	color_rect.color = Color(0,0,0,1)
+	color_rect.color = defaultCardColor
 	canGrab = false
 
 func updateBorderColour(col: Color):

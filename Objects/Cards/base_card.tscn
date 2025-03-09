@@ -23,8 +23,10 @@ size = Vector2(495, 756)
 [node name="BaseCard" type="Node2D" groups=["card"]]
 material = SubResource("ShaderMaterial_y1ab4")
 script = ExtResource("1_gkq62")
-defaultBorderColor = Color(1, 0, 0, 1)
+defaultBorderColor = Color(0, 0.33, 0, 1)
 highlightBorderColor = Color(1, 1, 0, 1)
+defaultCardColor = Color(0, 0.494118, 0, 1)
+hoverCardColor = Color(0, 0.85, 0, 1)
 
 [node name="Border" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_1slew")
