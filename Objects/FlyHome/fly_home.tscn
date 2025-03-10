@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://gq801svl88gm"]
+[gd_scene load_steps=5 format=3 uid="uid://gq801svl88gm"]
 
 [ext_resource type="Script" path="res://Objects/FlyHome/fly_home.gd" id="1_xw344"]
+[ext_resource type="Texture2D" uid="uid://8gtmf2xwhhpl" path="res://Objects/FlyHome/FlyHomeBoard.png" id="2_kggci"]
+[ext_resource type="Texture2D" uid="uid://e7bwxvbqlidb" path="res://Objects/FlyHome/lockImage.png" id="3_5j8a3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvkp4"]
 size = Vector2(105, 86)
@@ -15,13 +17,44 @@ script = ExtResource("1_xw344")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_hvkp4")
 
+[node name="FlyHomeBoard" type="Sprite2D" parent="."]
+texture = ExtResource("2_kggci")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Fly Home"
+
+[node name="LockImage" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("3_5j8a3")
+
 [node name="Indicator" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = -54.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
 offset_top = -45.0
-offset_right = 53.0
-offset_bottom = 44.0
+offset_right = 55.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+color = Color(0.52549, 0.52549, 0.52549, 0.498039)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

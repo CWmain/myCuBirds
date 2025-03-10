@@ -3,6 +3,8 @@ extends Control
 @export var myHand: Hand
 @export var myDeck: Deck
 @onready var indicator = $Indicator
+@onready var lock_image = $LockImage
+
 var cardHeld: Object = null
 
 var locked: bool = false
@@ -52,16 +54,18 @@ func scoreFromBird(scoreCard: Object) -> int:
 	return 0
 
 func lockSelf():
+	indicator.show()
+	lock_image.show()
 	locked = true
 	
 func unlockSelf():
+	indicator.hide()
+	lock_image.hide()
 	locked = false
 
 func _on_area_2d_area_entered(_area):
-	indicator.color = Color(0,0,0,1)
 	cardHeld = Global.isHolding
 
 
 func _on_area_2d_area_exited(_area):
-	indicator.color = Color(1,1,1,1)
 	cardHeld = null
