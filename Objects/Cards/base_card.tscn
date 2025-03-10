@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1oc5cn5xtnvv"]
+[gd_scene load_steps=10 format=3 uid="uid://d1oc5cn5xtnvv"]
 
 [ext_resource type="Shader" path="res://Objects/Cards/cardEffect.gdshader" id="1_7spm3"]
 [ext_resource type="Script" path="res://Objects/Cards/base_card.gd" id="1_gkq62"]
 [ext_resource type="Texture2D" uid="uid://h2kdsc5d74ls" path="res://icon.svg" id="1_i6p2j"]
 [ext_resource type="Shader" path="res://Objects/Cards/IconEffect.gdshader" id="3_i2y53"]
+[ext_resource type="AudioStream" uid="uid://d4ftlbsyqy04d" path="res://Sounds/cardSelect.mp3" id="5_vpngv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y1ab4"]
 shader = ExtResource("1_7spm3")
@@ -72,6 +73,10 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2.5, 1)
 shape = SubResource("RectangleShape2D_x8k0n")
+
+[node name="CardSelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vpngv")
+volume_db = 15.0
 
 [connection signal="mouse_entered" from="Border" to="." method="_on_color_rect_mouse_entered"]
 [connection signal="mouse_exited" from="Border" to="." method="_on_color_rect_mouse_exited"]

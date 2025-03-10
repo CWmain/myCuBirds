@@ -21,8 +21,11 @@ class_name BaseCard
 @onready var area_2d = $Area2D
 @onready var border = $Border
 
+@onready var card_select_sound = $CardSelectSound
+
 var canGrab: bool = false
 var isGrabbing: bool = false
+var canPlaySelect: bool = true
 
 var goHome: bool = false
 ## Home should always be (0,0) since the control determins location
@@ -48,6 +51,11 @@ func _process(delta):
 	var handIsFreeOrHolding = Global.isHolding == null or Global.isHolding == self
 	# When a card is grabbed, free in from the hand
 	if Input.is_action_pressed("Grab") and (canGrab or isGrabbing) and handIsFreeOrHolding:
+		if canPlaySelect and !card_select_sound.playing:
+			card_select_sound.pitch_scale = 0.9 + (0.2*randf())
+			card_select_sound.play()
+			canPlaySelect = false
+			
 		Global.isHolding = self
 		area_2d.monitorable = true
 		var cardOffset: Vector2 = Vector2(32,0)
@@ -70,6 +78,7 @@ func _process(delta):
 		area_2d.monitorable = false
 		cardReleased.emit()
 		isGrabbing = false
+		canPlaySelect = true
 		# Set all cards with same id to goHome
 		for c in get_tree().get_nodes_in_group("card"):
 			c.goHome = true
