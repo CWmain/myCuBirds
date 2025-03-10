@@ -5,6 +5,8 @@ extends Control
 @onready var indicator = $Indicator
 @onready var lock_image = $LockImage
 
+@onready var fly_home_sound = $FlyHomeSound
+
 var cardHeld: Object = null
 
 var locked: bool = false
@@ -37,6 +39,8 @@ func _process(_delta):
 					
 			# Since cards are flown home emit
 			get_parent().updatePoints.rpc(multiplayer.get_unique_id(), cardHeld.data.id, pointsEarned)
+			fly_home_sound.pitch_scale = 0.9 + (0.2*randf())
+			fly_home_sound.play()
 			flownHome.emit()
 
 

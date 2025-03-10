@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnkxy5k0dpt8f"]
+[gd_scene load_steps=3 format=3 uid="uid://cnkxy5k0dpt8f"]
 
 [ext_resource type="Script" path="res://Objects/StateMachine/States/placeCard/place_card.gd" id="1_kjp3b"]
+[ext_resource type="AudioStream" uid="uid://7ncstqi2bcxi" path="res://Sounds/cardPlace.mp3" id="2_es8cn"]
 
 [node name="placeCard" type="Node"]
 script = ExtResource("1_kjp3b")
+
+[node name="cardPlaceSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_es8cn")
+bus = &"SFX"

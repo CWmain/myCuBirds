@@ -6,6 +6,7 @@ var PLAYERS: Array[int]
 ## Not in same order as visually displayed
 var cardsInHand: Array[Object]
 
+
 func clearGlobals():
 	PLAYERS.clear()
 	cardsInHand.clear()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://gq801svl88gm"]
+[gd_scene load_steps=6 format=3 uid="uid://gq801svl88gm"]
 
 [ext_resource type="Script" path="res://Objects/FlyHome/fly_home.gd" id="1_xw344"]
 [ext_resource type="Texture2D" uid="uid://8gtmf2xwhhpl" path="res://Objects/FlyHome/FlyHomeBoard.png" id="2_kggci"]
 [ext_resource type="Texture2D" uid="uid://e7bwxvbqlidb" path="res://Objects/FlyHome/lockImage.png" id="3_5j8a3"]
+[ext_resource type="AudioStream" uid="uid://bt0e5dwn4ev7x" path="res://Sounds/flyHome.mp3" id="4_s0tsw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvkp4"]
 size = Vector2(105, 86)
@@ -55,6 +56,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.52549, 0.52549, 0.52549, 0.498039)
+
+[node name="FlyHomeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_s0tsw")
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
