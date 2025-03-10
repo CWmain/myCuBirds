@@ -7,13 +7,18 @@ signal noCardsToFlyHome
 
 func stateActive():
 	super()
-	var flyHomeIds: Array[String] = Global.canFlyHome()
-	if flyHomeIds.is_empty():
+	var flyHomeIdsDict: Dictionary = Global.canFlyHome()
+	var flyHomeSmallIds: Array = flyHomeIdsDict["small"]
+	var flyHomeLargeIds: Array = flyHomeIdsDict["large"]
+	if flyHomeSmallIds.is_empty() and flyHomeLargeIds.is_empty():
 		noCardsToFlyHome.emit()
 	else:
-		var flyHomeCards: Array[Object] = Global.getCardTypeInHand(flyHomeIds)
-		for card: BaseCard in flyHomeCards:
-			card.updateBorderColour(card.highlightBorderColor)
+		var smallFlyHomeCards: Array[Object] = Global.getCardTypeInHand(flyHomeSmallIds)
+		for card: BaseCard in smallFlyHomeCards:
+			card.updateBorderColour(card.smallBorderColor)
+		var largeFlyHomeCards: Array[Object] = Global.getCardTypeInHand(flyHomeLargeIds)
+		for card: BaseCard in largeFlyHomeCards:
+			card.updateBorderColour(card.largeBorderColor)
 
 func _nextState() -> State:
 	if Global.cardsInHand.size() == 0:

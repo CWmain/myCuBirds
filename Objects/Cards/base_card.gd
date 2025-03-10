@@ -8,7 +8,8 @@ class_name BaseCard
 
 @export_category("Border Color")
 @export var defaultBorderColor: Color
-@export var highlightBorderColor: Color
+@export var smallBorderColor: Color
+@export var largeBorderColor: Color
 @export_category("Card Color")
 @export var defaultCardColor: Color
 @export var hoverCardColor: Color
