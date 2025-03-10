@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://drm6nyaq22w1m"]
+[gd_scene load_steps=26 format=3 uid="uid://drm6nyaq22w1m"]
 
 [ext_resource type="Script" path="res://Scences/Table/table.gd" id="1_51q64"]
+[ext_resource type="Texture2D" uid="uid://bjc7xwbnlsn4t" path="res://Objects/Board/BoardTexture.png" id="2_710hb"]
 [ext_resource type="PackedScene" uid="uid://gq801svl88gm" path="res://Objects/FlyHome/fly_home.tscn" id="2_e8ppo"]
 [ext_resource type="PackedScene" uid="uid://cdb0cidacp8en" path="res://Objects/Board/board.tscn" id="3_c27w5"]
 [ext_resource type="PackedScene" uid="uid://be82gut3wtf2j" path="res://Objects/Hand/hand.tscn" id="4_ijx3e"]
@@ -37,6 +38,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_51q64")
+
+[node name="TableBackground" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_710hb")
+stretch_mode = 6
 
 [node name="FlyHome" parent="." node_paths=PackedStringArray("myHand", "myDeck") instance=ExtResource("2_e8ppo")]
 layout_mode = 1
