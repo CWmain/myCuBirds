@@ -3,6 +3,8 @@ extends State
 @export var wait: State
 @export var endRound: State
 
+@onready var unlock_sound = $UnlockSound
+
 signal noCardsToFlyHome
 
 func stateActive():
@@ -19,6 +21,8 @@ func stateActive():
 		var largeFlyHomeCards: Array[Object] = Global.getCardTypeInHand(flyHomeLargeIds)
 		for card: BaseCard in largeFlyHomeCards:
 			card.updateBorderColour(card.largeBorderColor)
+			
+		unlock_sound.play()
 
 func _nextState() -> State:
 	if Global.cardsInHand.size() == 0:
