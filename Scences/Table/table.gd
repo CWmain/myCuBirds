@@ -61,7 +61,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("GiveCard"):
 		hand.addCardFromResource(str_to_var(deck.topCard()))
 	if Input.is_action_just_pressed("DebugWin"):
-		endGame.rpc("Debug")
+		endGame.rpc(Global.PLAYER_NAMES[multiplayer.get_unique_id()])
 	if Input.is_action_just_pressed("RemoveCardsInDeck"):
 		deck.cards.clear()
 		deck.updateCardCount()
@@ -102,7 +102,7 @@ func checkGameOver():
 		var sevenSpecies: int = 0
 		var twoWithThree: int = 0
 		var playerPoints: Dictionary = idToLabel[p].scoreTracker
-		print(p)
+
 		for key in playerPoints:
 			if playerPoints[key] >= 3:
 				sevenSpecies += 1
@@ -112,8 +112,7 @@ func checkGameOver():
 			print("%s: %d" % [key, playerPoints[key]])
 			
 		if sevenSpecies >= 7 or twoWithThree >= 2:
-			print("Attempting to endGame(1)")
-			endGame.rpc(str(p))
+			endGame.rpc(Global.PLAYER_NAMES[p])
 	
 @rpc("any_peer","call_local","reliable")
 func endGame(winner: String):
