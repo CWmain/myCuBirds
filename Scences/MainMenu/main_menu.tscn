@@ -51,11 +51,6 @@ offset_bottom = 23.0
 
 [node name="Lobby" parent="." instance=ExtResource("2_8wqy5")]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_right = 0.0
-anchor_bottom = 0.5
-grow_horizontal = 1
 
 [connection signal="pressed" from="VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="VBoxContainer/Join" to="." method="_on_join_pressed"]

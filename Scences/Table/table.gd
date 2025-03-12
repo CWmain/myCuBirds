@@ -46,7 +46,7 @@ func _ready():
 		idToLabel[p] = pointsDisplay.instantiate()
 		idToLabel[p].myDeck = deck
 		all_points.add_child(idToLabel[p])
-		idToLabel[p].setOwnerText(str(p))
+		idToLabel[p].setOwnerText(Global.PLAYER_NAMES[p])
 	
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)

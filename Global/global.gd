@@ -2,6 +2,8 @@ extends Node
 var isHolding: Object = null
 
 var PLAYERS: Array[int]
+var PLAYER_NAMES: Dictionary
+
 
 ## Not in same order as visually displayed
 var cardsInHand: Array[Object]

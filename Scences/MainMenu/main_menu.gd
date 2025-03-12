@@ -16,6 +16,7 @@ var table = preload("res://Scences/Table/table.tscn")
 @onready var status = $Status
 @onready var text_edit = $VBoxContainer/TextEdit
 var loadedPeers: int = 0
+var default_names: Array = ["Emma", "Liam", "Olivia", "Noah", "Ava", "Jackson", "Sophia", "Aiden", "Isabella", "Lucas", "Mia", "Caden", "Amelia", "Grayson", "Harper", "Elijah", "Evelyn", "Logan", "Aria", "James", "Lily", "Benjamin", "Chloe", "Mason", "Ella", "Sebastian", "Zoe", "William", "Charlotte", "Jacob", "Scarlett", "Michael", "Madison", "Alexander", "Emily", "Henry", "Abigail", "Jackson", "Grace", "Owen", "Sophie", "Daniel", "Victoria", "Matthew", "Hannah", "Samuel", "Nora", "David", "Addison", "Joseph", "Leah", "John", "Natalie", "Wyatt", "Eleanor", "Jack", "Lucy", "Isaac", "Aubrey", "Ryan", "Bella", "Luke", "Stella", "Ethan", "Mila", "Julian", "Lila", "Leo", "Riley", "Gabriel", "Eva", "Caleb", "Layla", "Charles", "Paisley", "Carter", "Ivy", "Ezra", "Victoria", "Matthew", "Grace", "Miles", "Zara", "Jordan", "Elena", "Asher", "Samantha", "Luke", "Sadie", "Cora", "Blake", "Anna", "Wyatt", "Naomi", "Julian", "Clara", "Xander", "Zoe", "Kai", "Piper", "Jaxon", "Madeline", "Hudson", "Avery", "Colton", "Adeline", "Nathan", "Riley", "Leo", "Zara", "Harrison", "Leah", "Christian", "Lyla", "Brayden", "Sienna", "Elliott", "Violet", "Nolan", "Catherine", "Eli", "Eva", "Miles", "Holly", "Wyatt", "Maya", "Everett", "Georgia", "Benjamin", "Harper", "Jackson", "Amaya", "Gracie", "Austin", "Addison", "Landon", "Sarah", "Maddox", "Freya", "Austin", "Vivian", "Lucas", "Olivia", "Aiden", "Charlotte", "Brody", "Lena", "Owen", "Taylor", "Sophia", "Parker", "Maya", "Gabriel", "Sadie", "Jude", "Ariana", "Declan", "Zoey", "Roman", "Emery", "Elliot", "Everly", "Evan", "Ariana", "Charlotte", "Penelope", "Jack", "Madeline", "Eden", "Leo", "Amos", "Lila", "Sophie", "Aidan", "Harper", "James", "Nora", "Hunter", "Zoe", "Emery", "Ella", "Everett", "Brooklyn", "Abigail", "Jordan", "Elise", "Avery", "Mason", "Zara", "Ella", "Bennett", "Tessa", "Nina", "Carson", "Jade", "Aiden", "Daisy", "Luca", "Autumn", "Mason", "Eliza", "Isla", "Chloe", "Oscar", "Jasmine"]
 
 func _ready():
 	multiplayer.connected_to_server.connect(_on_server_connect)
@@ -60,6 +61,9 @@ func _on_host_pressed():
 	status.text = "Host"
 	Global.PLAYERS.append(1)
 	
+	var randomName: String = generateRandomName()
+	Global.PLAYER_NAMES[multiplayer.get_unique_id()] = randomName
+	
 	toggleButtons()
 
 func _on_join_pressed():
@@ -71,10 +75,18 @@ func _on_server_connect():
 	print("Connected")
 	status.text = "Client"
 	Global.PLAYERS.append(multiplayer.get_unique_id())
+	
+	# Once connect to the server, generate your unique name
+	var randomName: String = generateRandomName()
+	Global.PLAYER_NAMES[multiplayer.get_unique_id()] = randomName
+	
 	toggleButtons()
 
 # With current method does not include own id in list of PLAYERS
 func _on_peer_connect(id: int):
+	# Requesting player name both updates Global.PLAYER_NAMES and updates the label
+	requestPlayerName.rpc_id(id)
+
 	lobby.addUser(id)
 	Global.PLAYERS.append(id)
 
@@ -103,3 +115,16 @@ func startGame():
 
 func _on_text_edit_text_changed():
 	IP_ADDRESS = text_edit.text
+
+@rpc("any_peer","call_remote","reliable")
+func requestPlayerName():
+	var myName: String = Global.PLAYER_NAMES[multiplayer.get_unique_id()]
+	responseWithPlayerName.rpc_id(multiplayer.get_remote_sender_id(), myName)
+
+@rpc("any_peer","call_remote","reliable")
+func responseWithPlayerName(answer: String):
+	Global.PLAYER_NAMES[multiplayer.get_remote_sender_id()] = answer
+	lobby.updateLabel(multiplayer.get_remote_sender_id(), answer)
+
+func generateRandomName() -> String:
+	return default_names[(default_names.size()-1)*randf()]
